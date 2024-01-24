@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+}
+
+.display {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 0px auto;
+    margin-top: 14px;
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    height: 170px;
+    background: transparent;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 76px;
+    margin: 2px;
+    border-radius: 3px;
+}
+
+.saldo {
+    background: #009e00;
+}
+
+.gastos {
+    background: #ff0000;
+}
+
+.saldoVR {
+    background: steelblue;
+}
+
+.investimentos {
+    background: #0173a8;
+}
+
+.title {
+    font-size: 1rem;
+}
+
+.valor {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
