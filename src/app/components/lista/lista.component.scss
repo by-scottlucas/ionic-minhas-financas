@@ -1,0 +1,165 @@
+.lista {
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.titulo {
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+ion-list {
+    margin-top: -10px;
+    background: transparent;
+}
+
+.itemSlide {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    background-color: #fff;
+}
+
+.itemLista {
+    width: 100%;
+    --border-color: transparent;
+    --border-radius: 0px;
+    --background: #f7f7f7;
+}
+
+.textoEvento {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.data {
+    font-size: .9rem;
+    margin-bottom: 8px;
+}
+
+.movimentacao {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: #000;
+    font-size: 1.2rem;
+}
+
+.valor {
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.botaoAcoes {
+    width: 60px;
+    font-size: 1.6rem;
+}
+
+
+//**** Estilos Modal de Edição ****//
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #e5e5e5;
+}
+
+.edicao {
+    font-family: 'Bebas Neue';
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: -4px;
+}
+
+.header {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.input {
+    color: #000;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    --highlight-color: trasparent;
+}
+
+.modalData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #e5e5e5;
+}
+
+.calendario {
+    text-align: center;
+    margin: 0 auto;
+    width: 90%;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+ion-datetime {
+    color: #000;
+    --background: transparent;
+    --title-color: #fff --wheel-fade-background-rgb: transparent;
+    --wheel-highlight-background: transparent;
+}
+
+.date {
+    width: 100%;
+    text-transform: lowercase;
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin-top: 17px;
+    height: 40px;
+    --border-radius: 0;
+    --box-shadow: 0;
+    --background: transparent;
+}
+
+.botoes {
+    display: flex;
+    justify-content: space-around;
+    background: transparent;
+}
+
+.botoes ion-button {
+    width: 140px;
+    height: 50px;
+    color: #000;
+    font-weight: bold;
+    --box-shadow: none;
+    --border-radius: 2px;
+    --background: transparent;
+}
+
+.botao {
+    width: 100%;
+    height: 45px;
+    --box-shadow: 0;
+    --border-radius: 2px;
+    --background: #212929;
+}

@@ -7,7 +7,6 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HeaderModule } from 'src/app/components/header/header.module';
 import { ListaModule } from 'src/app/components/lista/lista.module';
-import { CadastroModule } from 'src/app/components/cadastro/cadastro.module';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import { CadastroModule } from 'src/app/components/cadastro/cadastro.module';
     HomePageRoutingModule,
     HeaderModule,
     ListaModule,
-    CadastroModule
   ],
   declarations: [HomePage]
 })

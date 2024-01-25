@@ -1,5 +1,70 @@
-<ion-list>
-  <ion-item>
-    <ion-text>Salário Janeiro</ion-text>
-  </ion-item>
-</ion-list>
+<div class="lista">
+
+  <h3 class="titulo">Últimas movimentações</h3>
+
+  <ion-list>
+
+    <ion-item-sliding class="itemSlide">
+
+      <ion-item class="itemLista">
+
+        <ion-label class="textoEvento">
+
+          <p class="data">31/01/2024</p>
+          <div class="movimentacao">
+            <p class="title">Salario 2/2</p>
+            <p class="valor">R$ 750</p>
+          </div>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option class="botaoAcoes">
+          <ion-icon name="create-outline" />
+        </ion-item-option>
+        <ion-item-option color="danger" class="botaoAcoes">
+          <ion-icon name="trash-outline" />
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+</div>
+
+<ion-modal [isOpen]="modal">
+  <ng-template>
+    <ion-content>
+      <div class="container">
+        <div class="header">
+          <h1 class="titulo edicao">Editar</h1>
+
+          <ion-input type="text" class="input" [(ngModel)]="titulo" />
+
+          <ion-button class="input date" (click)="selecionarData()">dd/mm/yyyy</ion-button>
+
+          <ion-modal [isOpen]="modalDate">
+            <ng-template>
+              <div class="modalData">
+                <div class="calendario">
+
+                  <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+                  <div class="botoes">
+                    <ion-button (click)="modalData(false)">Cancelar</ion-button>
+                    <ion-button (click)="salvarData()">Salvar</ion-button>
+                  </div>
+                </div>
+
+
+              </div>
+            </ng-template>
+          </ion-modal>
+
+          <ion-button class="botao" (click)="salvarEdicao()">Editar</ion-button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
