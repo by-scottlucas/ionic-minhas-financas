@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { CadastroModule } from '../cadastro/cadastro.module';
+import { HeaderComponent } from './header.component';
 
 
 
@@ -11,7 +12,8 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
+    CadastroModule
   ],
   exports: [HeaderComponent]
 })

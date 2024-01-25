@@ -1,0 +1,40 @@
+<main class="container">
+
+  <div class="form">
+
+    <h1>Nova Movimentação</h1>
+
+    <ion-input type="text" placeholder="Titulo" class="input titulo" />
+
+    <ion-button class="input date" (click)="selecionarData()">dd/mm/yyyy</ion-button>
+
+    <ion-modal [isOpen]="modalDate">
+      <ng-template>
+        <div class="modalData">
+          <div class="calendario">
+
+            <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+            <div class="botoes">
+              <ion-button (click)="modalData(false)">Cancelar</ion-button>
+              <ion-button (click)="salvarData()">Salvar</ion-button>
+            </div>
+          </div>
+
+
+        </div>
+      </ng-template>
+    </ion-modal>
+
+    <ion-input type="number" label="R$" class="input valor" />
+
+    <div class="input tipo">
+      <ion-select value="0">
+        <ion-select-option value="0">Escolha uma opção</ion-select-option>
+        <ion-select-option value="1">Entrada</ion-select-option>
+        <ion-select-option value="2">Saída</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
+
+</main>
