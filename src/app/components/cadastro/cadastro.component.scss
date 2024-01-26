@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     height: 100vh;
     display: flex;
@@ -12,25 +17,36 @@
     justify-content: center;
     align-items: center;
     width: 340px;
-    padding: 20px;
+    padding: 30px;
     background-color: whitesmoke;
 }
 
+.tituloForm{
+    font-family: 'Bebas Neue';
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 2.4rem;
+}
+
+.input {
+    height: 50px;
+    margin-bottom: 14px;
+}
+
 .titulo {
-    background: steelblue;
+    --padding-start: 15px;
+    background: #e5e5e5;
 }
 
 .date {
     width: 100%;
     text-transform: lowercase;
+    color: #000;
     font-size: 1.1rem;
     font-weight: normal;
-    margin-top: 17px;
-    height: 46px;
-    margin-bottom: 18px;
     --border-radius: 0;
     --box-shadow: 0;
-    // --background: transparent;
+    --background: #e5e5e5;
 }
 
 .modalData {
@@ -72,16 +88,14 @@ ion-datetime {
     --border-radius: 2px;
     --background: transparent;
 }
+
 .valor {
-    background: steelblue;
+    --padding-start: 15px;
+    background: #eaeaea;
 }
 
 .tipo {
-    width: 100%;
-    margin-top: 20px;
-    background: steelblue;
-}
-
-ion-select-option {
-    width: 100%;
+    padding: 0px 15px;
+    height: 60px;
+    background: #eaeaea;
 }

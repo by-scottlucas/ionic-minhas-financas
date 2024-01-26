@@ -2,7 +2,7 @@
 
   <div class="form">
 
-    <h1>Nova Movimentação</h1>
+    <h1 class="tituloForm">Nova Movimentação</h1>
 
     <ion-input type="text" placeholder="Titulo" class="input titulo" />
 
@@ -28,13 +28,12 @@
 
     <ion-input type="number" label="R$" class="input valor" />
 
-    <div class="input tipo">
-      <ion-select value="0">
-        <ion-select-option value="0">Escolha uma opção</ion-select-option>
-        <ion-select-option value="1">Entrada</ion-select-option>
-        <ion-select-option value="2">Saída</ion-select-option>
-      </ion-select>
-    </div>
+    <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
+      toggleIcon="false">
+      <ion-select-option value="1">Saída</ion-select-option>
+      <ion-select-option value="2">Entrada</ion-select-option>
+    </ion-select>
+
   </div>
 
 </main>
