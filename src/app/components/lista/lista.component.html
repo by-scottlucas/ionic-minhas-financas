@@ -4,16 +4,19 @@
 
   <ion-list>
 
-    <ion-item-sliding class="itemSlide">
+    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index">
 
       <ion-item class="itemLista">
 
         <ion-label class="textoEvento">
 
-          <p class="data">31/01/2024</p>
+          <p class="data">{{movimentacao.data}}</p>
           <div class="movimentacao">
-            <p class="title">Salario 2/2</p>
-            <p class="valor">R$ 750</p>
+            <p class="title">{{movimentacao.titulo}}</p>
+            <p class="valor">
+              R$ {{movimentacao.valor}}
+            </p>
+
           </div>
 
         </ion-label>
@@ -21,16 +24,16 @@
       </ion-item>
 
       <ion-item-options>
-        <ion-item-option class="botaoAcoes">
+        <ion-item-option class="botaoAcoes" (click)="editar(movimentacao)">
           <ion-icon name="create-outline" />
         </ion-item-option>
-        <ion-item-option color="danger" class="botaoAcoes">
+        <ion-item-option color="danger" class="botaoAcoes" (click)="excluir(i)">
           <ion-icon name="trash-outline" />
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  
+
 </div>
 
 <ion-modal [isOpen]="modal">

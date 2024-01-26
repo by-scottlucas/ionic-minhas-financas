@@ -18,7 +18,6 @@ export class ListaComponent implements OnInit {
   data!: string;
   valor!: number;
   tipo!: number;
-  categoria!: number;
 
   movimentacoes!: IMovimentacao[];
 
@@ -54,10 +53,12 @@ export class ListaComponent implements OnInit {
     }
   }
 
-  editar(evento: IMovimentacao): void {
-    this.index = this.movimentacoes.indexOf(evento);
-    this.titulo = evento.titulo;
-    this.data = evento.data;
+  editar(movimentacao: IMovimentacao): void {
+    this.index = this.movimentacoes.indexOf(movimentacao);
+    this.titulo = movimentacao.titulo;
+    this.data = movimentacao.data;
+    this.valor = movimentacao.valor;
+    this.tipo = movimentacao.tipo;
 
     this.modalEdicao(true);
   }
@@ -65,7 +66,7 @@ export class ListaComponent implements OnInit {
   salvarEdicao(): void {
 
     if (this.index !== null && this.titulo) {
-      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo, this.categoria);
+      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo);
     }
     this.modalEdicao(false);
 

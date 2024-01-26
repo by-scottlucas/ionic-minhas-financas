@@ -23,8 +23,8 @@ export class FinancasService {
     }
   }
 
-  create(titulo: string, data: string, valor: number, tipo: number, categoria: number): void {
-    const novaMovimentacao: IMovimentacao = { titulo, data, valor, tipo, categoria };
+  create(titulo: string, data: string, valor: number, tipo: number): void {
+    const novaMovimentacao: IMovimentacao = { titulo, data, valor, tipo };
     this.movimentacoes.push(novaMovimentacao);
     this.save();
   }
@@ -33,9 +33,9 @@ export class FinancasService {
     return this.movimentacoes[index];
   }
 
-  update(index: number, titulo: string, data: string, valor: number, tipo: number, categoria: number): void {
+  update(index: number, titulo: string, data: string, valor: number, tipo: number): void {
     if (index >= 0 && this.movimentacoes.length) {
-      this.movimentacoes[index] = { titulo, data, valor, tipo, categoria };
+      this.movimentacoes[index] = { titulo, data, valor, tipo };
       this.save();
     }
   }

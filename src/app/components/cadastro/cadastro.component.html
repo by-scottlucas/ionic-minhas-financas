@@ -1,39 +1,53 @@
-<main class="container">
+<ion-button expand="block" class="buttonModal" (click)="setOpen(true)">
+  Adicionar Movimentação
+</ion-button>
 
-  <div class="form">
+<ion-modal [isOpen]="modal">
 
-    <h1 class="tituloForm">Nova Movimentação</h1>
+  <ng-template>
 
-    <ion-input type="text" placeholder="Titulo" class="input titulo" />
+    <main class="container">
 
-    <ion-button class="input date" (click)="selecionarData()">dd/mm/yyyy</ion-button>
+      <div class="form">
 
-    <ion-modal [isOpen]="modalDate">
-      <ng-template>
-        <div class="modalData">
-          <div class="calendario">
+        <h1 class="tituloForm">Nova Movimentação</h1>
 
-            <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+        <ion-input type="text" placeholder="Titulo" class="input titulo" [(ngModel)]="titulo" />
 
-            <div class="botoes">
-              <ion-button (click)="modalData(false)">Cancelar</ion-button>
-              <ion-button (click)="salvarData()">Salvar</ion-button>
+        <ion-button class="input date" (click)="selecionarData()">{{data}}</ion-button>
+
+        <ion-modal [isOpen]="modalDate">
+          <ng-template>
+            <div class="modalData">
+              <div class="calendario">
+
+                <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+                <div class="botoes">
+                  <ion-button (click)="modalData(false)">Cancelar</ion-button>
+                  <ion-button (click)="salvarData()">Salvar</ion-button>
+                </div>
+              </div>
+
+
             </div>
-          </div>
+          </ng-template>
+        </ion-modal>
 
+        <ion-input type="number" placeholder="R$" class="input valor" [(ngModel)]="valor" />
 
-        </div>
-      </ng-template>
-    </ion-modal>
+        <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
+          toggleIcon="false" [(ngModel)]="tipo">
+          <ion-select-option value="1">Saída</ion-select-option>
+          <ion-select-option value="2">Entrada</ion-select-option>
+        </ion-select>
 
-    <ion-input type="number" label="R$" class="input valor" />
+        <ion-button class="button" (click)="cadastrar()">Adicionar</ion-button>
 
-    <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
-      toggleIcon="false">
-      <ion-select-option value="1">Saída</ion-select-option>
-      <ion-select-option value="2">Entrada</ion-select-option>
-    </ion-select>
+      </div>
 
-  </div>
+    </main>
 
-</main>
+  </ng-template>
+
+</ion-modal>

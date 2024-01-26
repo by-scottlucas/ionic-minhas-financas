@@ -3,5 +3,4 @@ export interface IMovimentacao {
     data: string,
     valor: number,
     tipo: number,
-    categoria: number,
 }

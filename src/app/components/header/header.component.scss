@@ -4,8 +4,31 @@
 }
 
 .container {
+    display: flex;
+    align-items: center;
     height: 120px;
     background: #141A26;
+}
+
+.user {
+    color: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.textUser{
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.iconUser{
+    font-size: 2.8rem;
 }
 
 .display {

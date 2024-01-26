@@ -1,4 +1,11 @@
-<header class="container"></header>
+<header class="container">
+
+  <div class="user">
+    <h1 class="textUser">Lucas Santos</h1>
+    <ion-icon name="person-circle-outline" class="iconUser" />
+  </div>
+
+</header>
 
 <div class="display">
 
@@ -8,7 +15,7 @@
 
     <ion-row class="valor">
       <ion-text style="font-size: 1rem;">R$</ion-text>
-      <ion-text class="saldoTexto">0</ion-text>
+      <ion-text class="saldoTexto">{{obterSaldo()}}</ion-text>
     </ion-row>
 
   </div>
@@ -19,14 +26,13 @@
 
     <ion-row class="valor">
       <ion-text style="font-size: 1rem;">R$</ion-text>
-      <ion-text class="gastosTexto">0</ion-text>
+      <ion-text class="gastosTexto">{{obterGastos()}}</ion-text>
     </ion-row>
 
   </div>
 
 </div>
 
-<ion-button expand="block" class="button">
-  Adicionar Movimentação
-</ion-button>
-
+<div class="button">
+  <app-cadastro />
+</div>
