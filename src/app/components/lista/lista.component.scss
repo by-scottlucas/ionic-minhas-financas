@@ -70,38 +70,50 @@ ion-list {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #e5e5e5;
+    background: #fff;
 }
 
-.edicao {
-    font-family: 'Bebas Neue';
-    color: #000;
-    font-weight: bold;
-    text-align: center;
-    font-size: 2.8rem;
-    margin-bottom: -4px;
-}
-
-.header {
-    text-align: center;
-    margin: 0 auto;
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 360px;
     padding: 20px;
-    border-radius: 4px;
-    background-color: #fff;
+    background-color: whitesmoke;
+}
+
+.tituloForm {
+    color: #000;
+    font-family: 'Bebas Neue';
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 2.4rem;
 }
 
 .input {
+    --highlight-color-valid: #141A26;
+    --highlight-color-invalid: transparent;
     color: #000;
-    font-size: 1.1rem;
+    height: 50px;
     margin-bottom: 14px;
-    border-bottom: 1px solid #000;
-    background: transparent;
-    --highlight-color: trasparent;
+}
+
+.tituloEdicao {
+    --padding-start: 15px;
+    background: #e5e5e5;
+}
+
+.dateEdicao {
+    width: 100%;
+    text-transform: lowercase;
+    color: #000;
+    font-family: Calibri light;
+    font-size: 1.1rem;
+    font-weight: normal;
+    --border-radius: 0;
+    --box-shadow: 0;
+    --background: #e5e5e5;
 }
 
 .modalData {
@@ -124,20 +136,9 @@ ion-list {
 ion-datetime {
     color: #000;
     --background: transparent;
-    --title-color: #fff --wheel-fade-background-rgb: transparent;
+    --title-color: #fff;
+    --wheel-fade-background-rgb: transparent;
     --wheel-highlight-background: transparent;
-}
-
-.date {
-    width: 100%;
-    text-transform: lowercase;
-    font-size: 1.1rem;
-    font-weight: normal;
-    margin-top: 17px;
-    height: 40px;
-    --border-radius: 0;
-    --box-shadow: 0;
-    --background: transparent;
 }
 
 .botoes {
@@ -156,10 +157,30 @@ ion-datetime {
     --background: transparent;
 }
 
-.botao {
+.valorEdicao {
+    --padding-start: 15px;
+    background: #eaeaea;
+}
+
+.tipoEdicao {
+    padding: 0px 15px;
+    height: 50px;
+    background: #eaeaea;
+}
+
+.button {
     width: 100%;
-    height: 45px;
-    --box-shadow: 0;
+    height: 46px;
     --border-radius: 2px;
-    --background: #212929;
+    --box-shadow: none;
+}
+
+.editar {
+    --background: #141A26;
+}
+
+.cancelar {
+    margin-top: 10px;
+    color: #000;
+    --background: transparent;
 }

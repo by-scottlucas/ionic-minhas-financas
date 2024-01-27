@@ -76,6 +76,10 @@ export class ListaComponent implements OnInit {
     this.financasService.delete(index);
   }
 
+  cancelar(){
+    this.modalEdicao(false);
+  }
+
   formatarData(event: any): void {
     let input = event.target.value;
 

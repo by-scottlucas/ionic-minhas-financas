@@ -32,37 +32,53 @@
 </div>
 
 <ion-modal [isOpen]="modal">
+
   <ng-template>
-    <ion-content>
-      <div class="container">
-        <div class="header">
-          <h1 class="titulo edicao">Editar</h1>
 
-          <ion-input type="text" class="input" [(ngModel)]="titulo" />
+    <main class="container">
 
-          <ion-button class="input date" (click)="selecionarData()">dd/mm/yyyy</ion-button>
+      <div class="form">
 
-          <ion-modal [isOpen]="modalDate">
-            <ng-template>
-              <div class="modalData">
-                <div class="calendario">
+        <h1 class="tituloForm">Editar Movimentação</h1>
 
-                  <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+        <ion-input type="text" placeholder="Titulo" class="input tituloEdicao" [(ngModel)]="titulo" />
 
-                  <div class="botoes">
-                    <ion-button (click)="modalData(false)">Cancelar</ion-button>
-                    <ion-button (click)="salvarData()">Salvar</ion-button>
-                  </div>
+        <ion-button class="input dateEdicao" (click)="selecionarData()">{{data}}</ion-button>
+
+        <ion-modal [isOpen]="modalDate">
+          <ng-template>
+            <div class="modalData">
+              <div class="calendario">
+
+                <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+                <div class="botoes">
+                  <ion-button (click)="modalData(false)">Cancelar</ion-button>
+                  <ion-button (click)="salvarData()">Salvar</ion-button>
                 </div>
-
-
               </div>
-            </ng-template>
-          </ion-modal>
 
-          <ion-button class="botao" (click)="salvarEdicao()">Editar</ion-button>
-        </div>
+
+            </div>
+          </ng-template>
+        </ion-modal>
+
+        <ion-input type="number" placeholder="R$" class="input valorEdicao" [(ngModel)]="valor" />
+
+        <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipoEdicao"
+          toggleIcon="false" [(ngModel)]="tipo" color="warning">
+
+          <ion-select-option value="1">Saída</ion-select-option>
+          <ion-select-option value="2">Entrada</ion-select-option>
+        </ion-select>
+
+        <ion-button class="button editar" (click)="salvarEdicao()">Editar</ion-button>
+        <ion-button class="button cancelar" (click)="cancelar()">Cancelar</ion-button>
+
       </div>
-    </ion-content>
+
+    </main>
+
   </ng-template>
+
 </ion-modal>
