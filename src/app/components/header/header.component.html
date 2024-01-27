@@ -9,24 +9,24 @@
 
 <div class="display">
 
-  <div class="coluna saldo">
+  <div class="coluna saldo" *ngIf="obterSaldo()">
 
     <ion-text class="title">Saldo</ion-text>
 
     <ion-row class="valor">
       <ion-text style="font-size: 1rem;">R$</ion-text>
-      <ion-text class="saldoTexto">{{obterSaldo()}}</ion-text>
+      <ion-text class="saldoTexto">{{saldo}}</ion-text>
     </ion-row>
 
   </div>
 
-  <div class="coluna gastos">
+  <div class="coluna gastos" *ngIf="obterGastos()">
 
     <ion-text class="title">Gastos</ion-text>
 
     <ion-row class="valor">
       <ion-text style="font-size: 1rem;">R$</ion-text>
-      <ion-text class="gastosTexto">{{obterGastos()}}</ion-text>
+      <ion-text class="gastosTexto">{{gastos}}</ion-text>
     </ion-row>
 
   </div>

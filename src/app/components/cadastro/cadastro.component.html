@@ -37,12 +37,14 @@
         <ion-input type="number" placeholder="R$" class="input valor" [(ngModel)]="valor" />
 
         <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
-          toggleIcon="false" [(ngModel)]="tipo">
+          toggleIcon="false" [(ngModel)]="tipo" interface-options="background: none">
+
           <ion-select-option value="1">Saída</ion-select-option>
           <ion-select-option value="2">Entrada</ion-select-option>
         </ion-select>
 
-        <ion-button class="button" (click)="cadastrar()">Adicionar</ion-button>
+        <ion-button class="button adicionar" (click)="cadastrar()">Adicionar</ion-button>
+        <ion-button class="button cancelar" (click)="cancelar()">Cancelar</ion-button>
 
       </div>
 

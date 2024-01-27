@@ -22,13 +22,17 @@ export class HeaderComponent implements OnInit {
 
   obterSaldo() {
 
-    return this.movimentacoes.reduce((total, movimentacao) => total + movimentacao.valor, 0);
-
+    this.saldo = this.movimentacoes
+      .filter(movimentacao => movimentacao.tipo == 2)
+      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
+    return true;
   }
 
   obterGastos() {
 
-    return this.movimentacoes.reduce((total, movimentacao) => total + movimentacao.valor, 0);
-
+    this.gastos = this.movimentacoes
+      .filter(movimentacao => movimentacao.tipo == 1)
+      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
+    return true;
   }
 }

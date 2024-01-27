@@ -10,6 +10,7 @@
     height: 50px;
     --border-radius: 2px;
     --box-shadow: 0;
+    --background: #141A26;
 }
 
 .container {
@@ -18,6 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #fff;
 }
 
 .form {
@@ -25,12 +27,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 340px;
-    padding: 30px;
+    width: 360px;
+    padding: 20px;
     background-color: whitesmoke;
 }
 
-.tituloForm{
+.tituloForm {
+    color: #000;
     font-family: 'Bebas Neue';
     font-weight: bold;
     margin-bottom: 10px;
@@ -38,6 +41,9 @@
 }
 
 .input {
+    --highlight-color-valid: #141A26;
+    --highlight-color-invalid: transparent;
+    color: #000;
     height: 50px;
     margin-bottom: 14px;
 }
@@ -51,6 +57,7 @@
     width: 100%;
     text-transform: lowercase;
     color: #000;
+    font-family: Calibri light;
     font-size: 1.1rem;
     font-weight: normal;
     --border-radius: 0;
@@ -78,7 +85,8 @@
 ion-datetime {
     color: #000;
     --background: transparent;
-    --title-color: #fff --wheel-fade-background-rgb: transparent;
+    --title-color: #fff;
+    --wheel-fade-background-rgb: transparent;
     --wheel-highlight-background: transparent;
 }
 
@@ -105,8 +113,12 @@ ion-datetime {
 
 .tipo {
     padding: 0px 15px;
-    height: 60px;
+    height: 50px;
     background: #eaeaea;
+}
+
+ion-select[popover] {
+    --background: #fff !important;
 }
 
 .button {
@@ -114,4 +126,14 @@ ion-datetime {
     height: 46px;
     --border-radius: 2px;
     --box-shadow: none;
+}
+
+.adicionar {
+    --background: #141A26;
+}
+
+.cancelar {
+    margin-top: 10px;
+    color: #000;
+    --background: transparent;
 }

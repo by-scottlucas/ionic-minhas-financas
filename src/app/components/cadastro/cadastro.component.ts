@@ -14,8 +14,8 @@ export class CadastroComponent implements OnInit {
 
   titulo!: string;
   data: string = "dd/mm/yyyy";
-  valor!: number;
-  tipo!: number;
+  valor: number | null = null;
+  tipo: number | null = null;
 
   movimentacoes!: IMovimentacao[];
 
@@ -31,32 +31,6 @@ export class CadastroComponent implements OnInit {
   setOpen(open: boolean) {
     this.modal = open;
   }
-
-  cadastrar(): void {
-
-    if (this.titulo && this.data && this.valor && this.tipo) {
-      const dataFormatada = this.data.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1');
-
-      this.financasService.create(this.titulo, dataFormatada, this.valor, this.tipo);
-
-      this.setOpen(false);
-      this.limparInputs();
-
-      alert('Movimentação registrada com sucesso!');
-
-    } else {
-      alert('Por favor preencha todos os campos');
-    }
-
-  }
-
-  limparInputs(): void {
-    this.titulo;
-    this.data = "dd/mm/yyyy";
-    this.valor;
-    this.tipo;
-  }
-
 
   modalData(open: boolean) {
     this.modalDate = open;
@@ -77,4 +51,34 @@ export class CadastroComponent implements OnInit {
     }
   }
 
+  cadastrar() {
+
+    if (this.titulo && this.data && this.valor && this.tipo) {
+
+      const dataFormatada = this.data.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1');
+
+      this.financasService.create(this.titulo, dataFormatada, this.valor, this.tipo);
+
+      this.limparInputs();
+      this.setOpen(false);
+
+      alert('Movimentação registrada com sucesso!');
+
+    } else {
+      alert('Por favor preencha todos os campos');
+    }
+
+  }
+
+  cancelar(){
+    this.limparInputs();
+    this.setOpen(false);
+  }
+
+  limparInputs() {
+    this.titulo = '';
+    this.data = "dd/mm/yyyy";
+    this.valor = null;
+    this.tipo = null;
+  }
 }
