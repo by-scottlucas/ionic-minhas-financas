@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-financas',
+  appId: 'io.ionic.financas',
+  appName: 'Minhas Finanças',
   webDir: 'www',
   server: {
     androidScheme: 'https'
