@@ -19,6 +19,7 @@ export class ListaComponent implements OnInit {
   valor!: number;
   tipo!: number;
 
+
   movimentacoes!: IMovimentacao[];
 
   modal = false;
@@ -76,28 +77,8 @@ export class ListaComponent implements OnInit {
     this.financasService.delete(index);
   }
 
-  cancelar(){
+  cancelar() {
     this.modalEdicao(false);
-  }
-
-  formatarData(event: any): void {
-    let input = event.target.value;
-
-    // Remover caracteres não numéricos
-    input = input.replace(/\D/g, '');
-
-    // Adicionar a máscara
-    if (input.length <= 2) {
-      this.data = input;
-    } else if (input.length <= 4) {
-      this.data = `${input.substring(0, 2)}/${input.substring(2)}`;
-    } else if (input.length <= 8) {
-      this.data = `${input.substring(0, 2)}/${input.substring(2, 4)}/${input.substring(4, 8)}`;
-    } else {
-      // Lidar com entrada maior que 8 caracteres (opcional)
-      input = input.substring(0, 8);
-      this.data = `${input.substring(0, 2)}/${input.substring(2, 4)}/${input.substring(4, 8)}`;
-    }
   }
 
 }

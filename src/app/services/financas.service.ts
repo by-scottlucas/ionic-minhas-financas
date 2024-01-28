@@ -25,7 +25,7 @@ export class FinancasService {
 
   create(titulo: string, data: string, valor: number, tipo: number): void {
     const novaMovimentacao: IMovimentacao = { titulo, data, valor, tipo };
-    this.movimentacoes.push(novaMovimentacao);
+    this.movimentacoes.unshift(novaMovimentacao);
     this.save();
   }
 
