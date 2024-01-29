@@ -19,17 +19,27 @@ export class ListaComponent implements OnInit {
   valor!: number;
   tipo!: number;
 
-
   movimentacoes!: IMovimentacao[];
+
+  search: string = '';
+  resultado;
 
   modal = false;
   modalDate = false;
 
   constructor(private financasService: FinancasService) {
     this.movimentacoes = this.financasService.movimentacoes;
+    this.resultado = this.movimentacoes;
   }
 
   ngOnInit() { }
+
+  searchInput(event: any) {
+    this.search = event.target.value;
+    this.resultado = this.movimentacoes.filter((movimentacao) => {
+      return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
+    })
+  }
 
   modalEdicao(open: boolean) {
     this.modal = open;

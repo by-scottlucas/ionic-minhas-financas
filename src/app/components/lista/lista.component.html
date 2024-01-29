@@ -1,9 +1,27 @@
+<app-actions />
+
 <div class="lista">
 
-  <h3 class="titulo">Últimas movimentações</h3>
+  <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
+
+    <h3 class="titulo">Últimas movimentações</h3>
+
+    <app-search-bar (ionInput)="searchInput($event)" />
+
+  </div>
+
+  <ng-template #nenhumaMovimentacao>
+
+    <h3 class="titulo semMovimentacoes">
+      Nenhuma Movimentação Recente
+    </h3>
+
+  </ng-template>
 
   <ion-list>
-    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index;">
+
+    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of resultado; let i = index;">
+
       <ion-item class="itemLista">
         <ion-label class="textoEvento">
           <p class="data">{{ movimentacao.data }}</p>
@@ -26,8 +44,6 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
-
 
 </div>
 
