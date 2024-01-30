@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+=======
+>>>>>>> parent of 9ee7fea (Corrigindo bugs no SearchBar)
 import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
@@ -26,28 +29,32 @@ export class ListaComponent implements OnInit {
 
   movimentacoes!: IMovimentacao[];
 
+<<<<<<< HEAD
   constructor(
     private financasService: FinancasService,
     private loadingCtrl: LoadingController,
     private router: Router
   ) {
+=======
+  search: string = '';
+  resultado;
+
+  modal = false;
+  modalDate = false;
+
+  constructor(private financasService: FinancasService) {
+>>>>>>> parent of 9ee7fea (Corrigindo bugs no SearchBar)
     this.movimentacoes = this.financasService.movimentacoes;
+    this.resultado = this.movimentacoes;
   }
 
   ngOnInit() { }
 
   searchInput(event: any) {
-
     this.search = event.target.value;
-
-    if (this.search === '') {
-      this.movimentacoes = this.financasService.movimentacoes;
-
-    } else {
-      this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
-        return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
-      });
-    }
+    this.resultado = this.movimentacoes.filter((movimentacao) => {
+      return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
+    })
   }
 
   editar(movimentacao: IMovimentacao): void {
@@ -57,7 +64,28 @@ export class ListaComponent implements OnInit {
     this.valor = movimentacao.valor;
     this.tipo = movimentacao.tipo;
 
+<<<<<<< HEAD
     this.router.navigate(['/modal-actions'])
+=======
+    this.modalEdicao(true);
+  }
+
+  salvarEdicao(): void {
+
+    if (this.index !== null && this.titulo) {
+      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo);
+    }
+    this.modalEdicao(false);
+
+  }
+
+  excluir(index: number): void {
+    this.financasService.delete(index);
+  }
+
+  cancelar() {
+    this.modalEdicao(false);
+>>>>>>> parent of 9ee7fea (Corrigindo bugs no SearchBar)
   }
 
 }
