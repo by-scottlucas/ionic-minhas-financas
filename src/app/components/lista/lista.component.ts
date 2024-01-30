@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
@@ -13,6 +14,8 @@ export class ListaComponent implements OnInit {
 
   dataAtual = new Date().toISOString();
 
+  search!: string;
+
   index: number | null = null
   titulo!: string;
   data!: string;
@@ -21,24 +24,27 @@ export class ListaComponent implements OnInit {
 
   movimentacoes!: IMovimentacao[];
 
-  search: string = '';
-  resultado;
-
   modal = false;
   modalDate = false;
 
-  constructor(private financasService: FinancasService) {
+  constructor(private financasService: FinancasService, private router:  Router) {
     this.movimentacoes = this.financasService.movimentacoes;
-    this.resultado = this.movimentacoes;
   }
 
   ngOnInit() { }
 
   searchInput(event: any) {
+
     this.search = event.target.value;
-    this.resultado = this.movimentacoes.filter((movimentacao) => {
-      return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
-    })
+
+    if (this.search === '') {
+      this.movimentacoes = this.financasService.movimentacoes;
+
+    } else {
+      this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
+        return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
   }
 
   modalEdicao(open: boolean) {
@@ -83,8 +89,9 @@ export class ListaComponent implements OnInit {
 
   }
 
-  excluir(index: number): void {
-    this.financasService.delete(index);
+  async excluir(index: number) {
+    await this.financasService.delete(index);
+    location.reload();
   }
 
   cancelar() {
