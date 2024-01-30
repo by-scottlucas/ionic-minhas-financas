@@ -5,13 +5,12 @@ import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss'],
+  selector: 'app-modal-actions',
+  templateUrl: './modal-actions.component.html',
+  styleUrls: ['./modal-actions.component.scss'],
 })
-export class ListaComponent implements OnInit {
+export class ModalActionsComponent implements OnInit {
 
-  public loaded = false;
 
   dataAtual = new Date().toISOString();
 
@@ -21,10 +20,10 @@ export class ListaComponent implements OnInit {
   valor!: number;
   tipo!: number;
 
-
-  search!: string;
-
   movimentacoes!: IMovimentacao[];
+
+  modal = false;
+  modalDate = false;
 
   constructor(
     private financasService: FinancasService,
@@ -33,20 +32,28 @@ export class ListaComponent implements OnInit {
   ) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
-
   ngOnInit() { }
 
-  searchInput(event: any) {
+  modalEdicao(open: boolean) {
+    this.modal = open;
+  }
 
-    this.search = event.target.value;
+  modalData(open: boolean) {
+    this.modalDate = open;
+  }
 
-    if (this.search === '') {
-      this.movimentacoes = this.financasService.movimentacoes;
+  selecionarData(): void {
+    this.modalData(true);
+  }
 
-    } else {
-      this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
-        return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
-      });
+  salvarData(): void {
+
+    const dataFormatada = this.dataAtual.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1');
+    this.data = dataFormatada;
+
+
+    if (this.data.length !== 0) {
+      this.modalData(false);
     }
   }
 
@@ -57,7 +64,24 @@ export class ListaComponent implements OnInit {
     this.valor = movimentacao.valor;
     this.tipo = movimentacao.tipo;
 
-    this.router.navigate(['/modal-actions'])
+    this.modalEdicao(true);
+  }
+
+  salvarEdicao(): void {
+
+    if (this.index !== null && this.titulo) {
+      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo);
+    }
+    this.modalEdicao(false);
+
+  }
+
+  excluir(index: number) {
+    this.financasService.delete(index);
+  }
+
+  cancelar() {
+    this.modalEdicao(false);
   }
 
 }
