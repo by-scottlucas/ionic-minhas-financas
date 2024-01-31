@@ -14,6 +14,9 @@ export class CartoesPage implements OnInit {
 
   search!: string;
 
+  // imagem = "https://docs-demo.ionic.io/assets/madison.jpg";
+  imagem = '../';
+
   index: number | null = null
   titulo!: string;
   data!: string;

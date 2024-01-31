@@ -18,17 +18,25 @@
     border-radius: 7px;
     --box-shadow: 1px 1px 4px #141A26;
     --background: #e5e5e5;
+    --padding-end: 0;
+    --padding-start: 0;
 }
 
 .card ion-icon {
     position: absolute;
     color: #141A26;
     font-size: 3rem;
+    z-index: 9;
 }
 
-.card ion-input{
-    opacity: 0;
+.card ion-img{
+    --padding: 0;
+    width: 480px;
 }
+
+// .card ion-input{
+//     opacity: 0;
+// }
 
 .titulo {
     margin-top: 20px;
