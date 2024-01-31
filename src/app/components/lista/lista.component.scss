@@ -1,19 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.searchBar {
-    color: #000;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 0;
-    margin-bottom: 15px;
-    --box-shadow: none;
-    --border-radius: 40px;
-    --background: #fff;
-}
-
 .lista {
     margin: 0 auto;
     padding-left: 20px;
@@ -21,14 +5,10 @@
 }
 
 .titulo {
-<<<<<<< HEAD
     margin-top: 20px;
-=======
->>>>>>> parent of 9ee7fea (Corrigindo bugs no SearchBar)
     color: #000;
     font-size: 1.1rem;
     font-weight: bold;
-    margin-bottom: 15px;
 }
 
 .semMovimentacoes {
@@ -37,8 +17,24 @@
     margin-top: 180px;
 }
 
+.searchBar {
+    color: #000;
+    padding-left: 0;
+    padding-right: 0;
+    --box-shadow: none;
+    --border-radius: 40px;
+    --background: #fff;
+}
+
 ion-list {
     background: transparent;
+}
+
+.itemSlide {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    background-color: #fff;
 }
 
 .itemLista {
@@ -48,9 +44,10 @@ ion-list {
     --background: #f7f7f7;
 }
 
-.conteudoItem {
-    padding-top: 14px;
-    padding-bottom: 14px;
+.textoEvento {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .data {

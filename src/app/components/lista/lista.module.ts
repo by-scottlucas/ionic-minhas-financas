@@ -2,10 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ActionsModule } from '../actions/actions.module';
 import { ListaComponent } from './lista.component';
-
-
 
 @NgModule({
   declarations: [ListaComponent],
@@ -13,7 +10,6 @@ import { ListaComponent } from './lista.component';
     CommonModule,
     IonicModule,
     FormsModule,
-    ActionsModule
   ],
   exports: [ListaComponent]
 })

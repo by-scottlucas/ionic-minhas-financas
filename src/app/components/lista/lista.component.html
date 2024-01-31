@@ -1,4 +1,4 @@
-<app-actions />
+<!-- <app-actions /> -->
 
 <div class="lista">
 
@@ -6,8 +6,10 @@
 
     <h3 class="titulo">Últimas movimentações</h3>
 
-    <ion-searchbar class="searchBar" placeholder="Buscar movimentação" (ionInput)="searchInput($event)"
-      [ngModel]="search" />
+    <!-- <app-search-bar (ionInput)="searchInput($event)" /> -->
+
+    <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
+      (ionInput)="searchInput($event)" />
 
   </div>
 
@@ -21,26 +23,81 @@
 
   <ion-list>
 
-<<<<<<< HEAD
-    <ion-item class="itemLista" *ngFor="let movimentacao of movimentacoes; let i = index;">
-=======
-    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of resultado; let i = index;">
->>>>>>> parent of 9ee7fea (Corrigindo bugs no SearchBar)
+    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index;">
 
-      <ion-label class="conteudoItem" (click)="editar(movimentacao)" >
+      <ion-item class="itemLista">
+        <ion-label class="textoEvento">
+          <p class="data">{{ movimentacao.data }}</p>
+          <div class="movimentacao">
+            <p class="title">{{ movimentacao.titulo }}</p>
+            <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
+              {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
+            </p>
+          </div>
+        </ion-label>
+      </ion-item>
 
-        <p class="data">{{ movimentacao.data }}</p>
-        <div class="movimentacao">
-          <p class="title">{{ movimentacao.titulo }}</p>
-          <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
-            {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
-          </p>
-        </div>
-
-      </ion-label>
-
-    </ion-item>
-
+      <ion-item-options>
+        <ion-item-option class="botaoAcoes" (click)="editar(movimentacao)">
+          <ion-icon name="create-outline" />
+        </ion-item-option>
+        <ion-item-option color="danger" class="botaoAcoes" (click)="excluir(i)">
+          <ion-icon name="trash-outline" />
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
 </div>
+
+<ion-modal [isOpen]="modal">
+
+  <ng-template>
+
+    <main class="container">
+
+      <div class="form">
+
+        <h1 class="tituloForm">Editar Movimentação</h1>
+
+        <ion-input type="text" placeholder="Titulo" class="input tituloEdicao" [(ngModel)]="titulo" />
+
+        <ion-button class="input dateEdicao" (click)="selecionarData()">{{data}}</ion-button>
+
+        <ion-modal [isOpen]="modalDate">
+          <ng-template>
+            <div class="modalData">
+              <div class="calendario">
+
+                <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+                <div class="botoes">
+                  <ion-button (click)="modalData(false)">Cancelar</ion-button>
+                  <ion-button (click)="salvarData()">Salvar</ion-button>
+                </div>
+              </div>
+
+
+            </div>
+          </ng-template>
+        </ion-modal>
+
+        <ion-input type="number" placeholder="R$" class="input valorEdicao" [(ngModel)]="valor" />
+
+        <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipoEdicao"
+          toggleIcon="false" [(ngModel)]="tipo" color="warning">
+
+          <ion-select-option value="1">Saída</ion-select-option>
+          <ion-select-option value="2">Entrada</ion-select-option>
+        </ion-select>
+
+        <ion-button class="button editar" (click)="salvarEdicao()">Editar</ion-button>
+        <ion-button class="button cancelar" (click)="cancelar()">Cancelar</ion-button>
+
+      </div>
+
+    </main>
+
+  </ng-template>
+
+</ion-modal>
