@@ -9,17 +9,14 @@
 }
 
 .card {
-    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 200px;
+    height: auto;
     border-radius: 7px;
-    --box-shadow: 1px 1px 4px #141A26;
-    --background: #e5e5e5;
-    --padding-end: 0;
-    --padding-start: 0;
+    background: #e5e5e5;
 }
 
 .card ion-icon {
@@ -29,9 +26,11 @@
     z-index: 9;
 }
 
-.card ion-img{
-    --padding: 0;
-    width: 480px;
+.card ion-img {
+    width: 100%;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 1px 1px 4px #141A26;
 }
 
 // .card ion-input{

@@ -1,48 +1,44 @@
 <div class="lista">
 
-
-  <ion-button class="card">
-
-
-    <!-- <ion-img src="https://docs-demo.ionic.io/assets/madison.jpg" alt="Image" /> -->
-    <ion-img [src]="imagem" alt="Image" />
+  <div class="card">
 
     <!-- <ion-icon name="add-circle-outline" /> -->
+    <ion-img [src]="imagem" alt="Image" />
 
     <!-- <ion-input type="file" /> -->
 
-  </ion-button>
-
-  <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
-
-    <h3 class="titulo">Histórico</h3>
-
-    <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
-      (ionInput)="searchInput($event)" />
-
   </div>
 
-  <ng-template #nenhumaMovimentacao>
+    <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
 
-    <h3 class="titulo semMovimentacoes">
-      Nenhuma Movimentação Recente
-    </h3>
+      <h3 class="titulo">Histórico</h3>
 
-  </ng-template>
+      <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
+        (ionInput)="searchInput($event)" />
 
-  <ion-list>
+    </div>
 
-    <ion-item class="itemLista" *ngFor="let movimentacao of movimentacoes; let i = index;">
-      <ion-label class="textoEvento">
-        <p class="data">{{ movimentacao.data }}</p>
-        <div class="movimentacao">
-          <p class="title">{{ movimentacao.titulo }}</p>
-          <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
-            {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
-          </p>
-        </div>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <ng-template #nenhumaMovimentacao>
 
-</div>
+      <h3 class="titulo semMovimentacoes">
+        Nenhuma Movimentação Recente
+      </h3>
+
+    </ng-template>
+
+    <ion-list>
+
+      <ion-item class="itemLista" *ngFor="let movimentacao of movimentacoes; let i = index;">
+        <ion-label class="textoEvento">
+          <p class="data">{{ movimentacao.data }}</p>
+          <div class="movimentacao">
+            <p class="title">{{ movimentacao.titulo }}</p>
+            <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
+              {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
+            </p>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </div>

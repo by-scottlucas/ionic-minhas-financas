@@ -14,8 +14,7 @@ export class CartoesPage implements OnInit {
 
   search!: string;
 
-  // imagem = "https://docs-demo.ionic.io/assets/madison.jpg";
-  imagem = '../';
+  imagem = "https://2.bp.blogspot.com/-9qji2RliVpU/Wz4saQZV6JI/AAAAAAAAz6E/Mfxyx3NYfRQkz-JOCAOXpYiDY2u4TDG5ACLcBGAs/s1600/sodexo-meal-pass-card.png";
 
   index: number | null = null
   titulo!: string;
