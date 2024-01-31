@@ -10,8 +10,6 @@ import { FinancasService } from 'src/app/services/financas.service';
 })
 export class ListaComponent implements OnInit {
 
-  public loaded = false;
-
   dataAtual = new Date().toISOString();
 
   search!: string;
@@ -27,7 +25,7 @@ export class ListaComponent implements OnInit {
   modal = false;
   modalDate = false;
 
-  constructor(private financasService: FinancasService, private router:  Router) {
+  constructor(private financasService: FinancasService, private router: Router) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
 
@@ -89,8 +87,8 @@ export class ListaComponent implements OnInit {
 
   }
 
-  async excluir(index: number) {
-    await this.financasService.delete(index);
+  excluir(index: number) {
+    this.financasService.delete(index);
     location.reload();
   }
 

@@ -1,12 +1,8 @@
-<!-- <app-actions /> -->
-
 <div class="lista">
 
   <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
 
     <h3 class="titulo">Últimas movimentações</h3>
-
-    <!-- <app-search-bar (ionInput)="searchInput($event)" /> -->
 
     <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
       (ionInput)="searchInput($event)" />
