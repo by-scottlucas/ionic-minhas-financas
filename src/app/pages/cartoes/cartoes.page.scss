@@ -33,9 +33,57 @@
     box-shadow: 1px 1px 4px #141A26;
 }
 
-// .card ion-input{
-//     opacity: 0;
-// }
+.display {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+    padding: 1px 25px;
+    background: #f7f7f7;
+    margin-bottom: 10px;
+}
+
+.coluna {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+    background: transparent;
+}
+
+.saldo {
+    color: #000;
+    margin-right: 2px;
+}
+
+.saldoTexto {
+    margin-left: 2px;
+    font-size: 1.2rem;
+    color: #2ecc71;
+}
+
+.gastos {
+    color: #000;
+}
+
+.gastosTexto {
+    margin-left: 4px;
+    font-size: 1.2rem;
+    color: #e74c3c;
+}
+
+.title {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.valor {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
 
 .titulo {
     margin-top: 20px;

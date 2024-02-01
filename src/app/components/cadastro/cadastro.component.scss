@@ -116,10 +116,9 @@ ion-datetime {
     padding: 0px 15px;
     height: 50px;
     background: #eaeaea;
-}
-
-ion-select[popover] {
-    --background: #fff !important;
+    --highlight-color-focused: transparent;
+    --highlight-color-invalid: transparent;
+    --highlight-color-valid: transparent;
 }
 
 .button {

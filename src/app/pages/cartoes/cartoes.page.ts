@@ -10,22 +10,13 @@ import { FinancasService } from 'src/app/services/financas.service';
 })
 export class CartoesPage implements OnInit {
 
-  dataAtual = new Date().toISOString();
+  saldo: number = 885;
+  gastos: number = 0;
 
   search!: string;
-
   imagem = "https://2.bp.blogspot.com/-9qji2RliVpU/Wz4saQZV6JI/AAAAAAAAz6E/Mfxyx3NYfRQkz-JOCAOXpYiDY2u4TDG5ACLcBGAs/s1600/sodexo-meal-pass-card.png";
 
-  index: number | null = null
-  titulo!: string;
-  data!: string;
-  valor!: number;
-  tipo!: number;
-
   movimentacoes!: IMovimentacao[];
-
-  modal = false;
-  modalDate = false;
 
   constructor(private financasService: FinancasService, private router: Router) {
     this.movimentacoes = this.financasService.movimentacoes;
@@ -40,6 +31,10 @@ export class CartoesPage implements OnInit {
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
 
+    } else if (this.search.length !== this.movimentacoes[0].titulo.length) {
+      alert("Nenhuma movimentação encontrada");
+      this.search = '';
+
     } else {
       this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
         return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
@@ -47,55 +42,20 @@ export class CartoesPage implements OnInit {
     }
   }
 
-  modalEdicao(open: boolean) {
-    this.modal = open;
+  obterSaldo() {
+
+    this.saldo = this.movimentacoes
+      .filter(movimentacao => movimentacao.tipo == 2)
+      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
+    return true;
   }
 
-  modalData(open: boolean) {
-    this.modalDate = open;
-  }
+  obterGastos() {
 
-  selecionarData(): void {
-    this.modalData(true);
-  }
-
-  salvarData(): void {
-
-    const dataFormatada = this.dataAtual.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1');
-    this.data = dataFormatada;
-
-
-    if (this.data.length !== 0) {
-      this.modalData(false);
-    }
-  }
-
-  editar(movimentacao: IMovimentacao): void {
-    this.index = this.movimentacoes.indexOf(movimentacao);
-    this.titulo = movimentacao.titulo;
-    this.data = movimentacao.data;
-    this.valor = movimentacao.valor;
-    this.tipo = movimentacao.tipo;
-
-    this.modalEdicao(true);
-  }
-
-  salvarEdicao(): void {
-
-    if (this.index !== null && this.titulo) {
-      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo);
-    }
-    this.modalEdicao(false);
-
-  }
-
-  excluir(index: number) {
-    this.financasService.delete(index);
-    location.reload();
-  }
-
-  cancelar() {
-    this.modalEdicao(false);
+    this.gastos = this.movimentacoes
+      .filter(movimentacao => movimentacao.tipo == 1)
+      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
+    return true;
   }
 
 }

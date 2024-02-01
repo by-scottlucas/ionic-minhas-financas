@@ -1,0 +1,25 @@
+<div class="display">
+
+  <div class="coluna saldo" *ngIf="obterSaldo()">
+
+    <ion-text class="title">Investido</ion-text>
+
+    <ion-row class="valor">
+      <ion-text style="font-size: 1rem;">R$</ion-text>
+      <ion-text class="saldoTexto">{{saldo}}</ion-text>
+    </ion-row>
+
+  </div>
+
+  <div class="coluna gastos" *ngIf="obterGastos()">
+
+    <ion-text class="title">Retiradas</ion-text>
+
+    <ion-row class="valor">
+      <ion-text style="font-size: 1rem;">R$</ion-text>
+      <ion-text class="gastosTexto">{{gastos}}</ion-text>
+    </ion-row>
+
+  </div>
+
+</div>

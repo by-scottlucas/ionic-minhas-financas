@@ -1,13 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>investimentos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="lista">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">investimentos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+  <app-header-investimentos />
+
+  <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
+
+    <h3 class="titulo">Histórico</h3>
+
+    <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
+      (ionInput)="searchInput($event)" />
+
+  </div>
+
+  <ion-list>
+
+    <ion-item class="itemLista" *ngFor="let movimentacao of movimentacoes; let i = index;">
+      <ion-label class="textoEvento">
+        <p class="data">{{ movimentacao.data }}</p>
+        <div class="movimentacao">
+          <p class="title">{{ movimentacao.titulo }}</p>
+          <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
+            {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
+          </p>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</div>
+
+<ng-template #nenhumaMovimentacao>
+
+  <h3 class="titulo semMovimentacoes">
+    Nenhuma Movimentação Recente
+  </h3>
+
+</ng-template>

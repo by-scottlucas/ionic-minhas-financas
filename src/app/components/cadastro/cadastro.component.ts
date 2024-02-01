@@ -16,6 +16,7 @@ export class CadastroComponent implements OnInit {
   data: string = "dd/mm/yyyy";
   valor: number | null = null;
   tipo: number | null = null;
+  categoria: number | null = null;
 
   movimentacoes!: IMovimentacao[];
 
@@ -53,11 +54,11 @@ export class CadastroComponent implements OnInit {
 
   cadastrar() {
 
-    if (this.titulo && this.data && this.valor && this.tipo) {
+    if (this.titulo && this.data && this.valor && this.tipo && this.categoria) {
 
       const dataFormatada = this.data.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1');
 
-      this.financasService.create(this.titulo, dataFormatada, this.valor, this.tipo);
+      this.financasService.create(this.titulo, dataFormatada, this.valor, this.tipo, this.categoria);
 
       this.limparInputs();
       this.setOpen(false);

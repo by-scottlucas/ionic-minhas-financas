@@ -9,26 +9,47 @@
 
   </div>
 
-    <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
+  <div class="display">
 
-      <h3 class="titulo">Histórico</h3>
+    <div class="coluna saldo">
 
-      <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
-        (ionInput)="searchInput($event)" />
+      <ion-text class="title">Saldo</ion-text>
+
+      <ion-row class="valor">
+        <ion-text style="font-size: 1rem;">R$ </ion-text>
+        <ion-text class="saldoTexto">{{saldo - gastos}}</ion-text>
+      </ion-row>
 
     </div>
 
-    <ng-template #nenhumaMovimentacao>
+    <div class="coluna gastos" *ngIf="obterGastos()">
 
-      <h3 class="titulo semMovimentacoes">
-        Nenhuma Movimentação Recente
-      </h3>
+      <ion-text class="title">Gastos</ion-text>
 
-    </ng-template>
+      <ion-row class="valor">
+        <ion-text style="font-size: 1rem;">R$</ion-text>
+        <ion-text class="gastosTexto">{{gastos}}</ion-text>
+      </ion-row>
 
-    <ion-list>
+    </div>
 
-      <ion-item class="itemLista" *ngFor="let movimentacao of movimentacoes; let i = index;">
+  </div>
+
+  <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
+
+    <h3 class="titulo">Histórico</h3>
+
+    <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
+      (ionInput)="searchInput($event)" />
+
+  </div>
+
+  <ion-list>
+
+    <div *ngFor="let movimentacao of movimentacoes; let i = index;">
+
+      <ion-item class="itemLista" *ngIf="movimentacao.categoria == 1; else nenhumaMovimentacao">
+
         <ion-label class="textoEvento">
           <p class="data">{{ movimentacao.data }}</p>
           <div class="movimentacao">
@@ -38,7 +59,19 @@
             </p>
           </div>
         </ion-label>
-      </ion-item>
-    </ion-list>
 
-  </div>
+      </ion-item>
+
+    </div>
+
+  </ion-list>
+
+</div>
+
+<ng-template #nenhumaMovimentacao>
+
+  <h3 class="titulo semMovimentacoes">
+    Nenhuma Movimentação Recente
+  </h3>
+
+</ng-template>

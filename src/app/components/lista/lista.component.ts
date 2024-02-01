@@ -19,6 +19,7 @@ export class ListaComponent implements OnInit {
   data!: string;
   valor!: number;
   tipo!: number;
+  categoria!: number;
 
   movimentacoes!: IMovimentacao[];
 
@@ -37,6 +38,10 @@ export class ListaComponent implements OnInit {
 
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
+
+    } else if (this.search.length !== this.movimentacoes[0].titulo.length) {
+      alert("Nenhuma movimentação encontrada");
+      this.search = '';
 
     } else {
       this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
@@ -74,6 +79,7 @@ export class ListaComponent implements OnInit {
     this.data = movimentacao.data;
     this.valor = movimentacao.valor;
     this.tipo = movimentacao.tipo;
+    this.categoria = movimentacao.categoria;
 
     this.modalEdicao(true);
   }
@@ -81,7 +87,7 @@ export class ListaComponent implements OnInit {
   salvarEdicao(): void {
 
     if (this.index !== null && this.titulo) {
-      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo);
+      this.financasService.update(this.index, this.titulo, this.data, this.valor, this.tipo, this.categoria);
     }
     this.modalEdicao(false);
 
@@ -89,7 +95,6 @@ export class ListaComponent implements OnInit {
 
   excluir(index: number) {
     this.financasService.delete(index);
-    location.reload();
   }
 
   cancelar() {

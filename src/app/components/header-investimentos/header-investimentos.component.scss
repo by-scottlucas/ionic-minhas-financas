@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.display {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 25px;
+    background: #f7f7f7;
+    margin-bottom: 10px;
+}
+
+.coluna {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 2px;
+    background: transparent;
+}
+
+.saldo {
+    color: #000;
+    margin-right: 2px;
+}
+
+.saldoTexto {
+    margin-left: 4px;
+    font-size: 1.2rem;
+    color: #2ecc71;
+}
+
+.gastos {
+    color: #000;
+}
+
+.gastosTexto {
+    margin-left: 4px;
+    font-size: 1.2rem;
+    color: #e74c3c;
+}
+
+.title {
+    font-size: 1.2rem;
+}
+
+.valor {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
