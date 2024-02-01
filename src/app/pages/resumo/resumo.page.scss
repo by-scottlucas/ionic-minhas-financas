@@ -1,6 +1,11 @@
+ion-list {
+    background: #e5e5e5;
+}
+
 ion-item {
+    color: #000;
     margin-bottom: 8px;
     --border-width: 0;
-    --background: #dedede;
+    --background: #fff;
     --border-color: transparent;
 }

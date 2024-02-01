@@ -14,7 +14,7 @@ export class CartoesPage implements OnInit {
   gastos: number = 0;
 
   search!: string;
-  imagem = "https://2.bp.blogspot.com/-9qji2RliVpU/Wz4saQZV6JI/AAAAAAAAz6E/Mfxyx3NYfRQkz-JOCAOXpYiDY2u4TDG5ACLcBGAs/s1600/sodexo-meal-pass-card.png";
+  imagem = "../../../assets/card.png";
 
   movimentacoes!: IMovimentacao[];
 
@@ -43,17 +43,15 @@ export class CartoesPage implements OnInit {
   }
 
   obterSaldo() {
-
     this.saldo = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 2)
+      .filter(movimentacao => movimentacao.tipo == 2 && movimentacao.categoria == 1)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }
 
   obterGastos() {
-
     this.gastos = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 1)
+      .filter(movimentacao => movimentacao.tipo == 1 && movimentacao.categoria == 1)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }

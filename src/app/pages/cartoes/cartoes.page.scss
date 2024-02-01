@@ -9,14 +9,15 @@
 }
 
 .card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: auto;
-    border-radius: 7px;
-    background: #e5e5e5;
+    min-height: 200px;
+    background: transparent;
 }
 
 .card ion-icon {
@@ -26,9 +27,14 @@
     z-index: 9;
 }
 
+.card ion-input {
+    position: absolute;
+    opacity: 0;
+}
+
 .card ion-img {
     width: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
     background: #fff;
     box-shadow: 1px 1px 4px #141A26;
 }

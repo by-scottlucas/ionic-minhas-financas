@@ -23,7 +23,7 @@ export class HeaderInvestimentosComponent implements OnInit {
   obterSaldo() {
 
     this.saldo = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 2)
+      .filter(movimentacao => movimentacao.tipo == 2 && movimentacao.categoria == 2)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }
@@ -31,7 +31,7 @@ export class HeaderInvestimentosComponent implements OnInit {
   obterGastos() {
 
     this.gastos = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 1)
+      .filter(movimentacao => movimentacao.tipo == 1 && movimentacao.categoria == 2)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }

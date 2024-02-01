@@ -11,6 +11,7 @@ import { FinancasService } from 'src/app/services/financas.service';
 export class InvestimentosPage implements OnInit {
 
   search!: string;
+  
   movimentacoes!: IMovimentacao[];
 
   constructor(private financasService: FinancasService, private router: Router) {
