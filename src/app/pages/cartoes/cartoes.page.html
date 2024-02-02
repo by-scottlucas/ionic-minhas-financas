@@ -4,35 +4,11 @@
 
     <ion-img [src]="imagem" alt="Image" />
 
-    <ion-input type="file" />
+    <!-- <ion-input type="file" /> -->
 
   </div>
 
-  <div class="display">
-
-    <div class="coluna saldo">
-
-      <ion-text class="title">Saldo</ion-text>
-
-      <ion-row class="valor">
-        <ion-text style="font-size: 1rem;">R$ </ion-text>
-        <ion-text class="saldoTexto">{{saldo - gastos}}</ion-text>
-      </ion-row>
-
-    </div>
-
-    <div class="coluna gastos" *ngIf="obterGastos()">
-
-      <ion-text class="title">Gastos</ion-text>
-
-      <ion-row class="valor">
-        <ion-text style="font-size: 1rem;">R$</ion-text>
-        <ion-text class="gastosTexto">{{gastos}}</ion-text>
-      </ion-row>
-
-    </div>
-
-  </div>
+  <app-header-cartoes />
 
   <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
 
@@ -43,11 +19,11 @@
 
   </div>
 
-  <ion-list>
+  <ion-list *ngIf="movimentacoes.length > 0">
 
     <div *ngFor="let movimentacao of movimentacoes; let i = index;">
 
-      <ion-item class="itemLista" *ngIf="movimentacao.categoria == 1; else nenhumaMovimentacao">
+      <ion-item class="itemLista" *ngIf="movimentacao.categoria == 1;">
 
         <ion-label class="textoEvento">
           <p class="data">{{ movimentacao.data }}</p>

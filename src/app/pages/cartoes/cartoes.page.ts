@@ -10,11 +10,8 @@ import { FinancasService } from 'src/app/services/financas.service';
 })
 export class CartoesPage implements OnInit {
 
-  saldo: number = 885;
-  gastos: number = 0;
-
   search!: string;
-  imagem = "../../../assets/card.png";
+  imagem = "../../../assets/card1.png";
 
   movimentacoes!: IMovimentacao[];
 
@@ -25,35 +22,22 @@ export class CartoesPage implements OnInit {
   ngOnInit() { }
 
   searchInput(event: any) {
-
-    this.search = event.target.value;
+    this.search = event.target.value.trim().toLowerCase();
 
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
-
-    } else if (this.search.length !== this.movimentacoes[0].titulo.length) {
-      alert("Nenhuma movimentação encontrada");
-      this.search = '';
-
     } else {
-      this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
-        return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
+      const filtroMovimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
+        return movimentacao.titulo.toLowerCase().includes(this.search);
       });
+
+      if (filtroMovimentacoes.length === 0) {
+        alert("Nenhuma movimentação encontrada");
+        this.search = '';
+      } else {
+        this.movimentacoes = filtroMovimentacoes;
+      }
     }
-  }
-
-  obterSaldo() {
-    this.saldo = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 2 && movimentacao.categoria == 1)
-      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
-    return true;
-  }
-
-  obterGastos() {
-    this.gastos = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 1 && movimentacao.categoria == 1)
-      .reduce((total, movimentacao) => total + movimentacao.valor, 0);
-    return true;
   }
 
 }

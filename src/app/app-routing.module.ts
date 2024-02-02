@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'investimentos',
     loadChildren: () => import('./pages/investimentos/investimentos.module').then( m => m.InvestimentosPageModule)
+  },  {
+    path: 'resumo-mes',
+    loadChildren: () => import('./pages/resumo-mes/resumo-mes.module').then( m => m.ResumoMesPageModule)
   },
+
 
 ];
 

@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CartoesPageRoutingModule } from './cartoes-routing.module';
 
 import { CartoesPage } from './cartoes.page';
+import { HeaderCartoesModule } from 'src/app/components/header-cartoes/header-cartoes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CartoesPageRoutingModule
+    CartoesPageRoutingModule,
+    HeaderCartoesModule
   ],
   declarations: [CartoesPage]
 })
-export class CartoesPageModule {}
+export class CartoesPageModule { }

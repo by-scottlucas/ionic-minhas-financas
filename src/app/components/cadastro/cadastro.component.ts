@@ -81,5 +81,6 @@ export class CadastroComponent implements OnInit {
     this.data = "dd/mm/yyyy";
     this.valor = null;
     this.tipo = null;
+    this.categoria = null;
   }
 }
