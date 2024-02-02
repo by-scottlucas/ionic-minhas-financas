@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ResumoMesPageRoutingModule } from './resumo-mes-routing.module';
 
 import { ResumoMesPage } from './resumo-mes.page';
+import { HeaderModule } from 'src/app/components/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ResumoMesPageRoutingModule
+    ResumoMesPageRoutingModule,
+    HeaderModule
   ],
   declarations: [ResumoMesPage]
 })

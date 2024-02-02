@@ -22,15 +22,32 @@
     <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index;">
 
       <ion-item class="itemLista">
+
         <ion-label class="textoEvento">
+
           <p class="data">{{ movimentacao.data }}</p>
+
           <div class="movimentacao">
+
             <p class="title">{{ movimentacao.titulo }}</p>
-            <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
-              {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
+
+            <p class="valor" [style.color]="
+            movimentacao.tipo == 1 && movimentacao.categoria == 1 ||
+            movimentacao.tipo == 1 && movimentacao.categoria == 3 ||
+            movimentacao.tipo == 2 && movimentacao.categoria == 2 ? '#e74c3c' : '#2ecc71'">
+
+              {{
+              movimentacao.tipo == 1 && movimentacao.categoria == 1 ||
+              movimentacao.tipo == 1 && movimentacao.categoria == 3 ||
+              movimentacao.tipo == 2 && movimentacao.categoria == 2 ? '-R$ ' : 'R$ '
+              }}{{ movimentacao.valor }}
+
             </p>
+
           </div>
+
         </ion-label>
+
       </ion-item>
 
       <ion-item-options>

@@ -21,20 +21,21 @@ export class InvestimentosPage implements OnInit {
   ngOnInit() { }
 
   searchInput(event: any) {
-
-    this.search = event.target.value;
+    this.search = event.target.value.trim().toLowerCase();
 
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
-
-    } else if (this.search.length !== this.movimentacoes[0].titulo.length) {
-      alert("Nenhuma movimentação encontrada");
-      this.search = '';
-
     } else {
-      this.movimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
-        return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
+      const filtroMovimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
+        return movimentacao.titulo.toLowerCase().includes(this.search);
       });
+
+      if (filtroMovimentacoes.length === 0) {
+        alert("Nenhuma movimentação encontrada");
+        this.search = '';
+      } else {
+        this.movimentacoes = filtroMovimentacoes;
+      }
     }
   }
 

@@ -23,7 +23,10 @@ export class HeaderComponent implements OnInit {
   obterSaldo() {
 
     this.saldo = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 2)
+      .filter(movimentacao =>
+        movimentacao.tipo == 2 && movimentacao.categoria == 1 ||
+        movimentacao.tipo == 2 && movimentacao.categoria == 3 ||
+        movimentacao.tipo == 1 && movimentacao.categoria == 2)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }
@@ -31,7 +34,10 @@ export class HeaderComponent implements OnInit {
   obterGastos() {
 
     this.gastos = this.movimentacoes
-      .filter(movimentacao => movimentacao.tipo == 1)
+      .filter(movimentacao =>
+        movimentacao.tipo == 1 && movimentacao.categoria == 1 ||
+        movimentacao.tipo == 1 && movimentacao.categoria == 3 ||
+        movimentacao.tipo == 2 && movimentacao.categoria == 2)
       .reduce((total, movimentacao) => total + movimentacao.valor, 0);
     return true;
   }
