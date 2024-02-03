@@ -71,7 +71,7 @@ export class CadastroComponent implements OnInit {
 
   }
 
-  cancelar(){
+  cancelar() {
     this.limparInputs();
     this.setOpen(false);
   }

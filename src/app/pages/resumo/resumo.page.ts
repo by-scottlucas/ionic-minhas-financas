@@ -19,9 +19,9 @@ export class ResumoPage implements OnInit {
   ngOnInit() { }
 
 
-  janeiro() {
-    alert("Janeiro!!");
-    this.router.navigate(["/resumo-mes"]);
-  }
+  // janeiro() {
+  //   alert("Janeiro!!");
+  //   this.router.navigate(["/resumo-mes"]);
+  // }
 
 }
