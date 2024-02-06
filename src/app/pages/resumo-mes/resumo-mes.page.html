@@ -17,7 +17,7 @@
 
         <ion-row class="valor">
           <ion-text style="font-size: 1rem;">R$</ion-text>
-          <ion-text class="saldoTexto">{{saldo > 0 ? (saldo - gastos).toFixed(2) : 0}}</ion-text>
+          <ion-text class="saldoTexto">{{saldo > 0 ? (saldo).toFixed(2) : 0}}</ion-text>
         </ion-row>
 
       </div>
@@ -53,7 +53,14 @@
           <p class="data">{{ movimentacao.data }}</p>
           <div class="movimentacao">
             <p class="title">{{ movimentacao.titulo }}</p>
-            <p class="valor" [style.color]="movimentacao.tipo == 1 ? '#e74c3c' : '#2ecc71'">
+            <p class="valor" [style.color]="
+            (movimentacao.tipo == 1 && movimentacao.categoria == 1) ||
+            (movimentacao.tipo == 1 && movimentacao.categoria == 2) ||
+            (movimentacao.tipo == 1 && movimentacao.categoria == 3) ? '#e74c3c' :
+            (movimentacao.tipo == 2 && movimentacao.categoria == 1) ? '#024060' :
+            (movimentacao.tipo == 2 && movimentacao.categoria == 2) ? '#E48200' :
+            (movimentacao.tipo == 2 && movimentacao.categoria == 3) ? '#2ecc71' : ''
+          ">
               {{ movimentacao.tipo == 1 ? '-R$ ' : 'R$ ' }}{{ movimentacao.valor }}
             </p>
           </div>

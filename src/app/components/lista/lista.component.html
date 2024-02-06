@@ -32,14 +32,19 @@
             <p class="title">{{ movimentacao.titulo }}</p>
 
             <p class="valor" [style.color]="
-            movimentacao.tipo == 1 && movimentacao.categoria == 1 ||
-            movimentacao.tipo == 1 && movimentacao.categoria == 3 ||
-            movimentacao.tipo == 2 && movimentacao.categoria == 2 ? '#e74c3c' : '#2ecc71'">
+              (movimentacao.tipo == 1 && movimentacao.categoria == 1) ||
+              (movimentacao.tipo == 1 && movimentacao.categoria == 2) ||
+              (movimentacao.tipo == 1 && movimentacao.categoria == 3) ? '#e74c3c' :
+              (movimentacao.tipo == 2 && movimentacao.categoria == 1) ? '#024060' :
+              (movimentacao.tipo == 2 && movimentacao.categoria == 2) ? '#E48200' :
+              (movimentacao.tipo == 2 && movimentacao.categoria == 3) ? '#2ecc71' : ''
+            ">
+
 
               {{
-              movimentacao.tipo == 1 && movimentacao.categoria == 1 ||
-              movimentacao.tipo == 1 && movimentacao.categoria == 3 ||
-              movimentacao.tipo == 2 && movimentacao.categoria == 2 ? '-R$ ' : 'R$ '
+              (movimentacao.tipo == 1 && movimentacao.categoria == 1) ||
+              (movimentacao.tipo == 1 && movimentacao.categoria == 2) ||
+              (movimentacao.tipo == 1 && movimentacao.categoria == 3) ? '-R$ ' : 'R$ '
               }}{{ movimentacao.valor }}
 
             </p>

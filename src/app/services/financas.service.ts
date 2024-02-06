@@ -13,6 +13,7 @@ export class FinancasService {
 
   constructor(private storageService: StorageService) {
     this.movimentacoes = this.storageService.getData(movimentacoesStorageKey) || [];
+    this.ordenarPorData();
   }
 
   private save(): void {
@@ -25,8 +26,9 @@ export class FinancasService {
 
   create(titulo: string, data: string, valor: number, tipo: number, categoria: number): void {
     const novaMovimentacao: IMovimentacao = { titulo, data, valor, tipo, categoria };
-    this.movimentacoes.unshift(novaMovimentacao);
+    this.movimentacoes.push(novaMovimentacao);
     this.save();
+    this.ordenarPorData();
   }
 
   read(index: number): IMovimentacao {
@@ -37,12 +39,19 @@ export class FinancasService {
     if (index >= 0 && this.movimentacoes.length) {
       this.movimentacoes[index] = { titulo, data, valor, tipo, categoria };
       this.save();
+      this.ordenarPorData();
     }
   }
 
   delete(index: number): void {
     this.movimentacoes.splice(index, 1);
     this.save();
+  }
+
+  ordenarPorData() {
+    this.movimentacoes.sort((a, b) => {
+      return new Date(b.data).getTime() - new Date(a.data).getTime();
+    });
   }
 
 }

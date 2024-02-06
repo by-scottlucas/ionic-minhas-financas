@@ -26,7 +26,7 @@ export class ListaComponent implements OnInit {
   modal = false;
   modalDate = false;
 
-  constructor(private financasService: FinancasService, private router: Router) {
+  constructor(private financasService: FinancasService) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
 
@@ -48,6 +48,7 @@ export class ListaComponent implements OnInit {
         return movimentacao.titulo.toLowerCase().includes(this.search.toLowerCase());
       });
     }
+
   }
 
   modalEdicao(open: boolean) {

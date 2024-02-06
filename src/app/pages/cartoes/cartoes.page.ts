@@ -15,7 +15,7 @@ export class CartoesPage implements OnInit {
 
   movimentacoes!: IMovimentacao[];
 
-  constructor(private financasService: FinancasService, private router: Router) {
+  constructor(private financasService: FinancasService) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
 
@@ -26,6 +26,7 @@ export class CartoesPage implements OnInit {
 
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
+
     } else {
       const filtroMovimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
         return movimentacao.titulo.toLowerCase().includes(this.search);

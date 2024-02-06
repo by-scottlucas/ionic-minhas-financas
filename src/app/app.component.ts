@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FinancasService } from './services/financas.service';
+import { IMovimentacao } from './models/IMovimentacao';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor() { }
+
 }
