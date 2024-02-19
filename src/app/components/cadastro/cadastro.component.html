@@ -4,60 +4,64 @@
 
 <ion-modal [isOpen]="modal">
 
-  <ng-template>
+  <ion-content>
 
-    <main class="container">
+    <ng-template>
 
-      <div class="form">
+      <main class="container">
 
-        <h1 class="tituloForm">Nova Movimentação</h1>
+        <div class="form">
 
-        <ion-input type="text" placeholder="Titulo" class="input titulo" [(ngModel)]="titulo" />
+          <h1 class="tituloForm">Nova Movimentação</h1>
 
-        <ion-button class="input date" (click)="selecionarData()">{{data}}</ion-button>
+          <ion-input type="text" placeholder="Titulo" class="input titulo" [(ngModel)]="titulo" />
 
-        <ion-modal [isOpen]="modalDate">
-          <ng-template>
-            <div class="modalData">
-              <div class="calendario">
+          <ion-button class="input date" (click)="selecionarData()">{{data}}</ion-button>
 
-                <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+          <ion-modal [isOpen]="modalDate">
+            <ng-template>
+              <div class="modalData">
+                <div class="calendario">
 
-                <div class="botoes">
-                  <ion-button (click)="modalData(false)">Cancelar</ion-button>
-                  <ion-button (click)="salvarData()">Salvar</ion-button>
+                  <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataAtual" />
+
+                  <div class="botoes">
+                    <ion-button (click)="modalData(false)">Cancelar</ion-button>
+                    <ion-button (click)="salvarData()">Salvar</ion-button>
+                  </div>
                 </div>
+
+
               </div>
+            </ng-template>
+          </ion-modal>
 
+          <ion-input type="number" placeholder="R$" class="input valor" [(ngModel)]="valor" />
 
-            </div>
-          </ng-template>
-        </ion-modal>
+          <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
+            toggleIcon="false" [(ngModel)]="tipo" interface-options="background: none">
 
-        <ion-input type="number" placeholder="R$" class="input valor" [(ngModel)]="valor" />
+            <ion-select-option value="1">Saída</ion-select-option>
+            <ion-select-option value="2">Entrada</ion-select-option>
+          </ion-select>
 
-        <ion-select justify="space-between" placeholder="Escolha uma opção" interface="popover" class="input tipo"
-          toggleIcon="false" [(ngModel)]="tipo" interface-options="background: none">
+          <ion-select justify="space-between" placeholder="Categoria" interface="popover" class="input tipo"
+            toggleIcon="false" [(ngModel)]="categoria" interface-options="background: none">
 
-          <ion-select-option value="1">Saída</ion-select-option>
-          <ion-select-option value="2">Entrada</ion-select-option>
-        </ion-select>
+            <ion-select-option value="1">Cartões</ion-select-option>
+            <ion-select-option value="2">Investimentos</ion-select-option>
+            <ion-select-option value="3">Conta</ion-select-option>
+          </ion-select>
 
-        <ion-select justify="space-between" placeholder="Categoria" interface="popover" class="input tipo"
-          toggleIcon="false" [(ngModel)]="categoria" interface-options="background: none">
+          <ion-button class="button adicionar" (click)="cadastrar()">Adicionar</ion-button>
+          <ion-button class="button cancelar" (click)="cancelar()">Cancelar</ion-button>
 
-          <ion-select-option value="1">Cartões</ion-select-option>
-          <ion-select-option value="2">Investimentos</ion-select-option>
-          <ion-select-option value="3">Outros</ion-select-option>
-        </ion-select>
+        </div>
 
-        <ion-button class="button adicionar" (click)="cadastrar()">Adicionar</ion-button>
-        <ion-button class="button cancelar" (click)="cancelar()">Cancelar</ion-button>
+      </main>
 
-      </div>
+    </ng-template>
 
-    </main>
-
-  </ng-template>
+  </ion-content>
 
 </ion-modal>

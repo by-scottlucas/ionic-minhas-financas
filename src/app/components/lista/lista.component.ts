@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
@@ -9,6 +8,8 @@ import { FinancasService } from 'src/app/services/financas.service';
   styleUrls: ['./lista.component.scss'],
 })
 export class ListaComponent implements OnInit {
+
+  public loaded = false;
 
   dataAtual = new Date().toISOString();
 
@@ -30,7 +31,7 @@ export class ListaComponent implements OnInit {
     this.movimentacoes = this.financasService.movimentacoes;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   searchInput(event: any) {
 

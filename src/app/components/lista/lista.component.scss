@@ -26,7 +26,24 @@
     --background: #fff;
 }
 
+.skeleton-btn {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-bottom: 0;
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 0;
+    color: #000;
+    --background: transparent;
+}
+
+.skeleton-btn p {
+    width: 90%;
+    text-align: start;
+}
+
 ion-list {
+    margin-top: 0;
     background: transparent;
 }
 

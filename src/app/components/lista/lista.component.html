@@ -1,23 +1,24 @@
 <div class="lista">
 
   <div *ngIf="movimentacoes.length; else nenhumaMovimentacao">
-
     <h3 class="titulo">Últimas movimentações</h3>
 
     <ion-searchbar class="searchBar" placeholder="Buscar movimentação" [(ngModel)]="search"
       (ionInput)="searchInput($event)" />
 
+    <ion-button (click)="loaded == true ? loaded = false : loaded = true" class="skeleton-btn">
+      <p>{{loaded == false ? 'Exibir detalhes' : 'Ocultar'}}</p>
+      <ion-icon [name]="loaded == false ? 'eye-outline' : 'eye-off-outline'" />
+    </ion-button>
   </div>
 
   <ng-template #nenhumaMovimentacao>
-
     <h3 class="titulo semMovimentacoes">
       Nenhuma Movimentação Recente
     </h3>
-
   </ng-template>
 
-  <ion-list>
+  <ion-list *ngIf="loaded">
 
     <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index;">
 
@@ -47,6 +48,47 @@
               (movimentacao.tipo == 1 && movimentacao.categoria == 3) ? '-R$ ' : 'R$ '
               }}{{ movimentacao.valor }}
 
+            </p>
+
+          </div>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option class="botaoAcoes" (click)="editar(movimentacao)">
+          <ion-icon name="create-outline" />
+        </ion-item-option>
+        <ion-item-option color="danger" class="botaoAcoes" (click)="excluir(i)">
+          <ion-icon name="trash-outline" />
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- EFEITO SKELETON -->
+
+  <ion-list *ngIf="!loaded">
+
+    <ion-item-sliding class="itemSlide" *ngFor="let movimentacao of movimentacoes; let i = index;">
+
+      <ion-item class="itemLista">
+
+        <ion-label class="textoEvento">
+
+          <p class="data">
+            <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
+          </p>
+
+          <div class="movimentacao">
+
+            <p class="title">
+              <ion-skeleton-text [animated]="true" style="width: 180px"></ion-skeleton-text>
+            </p>
+
+            <p class="valor">
+              <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
             </p>
 
           </div>

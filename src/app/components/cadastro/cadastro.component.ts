@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController, IonAlert } from '@ionic/angular';
 import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
@@ -23,7 +24,11 @@ export class CadastroComponent implements OnInit {
   modal = false;
   modalDate = false;
 
-  constructor(private router: Router, private financasService: FinancasService) {
+  constructor(
+    private router: Router,
+    private financasService: FinancasService,
+    private alert: AlertController
+  ) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
 
@@ -63,7 +68,10 @@ export class CadastroComponent implements OnInit {
       this.limparInputs();
       this.setOpen(false);
 
-      alert('Movimentação registrada com sucesso!');
+      this.alert.create({
+        message: 'Movimentação registrada com sucesso!',
+        buttons: ["Ok"]
+      }).then(alert => alert.present());
 
     } else {
       alert('Por favor preencha todos os campos');
