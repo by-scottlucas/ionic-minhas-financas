@@ -1,27 +1,8 @@
 <ion-tabs>
-
   <ion-tab-bar slot="bottom">
-
-    <ion-tab-button tab="home">
-      <ion-icon name="wallet-outline"></ion-icon>
-      Carteira
+    <ion-tab-button *ngFor="let tabItem of tabs" [tab]="tabItem.page">
+      <ion-icon [name]="tabItem.icon"></ion-icon>
+      {{tabItem.label}}
     </ion-tab-button>
-
-    <ion-tab-button tab="cartoes">
-      <ion-icon name="card-outline"></ion-icon>
-      Cartões
-    </ion-tab-button>
-
-    <ion-tab-button tab="investimentos">
-      <ion-icon name="stats-chart-outline"></ion-icon>
-      Investimentos
-    </ion-tab-button>
-
-    <ion-tab-button tab="resumo-mes">
-      <ion-icon name="analytics-outline"></ion-icon>
-      Resumo
-    </ion-tab-button>
-
   </ion-tab-bar>
-
 </ion-tabs>
