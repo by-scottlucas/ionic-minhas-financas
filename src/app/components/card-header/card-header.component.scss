@@ -1,0 +1,49 @@
+.balance-card {
+  width: 92%;
+  margin: 18px auto;
+  padding: 12px 10px;
+  --background: #FFF;
+
+  .balance-title {
+    color: #000;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .positive-value {
+    color: #2ecc71;
+  }
+
+  .negative-value {
+    color: #e90d0d;
+  }
+
+  .balance-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 4px;
+  }
+
+  .column-style {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .month-withdrawals-col {
+    text-align: end;
+  }
+
+  .transactions-info {
+    .transaction-title {
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .transaction-value {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+  }
+}

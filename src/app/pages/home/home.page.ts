@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedModule } from '../../shared/shared/shared.module';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor() {}
+  balanceTitle = 'Saldo do Mês';
+  balanceValue = 7000.25;
+
+  firstTitle = 'Entradas';
+  firstValue = 100.25;
+  firstValuePositive = true;
+
+  secondTitle = 'Saídas';
+  secondValue = 49.9;
+  secondValuePositive = false;
 }

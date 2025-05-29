@@ -1,4 +1,18 @@
 <ion-content [fullscreen]="true">
-  <app-header />
+  <app-card-header
+    [balanceTitle]="balanceTitle"
+    [balanceValue]="balanceValue"
+    [firstTitle]="firstTitle"
+    [firstValue]="firstValue"
+    [firstValuePositive]="firstValuePositive"
+    [secondTitle]="secondTitle"
+    [secondValue]="secondValue"
+    [secondValuePositive]="secondValuePositive"
+  ></app-card-header>
+
+  <ion-button expand="block" class="new-transaction-button">
+    Adicionar Movimentação
+  </ion-button>
+
   <app-lista />
 </ion-content>
