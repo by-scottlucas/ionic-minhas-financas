@@ -6,15 +6,16 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastroModule } from './components/cadastro/cadastro.module';
-import { TabBarComponent } from './components/tab-bar/tab-bar.component';
+import { SharedModule } from './shared/shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, TabBarComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     CadastroModule,
+    SharedModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
