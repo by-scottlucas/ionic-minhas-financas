@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { SharedModule } from '../../shared/shared/shared.module';
+import { ModalController } from '@ionic/angular';
+import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 
 @Component({
   selector: 'app-home',
@@ -17,4 +18,17 @@ export class HomePage {
   secondTitle = 'Saídas';
   secondValue = 49.9;
   secondValuePositive = false;
+
+  constructor(private modalCtrl: ModalController) {}
+
+  async showModal() {
+    const modal = await this.modalCtrl.create({
+      component: TransactionFormComponent,
+      cssClass: 'glass-modal',
+      showBackdrop: true,
+      backdropDismiss: true,
+    });
+
+    modal.present();
+  }
 }

@@ -1,25 +1,29 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CardHeaderComponent } from 'src/app/components/card-header/card-header.component';
-import { FormsModule } from '@angular/forms';
+import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
+import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 
 @NgModule({
   declarations: [
     TabBarComponent,
-    CardHeaderComponent
+    CardHeaderComponent,
+    TransactionFormComponent
   ],
   imports: [
     IonicModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     IonicModule,
     FormsModule,
     TabBarComponent,
-    CardHeaderComponent
+    CardHeaderComponent,
+    TransactionFormComponent
   ],
 })
 export class SharedModule {}

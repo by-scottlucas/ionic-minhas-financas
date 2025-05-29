@@ -7,7 +7,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CadastroModule } from './components/cadastro/cadastro.module';
 import { SharedModule } from './shared/shared/shared.module';
 
 registerLocaleData(localePt);
@@ -18,7 +17,6 @@ registerLocaleData(localePt);
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    CadastroModule,
     SharedModule,
   ],
   providers: [

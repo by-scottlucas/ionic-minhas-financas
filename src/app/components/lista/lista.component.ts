@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IMovimentacao } from 'src/app/models/IMovimentacao';
 import { FinancasService } from 'src/app/services/financas.service';
 
@@ -7,7 +7,7 @@ import { FinancasService } from 'src/app/services/financas.service';
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.scss'],
 })
-export class ListaComponent implements OnInit {
+export class ListaComponent {
 
   public loaded = false;
 
