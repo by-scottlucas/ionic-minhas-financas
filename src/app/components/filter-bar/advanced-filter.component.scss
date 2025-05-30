@@ -10,11 +10,11 @@ input[type='number'] {
 
 .main-container {
   height: 100%;
+  padding: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  padding: 30px;
   background: transparent;
 }
 
@@ -34,7 +34,7 @@ input[type='number'] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .header-title {
@@ -59,9 +59,17 @@ input[type='number'] {
 }
 
 .modal-inputs {
-  width: 100%;
+  gap: 8px;
   display: flex;
   flex-direction: column;
+}
+
+ion-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row !important;
+  width: 100%;
+  gap: 10px;
 }
 
 .label-style {
@@ -75,7 +83,7 @@ input[type='number'] {
   margin-top: 6px;
   background: transparent;
   border: 1px solid #afafaf;
-  padding-left: 14px;
+  padding-left: 14px !important;
   border-radius: 5px;
   outline: none;
   transition: all 300ms ease-in-out;
@@ -83,14 +91,6 @@ input[type='number'] {
   &:focus {
     border-color: #5856D6;
   }
-}
-
-.title-group {
-  padding: 0 5px;
-}
-
-.row-group {
-  margin-top: 20px;
 }
 
 .input-select {
@@ -105,44 +105,10 @@ input[type='number'] {
   right: 5%;
 }
 
-.transparent-button {
-  font-size: 1rem;
-}
-
-.transparent-button::part(native) {
-  background: transparent !important;
-  --background: transparent !important;
-  --color: #000000 !important;
-  color: #000000 !important;
-  box-shadow: none !important;
-  border: none !important;
-  outline: none;
-  padding-left: 0 !important;
-}
-
-ion-datetime {
-  color: #000 !important;
-  --background: #FFF;
-  --title-color: #000 !important;
-  --wheel-fade-background-rgb: transparent;
-  --wheel-highlight-background: transparent;
-}
-
-.date-modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #e5e5e5;
-}
-
 .action-buttons {
-  width: 100%;
   margin-top: 20px;
-  gap: 10px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
 }
 
 .action-button-style {
@@ -151,15 +117,16 @@ ion-datetime {
   font-weight: 600;
   border-radius: 5px;
   --box-shadow: 0;
+  --box-shadow: 0;
   --background: transparent;
   --background-activated: transparent;
 }
 
-.add-button {
+.apply-button {
   --background: #5856D6;
 }
 
-.cancel-button {
+.clean-button {
   color: #5856D6;
   border: 1px solid #5856D6;
   --background: transparent

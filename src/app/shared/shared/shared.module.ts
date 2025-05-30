@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CardHeaderComponent } from 'src/app/components/card-header/card-header.component';
+import { AdvancedFilterComponent } from 'src/app/components/filter-bar/advanced-filter.component';
+import { FilterBarComponent } from 'src/app/components/filter-bar/filter-bar.component';
 import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 
@@ -10,7 +12,9 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
   declarations: [
     TabBarComponent,
     CardHeaderComponent,
-    TransactionFormComponent
+    TransactionFormComponent,
+    FilterBarComponent,
+    AdvancedFilterComponent
   ],
   imports: [
     IonicModule,
@@ -23,7 +27,9 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
     FormsModule,
     TabBarComponent,
     CardHeaderComponent,
-    TransactionFormComponent
+    TransactionFormComponent,
+    FilterBarComponent,
+    AdvancedFilterComponent
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,38 @@
+<ion-row class="header-filter">
+  <ion-icon
+    class="header-icon"
+    name="calendar-clear-outline"
+  ></ion-icon>
+  <h2 class="header-title">
+    Movimentações
+  </h2>
+</ion-row>
+
+<ion-row class="filter-box">
+  <div class="filter-search">
+    <ion-icon
+      class="search-icon"
+      name="search-outline"
+    ></ion-icon>
+    <input
+      type="text"
+      placeholder="Pesquisar por..."
+      [(ngModel)]="searchTerm"
+      (ionInput)="onSearchChange($event)"
+      class="searchbar"
+    />
+  </div>
+
+  <div class="filter-button-box">
+    <ion-button
+      class="filter-button"
+      *ngIf="enableAdvancedFilter"
+      (click)="openAdvancedFilter()"
+    >
+      <ion-icon
+        class="filter-icon"
+        name="options-sharp"
+      ></ion-icon>
+    </ion-button>
+  </div>
+</ion-row>

@@ -1,0 +1,94 @@
+<main class="main-container">
+  <form [formGroup]="form" class="modal-container">
+    <div class="modal-inputs">
+      <header class="modal-header">
+        <h1 class="header-title">Filtros Avançados</h1>
+        <ion-button class="header-button" (click)="dismiss()">
+          <ion-icon class="header-button-icon" name="close"></ion-icon>
+        </ion-button>
+      </header>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="label-style">Mês</ion-label>
+          <ion-select mode="ios" class="input-style input-select" formControlName="month" placeholder="Selecione">
+            <ion-select-option *ngFor="let m of months" [value]="m.value">{{ m.label }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+
+        <ion-col>
+          <ion-label class="label-style">Ano</ion-label>
+          <ion-select mode="ios" class="input-style input-select" formControlName="year" placeholder="Selecione">
+            <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="label-style">Tipo</ion-label>
+          <ion-select mode="ios" class="input-style input-select" formControlName="type" placeholder="Selecione">
+            <ion-select-option *ngFor="let t of types" [value]="t.value">{{ t.label }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="label-style">Categoria</ion-label>
+          <ion-select mode="ios" class="input-style input-select" formControlName="category" placeholder="Selecione">
+            <ion-select-option *ngFor="let c of categories" [value]="c.value">{{ c.label }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="label-style">Método de Pagamento</ion-label>
+          <ion-select mode="ios" class="input-style input-select" formControlName="paymentMethod" placeholder="Selecione">
+            <ion-select-option *ngFor="let p of paymentMethods" [value]="p.value">{{ p.label }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label class="label-style">Valor Mínimo</ion-label>
+          <input
+            class="input-style"
+            type="number"
+            formControlName="minValue"
+            placeholder="0,00"
+            inputmode="numeric"
+            step="1"
+          />
+        </ion-col>
+
+        <ion-col>
+          <ion-label class="label-style">Valor Máximo</ion-label>
+          <input
+            class="input-style"
+            type="number"
+            formControlName="maxValue"
+            placeholder="0,00"
+            inputmode="numeric"
+            step="1"
+          />
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="action-buttons">
+        <ion-col>
+          <ion-button expand="block" class="action-button-style clean-button" (click)="clearFilters()">
+            Limpar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" class="action-button-style apply-button" (click)="applyFilters()">
+            Filtrar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </form>
+</main>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 
 import { HomePage } from './home.page';
+import { AdvancedFilterComponent } from 'src/app/components/filter-bar/advanced-filter.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: TransactionFormComponent
+    component: AdvancedFilterComponent
   },
 ];
 

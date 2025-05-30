@@ -2,9 +2,10 @@
   <form [formGroup]="form">
     <div class="modal-container">
       <header class="modal-header">
-        <h1 class="header-title">
-          {{ headerTitle }}
-        </h1>
+        <h1 class="header-title">Filtros Avançados</h1>
+        <ion-button class="header-button" (click)="dismiss()">
+          <ion-icon class="header-button-icon" name="close"></ion-icon>
+        </ion-button>
       </header>
 
       <div class="modal-inputs">

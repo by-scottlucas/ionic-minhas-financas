@@ -97,4 +97,8 @@ export class TransactionFormComponent {
       this.form.markAllAsTouched();
     }
   }
+
+  dismiss() {
+    this.modalCtrl.dismiss();
+  }
 }

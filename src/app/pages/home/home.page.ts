@@ -24,9 +24,9 @@ export class HomePage {
   async showModal() {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
-      cssClass: 'glass-modal',
       showBackdrop: true,
       backdropDismiss: true,
+      cssClass: 'glass-modal',
     });
 
     modal.present();
