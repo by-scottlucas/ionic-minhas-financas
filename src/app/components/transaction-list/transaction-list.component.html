@@ -1,0 +1,54 @@
+<ion-list lines="none">
+  <ion-item-sliding class="transaction-item" *ngFor="let item of transactions">
+    <ion-item class="item-content">
+      <ion-label>
+        <ion-row class="top-row">
+          <ion-badge class="badge-style">
+            {{item.category.label}}
+          </ion-badge>
+          <ion-badge class="badge-style payment-badge">
+            {{item.paymentMethod.label}}
+          </ion-badge>
+        </ion-row>
+
+        <ion-row class="main-row">
+          <div class="icon-col">
+            <ion-icon
+              class="type-icon"
+              name="arrow-up-circle"
+              [ngClass]="item.type.value === 'entry' ? 'entry' : 'withdrawal'"
+            ></ion-icon>
+          </div>
+
+          <ion-col class="main-col">
+            <span class="date">{{ item.date }}</span>
+            <span class="main-title">{{ item.name }}</span>
+          </ion-col>
+
+          <ion-col class="price-col">
+            <span class="main-title price">
+              {{ item.price | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+
+    <ion-item-options>
+      <ion-item-option
+        (click)="onEdit(item)"
+        class="action-button edit-button">
+        <ion-icon
+          class="action-icon"
+          name="create"
+        ></ion-icon>
+      </ion-item-option>
+      <ion-item-option class="action-button delete-button">
+        <ion-icon
+          class="action-icon"
+          name="trash"
+        ></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>

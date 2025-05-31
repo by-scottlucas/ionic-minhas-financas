@@ -10,11 +10,17 @@
     [secondValuePositive]="secondValuePositive"
   ></app-card-header>
 
-  <ion-button expand="block" class="new-transaction-button" (click)="showModal()">
+  <ion-button
+    expand="block"
+    (click)="showModal()"
+    class="new-transaction-button"
+  >
     Adicionar Movimentação
   </ion-button>
 
-  <app-filter-bar [enableAdvancedFilter]="true"></app-filter-bar>
+  <app-filter-bar
+    [enableAdvancedFilter]="true"
+  ></app-filter-bar>
 
-  <app-lista />
+  <app-transaction-list />
 </ion-content>

@@ -1,0 +1,104 @@
+ion-list {
+  padding: 0 20px;
+  margin-top: 20px;
+  background: transparent;
+}
+
+.transaction-item {
+  z-index: 1;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
+
+.item-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  --border-width: 0;
+  --background: #FFF;
+}
+
+.badge-style {
+  padding: 5px 15px;
+  border-radius: 12px;
+}
+
+.payment-badge {
+  color: #000;
+  background: #f0f0f0;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-row {
+  display: flex;
+  align-items: stretch;
+  margin-top: 8px;
+}
+
+.icon-col {
+  display: flex;
+  align-items: center;
+}
+
+.type-icon {
+  font-size: 2.6rem;
+  margin-right: 10px;
+}
+
+.entry {
+  color: #08AC31;
+  transform: rotate(45deg);
+}
+
+.withdrawal {
+  color: #FF0045;
+  transform: rotate(135deg);
+}
+
+.main-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.date {
+  color: #888;
+  font-size: .9rem;
+  margin-bottom: 6px !important;
+}
+
+.main-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.price-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: max-content;
+}
+
+.price {
+  color: #08ac31;
+}
+
+.action-button {
+  width: 100px;
+  aspect-ratio: 1;
+  font-size: 2.4rem;
+}
+
+.edit-button {
+  background: #5856d6;
+}
+
+.delete-button {
+  background: #FF0045;
+}

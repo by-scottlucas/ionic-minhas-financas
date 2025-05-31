@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.scss'],
 })
-export class TransactionFormComponent {
+export class TransactionFormComponent implements OnInit {
   typeSelectOptions = [
     { value: 'entry', label: 'Entrada' },
     { value: 'withdrawal', label: 'Saída' },
@@ -36,6 +36,7 @@ export class TransactionFormComponent {
     { value: 'investment-wallet', label: 'Carteira de Investimentos' },
   ];
 
+  @Input() item: any;
   @Input() headerTitle: string = 'Nova Movimentação';
 
   form!: FormGroup;
@@ -54,11 +55,22 @@ export class TransactionFormComponent {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       type: ['', Validators.required],
-      price: [ , [Validators.required, Validators.min(0)]],
+      price: [, [Validators.required, Validators.min(0)]],
       category: ['', Validators.required],
       date: [now, Validators.required],
       paymentMethod: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.form.patchValue({
+      title: this.item.name,
+      type: this.item.type.value,
+      price: this.item.price,
+      category: this.item.category.value,
+      date: this.item.date,
+      paymentMethod: this.item.paymentMethod.value
+    })
   }
 
   openDatepicker() {

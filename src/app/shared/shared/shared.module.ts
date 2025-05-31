@@ -7,6 +7,7 @@ import { AdvancedFilterComponent } from 'src/app/components/filter-bar/advanced-
 import { FilterBarComponent } from 'src/app/components/filter-bar/filter-bar.component';
 import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
+import { TransactionListComponent } from 'src/app/components/transaction-list/transaction-list.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
     CardHeaderComponent,
     TransactionFormComponent,
     FilterBarComponent,
-    AdvancedFilterComponent
+    AdvancedFilterComponent,
+    TransactionListComponent
   ],
   imports: [
     IonicModule,
@@ -29,7 +31,8 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
     CardHeaderComponent,
     TransactionFormComponent,
     FilterBarComponent,
-    AdvancedFilterComponent
+    AdvancedFilterComponent,
+    TransactionListComponent
   ],
 })
 export class SharedModule {}
