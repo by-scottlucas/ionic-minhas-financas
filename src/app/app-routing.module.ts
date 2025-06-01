@@ -13,14 +13,9 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'resumo',
+    path: 'cards',
     loadChildren: () =>
-      import('./pages/resumo/resumo.module').then((m) => m.ResumoPageModule),
-  },
-  {
-    path: 'cartoes',
-    loadChildren: () =>
-      import('./pages/cartoes/cartoes.module').then((m) => m.CartoesPageModule),
+      import('./pages/cards/cards.module').then((m) => m.CartoesPageModule),
   },
   {
     path: 'investimentos',

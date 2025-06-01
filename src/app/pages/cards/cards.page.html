@@ -1,0 +1,35 @@
+<ion-content [fullscreen]="true">
+  <header class="header">
+    <div>
+      <h1 class="header-title">Meus Cartões</h1>
+      <span class="header-description">Gerencie cartões e gastos</span>
+    </div>
+    <ion-button
+      fill="outline"
+      class="header-button"
+      (click)="openNewTransactionModal()"
+    >
+      <ion-icon class="button-icon" name="add"></ion-icon>
+      <span class="button-label">Compra</span>
+    </ion-button>
+  </header>
+
+  <app-cards-carousel></app-cards-carousel>
+
+  <app-filter-bar></app-filter-bar>
+
+  <app-transaction-list
+    *ngIf="cardTransactions.length > 0"
+    [transactions]="cardTransactions"
+  ></app-transaction-list>
+
+  <ion-card *ngIf="cardTransactions.length === 0 && !isLoading">
+    <ion-card-content class="ion-text-center">
+      Nenhuma transação encontrada.
+    </ion-card-content>
+  </ion-card>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+</ion-content>

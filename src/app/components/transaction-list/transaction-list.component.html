@@ -16,7 +16,7 @@
             <ion-icon
               class="type-icon"
               name="arrow-up-circle"
-              [ngClass]="item.type.value === 'entry' ? 'entry' : 'withdrawal'"
+              [ngClass]="item.type.value === 'entry' ? 'entry-icon' : 'withdrawal-icon'"
             ></ion-icon>
           </div>
 
@@ -26,7 +26,10 @@
           </ion-col>
 
           <ion-col class="price-col">
-            <span class="main-title price">
+            <span
+              class="main-title"
+              [ngClass]="item.type.value === 'entry' ? 'entry-price' : 'withdrawal-price'"
+            >
               {{ item.price | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
             </span>
           </ion-col>

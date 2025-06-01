@@ -8,17 +8,17 @@ import { FinancasService } from 'src/app/services/financas.service';
   templateUrl: './investimentos.page.html',
   styleUrls: ['./investimentos.page.scss'],
 })
-export class InvestimentosPage implements OnInit {
-
+export class InvestimentosPage {
   search!: string;
-  
+
   movimentacoes!: IMovimentacao[];
 
-  constructor(private financasService: FinancasService, private router: Router) {
+  constructor(
+    private financasService: FinancasService,
+    private router: Router
+  ) {
     this.movimentacoes = this.financasService.movimentacoes;
   }
-
-  ngOnInit() { }
 
   searchInput(event: any) {
     this.search = event.target.value.trim().toLowerCase();
@@ -26,17 +26,18 @@ export class InvestimentosPage implements OnInit {
     if (this.search === '') {
       this.movimentacoes = this.financasService.movimentacoes;
     } else {
-      const filtroMovimentacoes = this.financasService.movimentacoes.filter((movimentacao) => {
-        return movimentacao.titulo.toLowerCase().includes(this.search);
-      });
+      const filtroMovimentacoes = this.financasService.movimentacoes.filter(
+        (movimentacao) => {
+          return movimentacao.titulo.toLowerCase().includes(this.search);
+        }
+      );
 
       if (filtroMovimentacoes.length === 0) {
-        alert("Nenhuma movimentação encontrada");
+        alert('Nenhuma movimentação encontrada');
         this.search = '';
       } else {
         this.movimentacoes = filtroMovimentacoes;
       }
     }
   }
-
 }

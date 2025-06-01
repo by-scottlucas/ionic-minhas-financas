@@ -1,0 +1,82 @@
+<swiper-container
+  slides-per-view="1"
+  space-between="16"
+  navigation="false"
+  pagination="false"
+  scrollbar="false"
+>
+  <ion-skeleton-text
+    *ngIf="isLoading"
+    class="skeleton-style"
+    animated
+  ></ion-skeleton-text>
+
+  <swiper-slide class="slide-style" *ngFor="let card of cards">
+    <ion-card class="carousel-card">
+      <ion-card-header class="card-header">
+        <ion-card-title class="card-title">
+          {{ card.name }}
+        </ion-card-title>
+        <ion-badge class="card-badge" [style.backgroundColor]="getBrandColor(card.brand)">
+          {{ card.brand?.toUpperCase() }}
+        </ion-badge>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="card-infos">
+          <span class="card-number">
+            **** **** **** {{ card.last_digits }}
+          </span>
+
+          <div>
+            <div class="usage-row" *ngIf="card.type === 'credito'">
+              <span class="card-info-title">
+                Uso: {{ formatCurrency(getUsage(card)) }}
+              </span>
+              <span class="card-info-title">
+                Limite: {{ formatCurrency(card.limit) }}
+              </span>
+            </div>
+
+            <div class="usage-bar" *ngIf="card.type === 'credito'">
+              <div
+                class="usage-fill"
+                [style.width.%]="getUsagePercent(card)"
+              ></div>
+            </div>
+
+            <div class="bottom-row">
+              <span *ngIf="card.type === 'debito'">
+                Cartão de Débito
+              </span>
+              <div
+                class="expires-box"
+                *ngIf="card.due_day && card.type === 'credito'"
+              >
+                <ion-icon
+                  class="expires-icon"
+                  name="calendar-clear-outline"
+                ></ion-icon>
+                <span class="card-info-title">
+                  Venc. dia {{ card.due_day }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </swiper-slide>
+
+  <swiper-slide class="slide-style" *ngIf="!isLoading">
+    <ion-card class="carousel-card add-new-card" (click)="openAddCardModal()">
+      <ion-icon
+        class="add-new-card-icon"
+        name="add-circle-outline"
+      ></ion-icon>
+      <span class="add-new-card-label">
+        Adicionar Cartão
+      </span>
+    </ion-card>
+  </swiper-slide>
+</swiper-container>

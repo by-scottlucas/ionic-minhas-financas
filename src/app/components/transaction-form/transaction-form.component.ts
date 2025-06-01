@@ -31,9 +31,9 @@ export class TransactionFormComponent implements OnInit {
   paymentMethodSelectOptions = [
     { value: 'pix', label: 'Pix' },
     { value: 'money', label: 'Dinheiro' },
-    { value: 'debit-card', label: 'Cartão de Débito' },
-    { value: 'credit-card', label: 'Cartão de Crédito' },
-    { value: 'investment-wallet', label: 'Carteira de Investimentos' },
+    { value: 'debit_card', label: 'Cartão de Débito' },
+    { value: 'credit_card', label: 'Cartão de Crédito' },
+    { value: 'investment_wallet', label: 'Carteira de Investimentos' },
   ];
 
   @Input() item: any;

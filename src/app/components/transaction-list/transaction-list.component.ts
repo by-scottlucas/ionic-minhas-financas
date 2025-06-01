@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
 
@@ -8,7 +8,7 @@ import { TransactionFormComponent } from '../transaction-form/transaction-form.c
   styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent {
-  transactions = [
+  @Input() transactions = [
     {
       type: {
         value: 'entry',

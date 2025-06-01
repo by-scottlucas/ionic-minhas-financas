@@ -1,0 +1,104 @@
+.skeleton-style {
+  height: 14rem;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 0.75rem;
+}
+
+.slide-style {
+  background: transparent;
+}
+
+.carousel-card {
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.75rem;
+  color: #FFF;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom right, #1e293b, #0f172a, #000);
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-title {
+  color: #FFF;
+  font-weight: bold;
+}
+
+.card-badge {
+  font-size: .8rem !important;
+  padding: 5px 15px;
+  border-radius: 12px;
+}
+
+.card-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 145px;
+}
+
+.card-number {
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: .1em;
+}
+
+.usage-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-info-title {
+  font-size: .85rem !important;
+}
+
+.usage-bar {
+  width: 100%;
+  margin: 7px 0;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.usage-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: #34d399;
+  transition: width 0.5s ease;
+}
+
+.expires-box {
+  gap: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.add-new-card {
+  color: #979696;
+  border: 3px solid #969696;
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.add-new-card-icon {
+  font-size: 48px;
+}
+
+.add-new-card-label {
+  margin-top: 8px;
+  font-size: 1.1rem;
+}
