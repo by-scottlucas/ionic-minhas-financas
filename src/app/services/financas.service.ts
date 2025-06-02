@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IMovimentacao } from '../models/IMovimentacao';
+import { IMovimentacao } from '../models/transaction.dto';
 import { StorageService } from './storage.service';
 
 const movimentacoesStorageKey = "Movimentacoes";
