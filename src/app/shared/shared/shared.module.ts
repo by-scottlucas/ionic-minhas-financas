@@ -32,6 +32,7 @@ import { TransactionListComponent } from 'src/app/components/transaction-list/tr
     IonicModule,
     FormsModule,
     CommonModule,
+    ReactiveFormsModule,
     TabBarComponent,
     BalanceHeaderComponent,
     TransactionFormComponent,

@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form">
+    <header class="user-header">
+      <ion-avatar class="user-image">
+        <span class="user-initial">{{ getInitial() }}</span>
+      </ion-avatar>
+      <h1 class="user-name">{{ form.get('username')?.value }}</h1>
+      <span class="description">Gerencie suas informações e preferências</span>
+    </header>
+
+    <div class="container">
+      <ion-card class="card">
+        <ion-row class="header-card">
+          <ion-icon class="header-card-icon" name="person-outline"></ion-icon>
+          <span class="header-card-title">Informações Pessoais</span>
+        </ion-row>
+
+        <ion-row>
+          <div class="form-group">
+            <label for="username" class="label-style">Nome Completo</label>
+            <input type="text" formControlName="username" class="input-style" placeholder="Jhon Doe" />
+          </div>
+        </ion-row>
+
+        <ion-row>
+          <div class="form-group">
+            <label for="email" class="label-style">E-mail</label>
+            <input type="email" class="input-style email-input" value="Jhon@email.com" readonly disabled />
+            <span class="alert-label">O e-mail não pode ser alterado.</span>
+          </div>
+        </ion-row>
+      </ion-card>
+    </div>
+
+    <div class="container mt-5">
+      <ion-row>
+        <ion-col class="buttons-group">
+          <ion-button class="button-style save-button" *ngIf="hasChanges()" (click)="saveChanges()">
+            Salvar Alterações
+          </ion-button>
+          <ion-button class="button-style exit-button">
+            Sair da Conta
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="container">
+      <footer class="footer mt-5">
+        FinFlex v1.0. Desenvolvido por LukeCode.
+      </footer>
+    </div>
+  </form>
+</ion-content>
