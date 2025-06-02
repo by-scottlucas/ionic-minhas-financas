@@ -7,30 +7,30 @@ ion-content {
 .header {
   margin-top: 20px;
   margin-bottom: 10px;
-  padding: 0px 16px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
-.header-title,
-.header-description {
-  margin: 0;
-}
+  &-title,
+  &-description {
+    margin: 0;
+  }
 
-.header-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
+  &-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
 
-.header-button {
-  font-weight: bold;
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-  --padding-start: 10px;
-  --padding-end: 10px;
-  color: $indigo-color;
-  --border-color: $indigo-color;
+  &-button {
+    font-weight: bold;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    color: $indigo-color;
+    --border-color: $indigo-color;
+  }
 }
 
 .loading-container {
