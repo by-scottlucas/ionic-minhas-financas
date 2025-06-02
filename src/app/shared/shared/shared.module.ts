@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { CardFormComponent } from 'src/app/components/card-form/card-form.component';
 import { CardHeaderComponent } from 'src/app/components/card-header/card-header.component';
 import { CardsCarouselComponent } from 'src/app/components/cards-carousel/cards-carousel.component';
 import { AdvancedFilterComponent } from 'src/app/components/filter-bar/advanced-filter.component';
@@ -19,8 +20,14 @@ import { TransactionListComponent } from 'src/app/components/transaction-list/tr
     AdvancedFilterComponent,
     TransactionListComponent,
     CardsCarouselComponent,
+    CardFormComponent
   ],
-  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule
+  ],
   exports: [
     IonicModule,
     FormsModule,
@@ -32,6 +39,7 @@ import { TransactionListComponent } from 'src/app/components/transaction-list/tr
     AdvancedFilterComponent,
     TransactionListComponent,
     CardsCarouselComponent,
+    CardFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

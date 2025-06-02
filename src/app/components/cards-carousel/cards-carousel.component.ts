@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { register } from 'swiper/element/bundle';
+import { CardFormComponent } from '../card-form/card-form.component';
 
 register();
 
@@ -9,14 +11,14 @@ register();
   styleUrls: ['./cards-carousel.component.scss'],
 })
 export class CardsCarouselComponent implements OnInit {
-openAddCardModal() {
-throw new Error('Method not implemented.');
-}
   cards: any[] = [];
   isLoading: boolean = true;
   cardTransactions: any[] = [];
 
-  constructor() {}
+  constructor(
+    private modalCtrl: ModalController,
+    private actionSheetCtrl: ActionSheetController
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -30,36 +32,19 @@ throw new Error('Method not implemented.');
       this.cards = [
         {
           name: 'Cartão Nubank',
-          brand: 'visa',
-          last_digits: '1234',
-          type: 'credito',
+          brand: {
+            value: 'visa',
+            label: 'Visa',
+          },
+          lastDigits: 1234,
+          type: {
+            value: 'credit_card',
+            label: 'Cartão de Crédito',
+          },
           limit: 3000,
           due_day: 10,
         },
-        {
-          name: 'Cartão Inter',
-          brand: 'mastercard',
-          last_digits: '5678',
-          type: 'debito',
-        },
-        {
-          name: 'Cartão Itaú',
-          brand: 'elo',
-          last_digits: '4321',
-          type: 'credito',
-          limit: 5000,
-          due_day: 5,
-        },
-        {
-          name: 'Cartão C6 Bank',
-          brand: 'american_express',
-          last_digits: '8765',
-          type: 'credito',
-          limit: 2000,
-          due_day: 15,
-        },
       ];
-      console.log('Cartões carregados:', this.cards);
     } catch (err) {
       console.error('Erro ao carregar cartões', err);
     }
@@ -101,5 +86,65 @@ throw new Error('Method not implemented.');
       style: 'currency',
       currency: 'BRL',
     }).format(amount || 0);
+  }
+
+  async openAddCardModal() {
+    const modal = await this.modalCtrl.create({
+      component: CardFormComponent,
+      showBackdrop: true,
+      backdropDismiss: true,
+      cssClass: 'glass-modal',
+    });
+
+    modal.present();
+  }
+
+  async presentCardActions(card: any) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: `${card.name}`,
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Editar',
+          icon: 'create-outline',
+          handler: () => {
+            this.editCard(card);
+          },
+        },
+        {
+          text: 'Excluir',
+          role: 'destructive',
+          icon: 'trash-outline',
+          handler: () => {
+            this.deleteCard(card);
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          icon: 'close-outline',
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+
+  async editCard(card: any) {
+    const modal = await this.modalCtrl.create({
+      component: CardFormComponent,
+      componentProps: {
+        item: card,
+      },
+      cssClass: 'glass-modal',
+    });
+    await modal.present();
+  }
+
+  deleteCard(card: any) {
+    const index = this.cards.indexOf(card);
+    if (index > -1) {
+      this.cards.splice(index, 1);
+    }
   }
 }

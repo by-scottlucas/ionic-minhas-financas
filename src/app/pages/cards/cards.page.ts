@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 
 @Component({
   selector: 'app-cards',
@@ -9,7 +11,7 @@ export class CardsPage implements OnInit {
   cardTransactions: any[] = [];
   isLoading = true;
 
-  constructor() {}
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -35,14 +37,6 @@ export class CardsPage implements OnInit {
       this.cardTransactions = [
         {
           type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'food', label: 'Alimentação' },
-          date: this.formatDate(today),
-          paymentMethod: { value: 'debit_card', label: 'Cartão de Débito' },
-          name: 'Supermercado Extra',
-          price: 123.45,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
           category: { value: 'transport', label: 'Transporte' },
           date: this.formatDate(today),
           paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
@@ -56,62 +50,6 @@ export class CardsPage implements OnInit {
           paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
           name: 'Netflix',
           price: 39.9,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'food', label: 'Alimentação' },
-          date: this.formatDate(lastWeek),
-          paymentMethod: { value: 'pix', label: 'Pix' },
-          name: 'iFood',
-          price: 76.5,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'shopping', label: 'Compras' },
-          date: this.formatDate(lastMonth),
-          paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
-          name: 'Amazon',
-          price: 199.99,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'health', label: 'Saúde' },
-          date: this.formatDate(lastWeek),
-          paymentMethod: { value: 'debit_card', label: 'Cartão de Débito' },
-          name: 'Farmácia',
-          price: 58.25,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'transport', label: 'Transporte' },
-          date: this.formatDate(today),
-          paymentMethod: { value: 'cash', label: 'Dinheiro' },
-          name: 'Uber',
-          price: 34.8,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'food', label: 'Alimentação' },
-          date: this.formatDate(lastWeek),
-          paymentMethod: { value: 'cash', label: 'Dinheiro' },
-          name: 'Padaria do Bairro',
-          price: 21.75,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'shopping', label: 'Compras' },
-          date: this.formatDate(lastMonth),
-          paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
-          name: 'Magazine Luiza',
-          price: 499.99,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'services', label: 'Serviço' },
-          date: this.formatDate(today),
-          paymentMethod: { value: 'pix', label: 'Pix' },
-          name: 'Spotify',
-          price: 19.9,
         },
       ];
       this.isLoading = false;
@@ -127,11 +65,14 @@ export class CardsPage implements OnInit {
     }).format(amount || 0);
   }
 
-  openNewTransactionModal() {
-    console.log('Abrir modal de nova transação');
-  }
+  async openNewTransactionModal() {
+    const modal = await this.modalCtrl.create({
+      component: TransactionFormComponent,
+      showBackdrop: true,
+      backdropDismiss: true,
+      cssClass: 'glass-modal',
+    });
 
-  openAddCardModal() {
-    console.log('Abrir modal de adicionar cartão');
+    modal.present();
   }
 }

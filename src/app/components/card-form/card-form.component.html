@@ -1,0 +1,147 @@
+<main class="main-container">
+  <form [formGroup]="form">
+    <div class="modal-container">
+      <header class="modal-header">
+        <h1 class="header-title">{{ headerTitle }}</h1>
+        <ion-button class="header-button" (click)="dismiss()">
+          <ion-icon class="header-button-icon" name="close"></ion-icon>
+        </ion-button>
+      </header>
+
+      <div class="modal-inputs">
+
+        <div class="form-group title-group">
+          <label for="cardTitle" class="label-style">Título</label>
+          <input
+            id="cardTitle"
+            name="title"
+            type="text"
+            placeholder="Título do Cartão"
+            class="input-style"
+            formControlName="title"
+          >
+        </div>
+
+        <ion-row class="row-group">
+          <ion-col class="form-group">
+            <label for="cardType" class="label-style">Tipo</label>
+            <ion-select
+              id="cardType"
+              name="type"
+              class="input-style input-select"
+              mode="ios"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="type"
+              (ionChange)="onTypeChange($event)"
+            >
+              <ion-select-option
+                *ngFor="let item of typeSelectOptions"
+                [value]="item.value"
+              >
+                {{ item.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+
+        <ng-container *ngIf="form.get('type')?.value === 'credit_card'">
+          <ion-row class="row-group">
+            <ion-col class="form-group">
+              <label for="cardLimit" class="label-style">Limite</label>
+              <input
+                id="cardLimit"
+                name="limit"
+                type="number"
+                min="0"
+                placeholder="0,00"
+                class="input-style"
+                (keydown)="blockNegativeInput($event)"
+                formControlName="limit"
+              >
+            </ion-col>
+
+            <ion-col class="form-group">
+              <label class="label-style" for="dueDate">Vencimento</label>
+              <ion-button
+                id="dueDate"
+                class="input-style transparent-button"
+                (click)="openDatepicker()"
+              >
+                {{ formattedDate }}
+              </ion-button>
+
+              <ion-modal
+                [isOpen]="isDateModalOpen"
+                (didDismiss)="isDateModalOpen = false"
+              >
+                <ng-template>
+                  <div class="date-modal">
+                    <ion-datetime
+                      mode="ios"
+                      locale="pt-BR"
+                      presentation="date"
+                      [value]="selectedDate"
+                      (ionChange)="onDateChange($event)"
+                    ></ion-datetime>
+                  </div>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+
+        <ion-row class="row-group">
+          <ion-col class="form-group">
+            <label for="cardBrand" class="label-style">Bandeira</label>
+            <ion-select
+              id="cardBrand"
+              name="brand"
+              class="input-style input-select"
+              mode="ios"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="brand"
+            >
+              <ion-select-option
+                *ngFor="let item of cardBrandOptions"
+                [value]="item.value"
+              >
+                {{ item.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+
+        <div class="row-group">
+          <div class="form-group title-group">
+            <label for="lastDigits" class="label-style">Últimos 4 Dígitos</label>
+            <input
+              id="lastDigits"
+              name="lastDigits"
+              type="number"
+              min="0"
+              max="9999"
+              placeholder="1234"
+              class="input-style"
+              formControlName="lastDigits"
+              (keydown)="blockInvalidNumberInput($event)"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <ion-button (click)="dismiss()" class="action-button-style cancel-button">
+          Cancelar
+        </ion-button>
+
+        <ion-button class="action-button-style add-button" (click)="onSubmit()">
+          Adicionar
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</main>
