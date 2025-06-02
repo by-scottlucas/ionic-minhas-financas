@@ -45,7 +45,6 @@ export class AdvancedFilterComponent {
     { value: 'services', label: 'Serviços' },
     { value: 'salary', label: 'Salário' },
     { value: 'freelance', label: 'Freelance' },
-    { value: 'investments', label: 'Investimentos' },
     { value: 'others', label: 'Outros' },
   ];
 
@@ -54,7 +53,6 @@ export class AdvancedFilterComponent {
     { value: 'money', label: 'Dinheiro' },
     { value: 'debit-card', label: 'Cartão de Débito' },
     { value: 'credit-card', label: 'Cartão de Crédito' },
-    { value: 'investment-wallet', label: 'Carteira de Investimentos' },
   ];
 
   constructor(private modalCtrl: ModalController, private fb: FormBuilder) {

@@ -24,7 +24,6 @@ export class TransactionFormComponent implements OnInit {
     { value: 'services', label: 'Serviços' },
     { value: 'salary', label: 'Salário' },
     { value: 'freelance', label: 'Freelance' },
-    { value: 'investments', label: 'Investimentos' },
     { value: 'others', label: 'Outros' },
   ];
 
@@ -33,7 +32,6 @@ export class TransactionFormComponent implements OnInit {
     { value: 'money', label: 'Dinheiro' },
     { value: 'debit_card', label: 'Cartão de Débito' },
     { value: 'credit_card', label: 'Cartão de Crédito' },
-    { value: 'investment_wallet', label: 'Carteira de Investimentos' },
   ];
 
   @Input() item: any;

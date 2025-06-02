@@ -18,11 +18,6 @@ export class TabBarComponent {
       icon: 'card-outline',
     },
     {
-      page: 'investments',
-      label: 'Investimentos',
-      icon: 'stats-chart-outline',
-    },
-    {
       page: 'profile',
       label: 'Perfil',
       icon: 'person-outline',

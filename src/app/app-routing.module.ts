@@ -17,13 +17,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/cards/cards.module').then((m) => m.CartoesPageModule),
   },
-  {
-    path: 'investimentos',
-    loadChildren: () =>
-      import('./pages/investimentos/investimentos.module').then(
-        (m) => m.InvestimentosPageModule
-      ),
-  },
 ];
 
 @NgModule({

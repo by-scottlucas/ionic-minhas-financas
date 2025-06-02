@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { BalanceHeaderComponent } from 'src/app/components/balance-header/balance-header.component';
 import { CardFormComponent } from 'src/app/components/card-form/card-form.component';
-import { CardHeaderComponent } from 'src/app/components/card-header/card-header.component';
 import { CardsCarouselComponent } from 'src/app/components/cards-carousel/cards-carousel.component';
 import { AdvancedFilterComponent } from 'src/app/components/filter-bar/advanced-filter.component';
 import { FilterBarComponent } from 'src/app/components/filter-bar/filter-bar.component';
@@ -14,7 +14,7 @@ import { TransactionListComponent } from 'src/app/components/transaction-list/tr
 @NgModule({
   declarations: [
     TabBarComponent,
-    CardHeaderComponent,
+    BalanceHeaderComponent,
     TransactionFormComponent,
     FilterBarComponent,
     AdvancedFilterComponent,
@@ -33,7 +33,7 @@ import { TransactionListComponent } from 'src/app/components/transaction-list/tr
     FormsModule,
     CommonModule,
     TabBarComponent,
-    CardHeaderComponent,
+    BalanceHeaderComponent,
     TransactionFormComponent,
     FilterBarComponent,
     AdvancedFilterComponent,

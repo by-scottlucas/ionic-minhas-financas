@@ -3,6 +3,47 @@
   margin: 18px auto;
   padding: 4px 10px;
   --background: #FFF;
+  box-shadow: none;
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .balance-icon {
+    color: #19af58;
+    padding: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 100%;
+    background: #cdffc7;
+  }
+
+  .secondary-card-header {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .withdrawal-card-header {
+    justify-content: flex-end;
+  }
+
+  .entry-icon {
+    color: #19af58;
+    transform: rotate(45deg);
+  }
+
+  .withdrawal-icon {
+    color: #ff0045;
+    transform: rotate(135deg);
+  }
+
+  .secondary-icon {
+    font-size: 1.1rem;
+  }
 
   .balance-title {
     color: #000;

@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-card-header',
-  templateUrl: './card-header.component.html',
-  styleUrls: ['./card-header.component.scss'],
+  selector: 'app-balance-header',
+  templateUrl: './balance-header.component.html',
+  styleUrls: ['./balance-header.component.scss'],
 })
-export class CardHeaderComponent {
+export class BalanceHeaderComponent {
   @Input() balanceTitle!: string;
   @Input() balanceValue!: number;
+  @Input() balanceIcon!: string;
 
   @Input() firstTitle!: string;
   @Input() firstValue!: number;

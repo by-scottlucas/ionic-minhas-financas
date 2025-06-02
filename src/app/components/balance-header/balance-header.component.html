@@ -1,0 +1,54 @@
+<ion-card class="balance-card">
+  <ion-card-header class="card-header">
+    <div>
+      <ion-text class="balance-title">{{ balanceTitle }}</ion-text>
+      <ion-text
+        class="balance-value"
+        [ngClass]="{
+          'positive-value': balanceValue >= 0,
+          'negative-value': balanceValue < 0
+        }"
+      >
+        {{ balanceValue | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
+      </ion-text>
+    </div>
+
+    <ion-icon class="balance-icon" [name]="balanceIcon"></ion-icon>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-row class="transactions-info">
+      <ion-col class="column-style">
+        <div class="secondary-card-header">
+          <ion-icon class="secondary-icon entry-icon" name="arrow-up"></ion-icon>
+          <ion-text class="transaction-title">{{ firstTitle }}</ion-text>
+        </div>
+        <ion-text
+          class="transaction-value"
+          [ngClass]="{
+            'positive-value': firstValuePositive,
+            'negative-value': !firstValuePositive
+          }"
+        >
+          {{ firstValue | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
+        </ion-text>
+      </ion-col>
+
+      <ion-col class="column-style month-withdrawals-col">
+        <div class="secondary-card-header withdrawal-card-header">
+          <ion-icon class="secondary-icon withdrawal-icon" name="arrow-up"></ion-icon>
+          <ion-text class="transaction-title">{{ secondTitle }}</ion-text>
+        </div>
+        <ion-text
+          class="transaction-value"
+          [ngClass]="{
+              'positive-value': secondValuePositive,
+              'negative-value': !secondValuePositive
+            }"
+        >
+          {{ secondValue | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

@@ -10,6 +10,7 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
 export class HomePage {
   balanceTitle = 'Saldo do Mês';
   balanceValue = 7000.25;
+  balanceIcon = "trending-up-outline";
 
   firstTitle = 'Entradas';
   firstValue = 100.25;
