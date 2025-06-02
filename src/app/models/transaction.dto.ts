@@ -1,12 +1,12 @@
-import { CategoryEnum } from './enums/category.enum';
-import { PaymentMethodEnum } from './enums/payment-method.enum';
-import { TypeEnum } from './enums/type.enum';
+import { PaymentMethodEnum } from './enums/transaction/payment-method.enum';
+import { TransactionCategoryEnum } from './enums/transaction/transaction-category.enum';
+import { TransactionTypeEnum } from './enums/transaction/transaction-type.enum';
 
 export interface TransactionDTO {
   title: string;
-  type: TypeEnum;
+  type: TransactionTypeEnum;
   price: number;
-  category: CategoryEnum;
+  category: TransactionCategoryEnum;
   date: Date;
   paymentMethod: PaymentMethodEnum
 }

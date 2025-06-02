@@ -1,4 +1,4 @@
-export enum CategoryEnum {
+export enum TransactionCategoryEnum {
   Food = 'food',
   Transport = 'transport',
   Housing = 'housing',
