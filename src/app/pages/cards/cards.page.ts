@@ -8,8 +8,8 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
   styleUrls: ['./cards.page.scss'],
 })
 export class CardsPage implements OnInit {
+  isLoading: boolean = true;
   cardTransactions: any[] = [];
-  isLoading = true;
 
   constructor(private modalCtrl: ModalController) {}
 

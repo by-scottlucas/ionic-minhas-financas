@@ -19,11 +19,18 @@
     Adicionar Movimentação
   </ion-button>
 
-  <app-filter-bar
-    [enableAdvancedFilter]="true"
-  ></app-filter-bar>
+  <app-filter-bar [enableAdvancedFilter]="true"></app-filter-bar>
+
+  <div class="container" *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <div class="container" *ngIf="!isLoading && transactionsData.length === 0">
+    <span>Nenhuma transação encontrada.</span>
+  </div>
 
   <app-transaction-list
+    *ngIf="!isLoading && transactionsData.length > 0"
     (updated)="loadTransactions()"
     [transactions]="transactionsData"
   />
