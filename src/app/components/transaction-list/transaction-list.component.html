@@ -38,10 +38,10 @@
     </ion-item>
 
     <ion-item-options>
-      <ion-item-option (click)="onEdit(item)" class="action-button edit-button">
+      <ion-item-option (click)="onEditTransaction(item)" class="action-button edit-button">
         <ion-icon class="action-icon" name="create"></ion-icon>
       </ion-item-option>
-      <ion-item-option class="action-button delete-button">
+      <ion-item-option (click)="onDeleteTransaction(item)" class="action-button delete-button">
         <ion-icon class="action-icon" name="trash"></ion-icon>
       </ion-item-option>
     </ion-item-options>

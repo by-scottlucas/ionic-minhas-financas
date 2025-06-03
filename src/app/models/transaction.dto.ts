@@ -3,10 +3,11 @@ import { TransactionCategoryEnum } from './enums/transaction/transaction-categor
 import { TransactionTypeEnum } from './enums/transaction/transaction-type.enum';
 
 export interface TransactionDTO {
+  id?: number;
   title: string;
   type: TransactionTypeEnum;
   price: number;
   category: TransactionCategoryEnum;
   date: Date;
-  paymentMethod: PaymentMethodEnum
+  paymentMethod: PaymentMethodEnum;
 }

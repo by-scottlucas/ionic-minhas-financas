@@ -36,8 +36,8 @@ export class TransactionFormComponent implements OnInit {
     { value: 'credit_card', label: 'Cartão de Crédito' },
   ];
 
-  @Input() item: any;
-  @Input() headerTitle: string = 'Nova Movimentação';
+  @Input() item!: TransactionDTO;
+  @Input() headerTitle!: string;
 
   form!: FormGroup;
 
@@ -67,15 +67,12 @@ export class TransactionFormComponent implements OnInit {
     if (this.item) {
       this.form.patchValue({
         title: this.item.title,
-        type: this.item.type?.value || this.item.type,
+        type: this.item.type,
         price: this.item.price,
-        category: this.item.category?.value || this.item.category,
+        category: this.item.category,
         date: this.item.date,
-        paymentMethod:
-          this.item.paymentMethod?.value || this.item.paymentMethod,
+        paymentMethod: this.item.paymentMethod,
       });
-
-      this.updateFormattedDate(this.item.date);
     }
   }
 
@@ -111,6 +108,7 @@ export class TransactionFormComponent implements OnInit {
       const formValue = this.form.value;
 
       const transaction: TransactionDTO = {
+        id: this.item ? this.item.id : undefined,
         title: formValue.title,
         type: formValue.type,
         price: formValue.price,
@@ -120,7 +118,12 @@ export class TransactionFormComponent implements OnInit {
       };
 
       try {
-        await this.transactionService.createTransaction(transaction);
+        if (this.item && this.item.id) {
+          await this.transactionService.updateTransaction(transaction);
+        } else {
+          await this.transactionService.createTransaction(transaction);
+        }
+
         await this.modalCtrl.dismiss({ updated: true });
       } catch (error) {
         console.error('Erro ao salvar transação:', error);

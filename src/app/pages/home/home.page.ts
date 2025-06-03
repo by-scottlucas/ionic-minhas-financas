@@ -42,9 +42,12 @@ export class HomePage implements OnInit {
     }
   }
 
-  async showModal() {
+  async onAddTransaction() {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
+      componentProps: {
+        headerTitle: 'Nova Movimentação',
+      },
       showBackdrop: true,
       backdropDismiss: true,
       cssClass: 'glass-modal',
