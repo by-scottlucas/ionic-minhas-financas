@@ -4,10 +4,10 @@
       <ion-label>
         <ion-row class="top-row">
           <ion-badge class="badge-style">
-            {{item.category.label}}
+            {{ getCategoryLabel(item.category) }}
           </ion-badge>
           <ion-badge class="badge-style payment-badge">
-            {{item.paymentMethod.label}}
+            {{ getPaymentMethodLabel(item.paymentMethod) }}
           </ion-badge>
         </ion-row>
 
@@ -16,19 +16,19 @@
             <ion-icon
               class="type-icon"
               name="arrow-up-circle"
-              [ngClass]="item.type.value === 'entry' ? 'entry-icon' : 'withdrawal-icon'"
+              [ngClass]="item.type === 'entry' ? 'entry-icon' : 'withdrawal-icon'"
             ></ion-icon>
           </div>
 
           <ion-col class="main-col">
-            <span class="date">{{ item.date }}</span>
-            <span class="main-title">{{ item.name }}</span>
+            <span class="date">{{ item.date | date:'dd/MM/yyyy' }}</span>
+            <span class="main-title">{{ item.title }}</span>
           </ion-col>
 
           <ion-col class="price-col">
             <span
               class="main-title"
-              [ngClass]="item.type.value === 'entry' ? 'entry-price' : 'withdrawal-price'"
+              [ngClass]="item.type === 'entry' ? 'entry-price' : 'withdrawal-price'"
             >
               {{ item.price | currency:'BRL':'symbol-narrow':'1.2-2':'pt-BR' }}
             </span>
@@ -38,19 +38,11 @@
     </ion-item>
 
     <ion-item-options>
-      <ion-item-option
-        (click)="onEdit(item)"
-        class="action-button edit-button">
-        <ion-icon
-          class="action-icon"
-          name="create"
-        ></ion-icon>
+      <ion-item-option (click)="onEdit(item)" class="action-button edit-button">
+        <ion-icon class="action-icon" name="create"></ion-icon>
       </ion-item-option>
       <ion-item-option class="action-button delete-button">
-        <ion-icon
-          class="action-icon"
-          name="trash"
-        ></ion-icon>
+        <ion-icon class="action-icon" name="trash"></ion-icon>
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>

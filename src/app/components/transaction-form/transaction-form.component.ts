@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { TransactionDTO } from 'src/app/models/transaction.dto';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -45,7 +47,8 @@ export class TransactionFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private transactionService: TransactionService
   ) {
     const now = new Date().toISOString();
     this.updateFormattedDate(now);
@@ -61,14 +64,19 @@ export class TransactionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.patchValue({
-      title: this.item.name,
-      type: this.item.type.value,
-      price: this.item.price,
-      category: this.item.category.value,
-      date: this.item.date,
-      paymentMethod: this.item.paymentMethod.value
-    })
+    if (this.item) {
+      this.form.patchValue({
+        title: this.item.title,
+        type: this.item.type?.value || this.item.type,
+        price: this.item.price,
+        category: this.item.category?.value || this.item.category,
+        date: this.item.date,
+        paymentMethod:
+          this.item.paymentMethod?.value || this.item.paymentMethod,
+      });
+
+      this.updateFormattedDate(this.item.date);
+    }
   }
 
   openDatepicker() {
@@ -98,10 +106,25 @@ export class TransactionFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
-      this.modalCtrl.dismiss();
+      const formValue = this.form.value;
+
+      const transaction: TransactionDTO = {
+        title: formValue.title,
+        type: formValue.type,
+        price: formValue.price,
+        category: formValue.category,
+        date: new Date(formValue.date),
+        paymentMethod: formValue.paymentMethod,
+      };
+
+      try {
+        await this.transactionService.createTransaction(transaction);
+        await this.modalCtrl.dismiss({ updated: true });
+      } catch (error) {
+        console.error('Erro ao salvar transação:', error);
+      }
     } else {
       console.warn('Formulário inválido');
       this.form.markAllAsTouched();

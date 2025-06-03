@@ -1,5 +1,5 @@
 <main class="main-container">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="modal-container">
       <header class="modal-header">
         <h1 class="header-title">{{ headerTitle }}</h1>
@@ -79,7 +79,7 @@
           Cancelar
         </ion-button>
 
-        <ion-button class="action-button-style add-button" (click)="onSubmit()">
+        <ion-button type="submit" class="action-button-style add-button">
           Adicionar
         </ion-button>
       </div>

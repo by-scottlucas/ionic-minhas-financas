@@ -1,6 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
+import { TransactionDTO } from 'src/app/models/transaction.dto';
+import {
+  TransactionCategoryEnum,
+  TransactionCategoryLabels,
+} from 'src/app/models/enums/transaction/transaction-category.enum';
+import {
+  PaymentMethodEnum,
+  PaymentMethodEnumLabels,
+} from 'src/app/models/enums/transaction/payment-method.enum';
 
 @Component({
   selector: 'app-transaction-list',
@@ -8,42 +17,7 @@ import { TransactionFormComponent } from '../transaction-form/transaction-form.c
   styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent {
-  @Input() transactions = [
-    {
-      type: {
-        value: 'entry',
-        label: 'Entrada',
-      },
-      category: {
-        value: 'salary',
-        label: 'Salário',
-      },
-      date: '30/08/2024',
-      paymentMethod: {
-        value: 'pix',
-        label: 'Pix',
-      },
-      name: 'Salário de Maio',
-      price: 3500.0,
-    },
-    {
-      type: {
-        value: 'withdrawal',
-        label: 'Saída',
-      },
-      category: {
-        value: 'food',
-        label: 'Alimentação',
-      },
-      date: '29/08/2024',
-      paymentMethod: {
-        value: 'credit_card',
-        label: 'Cartão de Crédito',
-      },
-      name: 'Mercado Assaí',
-      price: 240.59,
-    },
-  ];
+  @Input() transactions: TransactionDTO[] = [];
 
   constructor(private modalCtrl: ModalController) {}
 
@@ -51,7 +25,7 @@ export class TransactionListComponent {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
       componentProps: {
-        item: data
+        item: data,
       },
       showBackdrop: true,
       backdropDismiss: true,
@@ -62,4 +36,17 @@ export class TransactionListComponent {
   }
 
   onDelete() {}
+
+  getCategoryLabel(category: string): string {
+    return (
+      TransactionCategoryLabels[category as TransactionCategoryEnum] || category
+    );
+  }
+
+  getPaymentMethodLabel(paymentMethod: string): string {
+    return (
+      PaymentMethodEnumLabels[paymentMethod as PaymentMethodEnum] ||
+      paymentMethod
+    );
+  }
 }
