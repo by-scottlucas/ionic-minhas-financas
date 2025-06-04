@@ -4,21 +4,25 @@ import {
   SQLiteConnection,
   SQLiteDBConnection,
 } from '@capacitor-community/sqlite';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  private sqlite: SQLiteConnection;
+  private sqlite!: SQLiteConnection;
   private db: SQLiteDBConnection | null = null;
   private readonly dbName = 'financeDB';
+  private readonly isWeb = Capacitor.getPlatform() === 'web';
 
   constructor() {
-    this.sqlite = new SQLiteConnection(CapacitorSQLite);
+    if (!this.isWeb) {
+      this.sqlite = new SQLiteConnection(CapacitorSQLite);
+    }
   }
 
   async init(): Promise<void> {
-    if (this.db) return;
+    if (this.db || this.isWeb) return;
 
     this.db = await this.sqlite.createConnection(
       this.dbName,
@@ -36,5 +40,9 @@ export class StorageService {
     }
     if (!this.db) throw new Error('Falha ao conectar ao banco de dados.');
     return this.db;
+  }
+
+  isRunningOnWeb(): boolean {
+    return this.isWeb;
   }
 }

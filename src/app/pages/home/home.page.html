@@ -30,7 +30,7 @@
   </div>
 
   <app-transaction-list
-    *ngIf="!isLoading && transactionsData.length > 0"
+    *ngIf="!isLoading && transactionsData.length > 0 && !isLoading"
     (updated)="loadTransactions()"
     [transactions]="transactionsData"
   />

@@ -7,7 +7,7 @@
     <ion-button
       fill="outline"
       class="header-button"
-      (click)="openNewTransactionModal()"
+      (click)="onAddTransaction()"
     >
       <ion-icon class="button-icon" name="add"></ion-icon>
       <span class="button-label">Compra</span>
@@ -27,7 +27,8 @@
   </div>
 
   <app-transaction-list
-    *ngIf="cardTransactions.length > 0"
+    *ngIf="cardTransactions.length > 0 && !isLoading"
     [transactions]="cardTransactions"
+    (updated)="loadCardTransactions()"
   ></app-transaction-list>
 </ion-content>

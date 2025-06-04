@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  IonItemSliding,
+  ModalController,
+} from '@ionic/angular';
 import {
   PaymentMethodEnum,
   PaymentMethodEnumLabels,
@@ -28,7 +32,7 @@ export class TransactionListComponent {
     private transactionService: TransactionService
   ) {}
 
-  async onEditTransaction(data: TransactionDTO) {
+  async onEditTransaction(data: TransactionDTO, slidingItem: IonItemSliding) {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
       componentProps: {
@@ -43,9 +47,12 @@ export class TransactionListComponent {
     await modal.present();
 
     const { data: result } = await modal.onWillDismiss();
+    
     if (result?.updated) {
       this.updated.emit();
     }
+
+    await slidingItem.close();
   }
 
   async onDeleteTransaction(transaction: TransactionDTO) {

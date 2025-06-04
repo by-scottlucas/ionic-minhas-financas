@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 import { TransactionTypeEnum } from 'src/app/models/enums/transaction/transaction-type.enum';
 import { TransactionDTO } from 'src/app/models/transaction.dto';
@@ -10,7 +11,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   balanceTitle: string = 'Saldo do Mês';
   balanceValue: number = 0;
   balanceIcon: string = 'trending-up-outline';
@@ -26,6 +27,8 @@ export class HomePage implements OnInit {
   isLoading: boolean = true;
   transactionsData: TransactionDTO[] = [];
 
+  private transactionsSubscription: Subscription | undefined;
+
   constructor(
     private modalCtrl: ModalController,
     private transactionService: TransactionService
@@ -33,6 +36,15 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     await this.loadTransactions();
+    this.transactionsSubscription = this.transactionService.transactionsChanged$.subscribe(async () => {
+      await this.loadTransactions();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.transactionsSubscription) {
+      this.transactionsSubscription.unsubscribe();
+    }
   }
 
   async loadTransactions() {
@@ -42,7 +54,6 @@ export class HomePage implements OnInit {
       await this.delay(1000);
 
       this.transactionsData = await this.transactionService.listTransactions();
-      console.log('Transações carregadas:', this.transactionsData);
 
       this.firstValue = this.getMonthlyIncomes(this.transactionsData);
       this.secondValue = this.getMonthlyExpenses(this.transactionsData);
@@ -68,12 +79,6 @@ export class HomePage implements OnInit {
       showBackdrop: true,
       backdropDismiss: true,
       cssClass: 'glass-modal',
-    });
-
-    modal.onDidDismiss().then((detail) => {
-      if (detail?.data?.updated) {
-        this.loadTransactions();
-      }
     });
 
     await modal.present();

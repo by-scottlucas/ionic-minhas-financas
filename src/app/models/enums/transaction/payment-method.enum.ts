@@ -1,8 +1,8 @@
 export enum PaymentMethodEnum {
   PIX = 'pix',
   MONEY = 'money',
-  DEBIT_CARD = 'debit card',
-  CREDIT_CARD = 'credit card',
+  DEBIT_CARD = 'debit_card',
+  CREDIT_CARD = 'credit_card',
 }
 
 export const PaymentMethodEnumLabels: Record<PaymentMethodEnum, string> = {

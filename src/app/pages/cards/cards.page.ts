@@ -1,75 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'; // Adicionado OnDestroy
 import { ModalController } from '@ionic/angular';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
-import { CardDTO } from 'src/app/models/card.dto';
 import { PaymentMethodEnum } from 'src/app/models/enums/transaction/payment-method.enum';
 import { TransactionDTO } from 'src/app/models/transaction.dto';
-import { CardService } from 'src/app/services/card.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { Subscription } from 'rxjs'; // Importado Subscription
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.page.html',
   styleUrls: ['./cards.page.scss'],
 })
-export class CardsPage implements OnInit {
+export class CardsPage implements OnInit, OnDestroy { // Implementa OnDestroy
   isLoading: boolean = true;
-  cardsData: CardDTO[] = [];
   cardTransactions: TransactionDTO[] = [];
 
+  private transactionsSubscription: Subscription | undefined; // Variável para a inscrição
+
   constructor(
-    private cardService: CardService,
     private modalCtrl: ModalController,
     private transactionService: TransactionService
   ) {}
 
-  ngOnInit(): void {
-    this.loadCards();
-    this.getCardTransactions();
+  async ngOnInit(): Promise<void> {
+    await this.loadCardTransactions();
+
+    // Assina o evento de alteração de transações do TransactionService
+    this.transactionsSubscription = this.transactionService.transactionsChanged$.subscribe(async () => {
+      console.log('CardsPage: Evento de transações alteradas recebido. Recarregando transações de cartão...');
+      await this.loadCardTransactions(); // Recarrega as transações de cartão quando notificado
+    });
   }
 
-  async loadCards() {
-    this.isLoading = true;
-
-    try {
-      await this.delay(1000);
-      this.cardsData = await this.cardService.listCards();
-      console.log('Transações carregadas:', this.cardTransactions);
-    } catch (error) {
-      console.error('Erro ao carregar transações:', error);
-    } finally {
-      this.isLoading = false;
+  ngOnDestroy(): void {
+    // Desinscreva-se para evitar vazamentos de memória
+    if (this.transactionsSubscription) {
+      this.transactionsSubscription.unsubscribe();
     }
   }
 
-  private async getCardTransactions(): Promise<TransactionDTO[]> {
+  async loadCardTransactions(): Promise<void> {
+    this.isLoading = true;
+
+    await this.delay(500); // Mantido o delay
+
     const cardMethods = [
       PaymentMethodEnum.DEBIT_CARD,
       PaymentMethodEnum.CREDIT_CARD,
     ];
 
-    const transactions = await this.transactionService.listTransactions();
+    try {
+      const allTransactions = await this.transactionService.listTransactions();
 
-    return transactions.filter((transaction) =>
-      cardMethods.includes(transaction.paymentMethod)
-    );
+      this.cardTransactions = allTransactions.filter((transaction) =>
+        cardMethods.includes(transaction.paymentMethod)
+      );
+    } catch (error) {
+      console.error('Erro ao carregar transações de cartão:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(amount || 0);
-  }
-
-  formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  async openNewTransactionModal() {
+  async onAddTransaction() {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
       showBackdrop: true,
@@ -77,7 +70,16 @@ export class CardsPage implements OnInit {
       cssClass: 'glass-modal',
     });
 
-    modal.present();
+    await modal.present();
+
+    // Com a assinatura no service, o onDidDismiss para recarga não é mais necessário aqui.
+    // Ele ainda pode ser útil se você precisar de uma lógica específica APÓS o modal fechar,
+    // que não seja apenas a recarga de dados.
+    // modal.onDidDismiss().then((detail) => {
+    //   if (detail?.data?.updated) {
+    //     this.loadCardTransactions();
+    //   }
+    // });
   }
 
   private delay(ms: number) {

@@ -1,5 +1,9 @@
 <ion-list lines="none">
-  <ion-item-sliding class="transaction-item" *ngFor="let item of transactions">
+  <ion-item-sliding
+    class="transaction-item"
+    *ngFor="let item of transactions"
+    #slidingItem
+  >
     <ion-item class="item-content">
       <ion-label>
         <ion-row class="top-row">
@@ -38,11 +42,23 @@
     </ion-item>
 
     <ion-item-options>
-      <ion-item-option (click)="onEditTransaction(item)" class="action-button edit-button">
-        <ion-icon class="action-icon" name="create"></ion-icon>
+      <ion-item-option
+        (click)="onEditTransaction(item, slidingItem)"
+        class="action-button edit-button"
+      >
+        <ion-icon
+          class="action-icon"
+          name="create"
+        ></ion-icon>
       </ion-item-option>
-      <ion-item-option (click)="onDeleteTransaction(item)" class="action-button delete-button">
-        <ion-icon class="action-icon" name="trash"></ion-icon>
+      <ion-item-option
+        (click)="onDeleteTransaction(item)"
+        class="action-button delete-button"
+      >
+        <ion-icon
+          class="action-icon"
+          name="trash"
+        ></ion-icon>
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>

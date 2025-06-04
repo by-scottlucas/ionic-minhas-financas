@@ -1,5 +1,5 @@
 <main class="main-container">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="modal-container">
       <header class="modal-header">
         <h1 class="header-title">{{ headerTitle }}</h1>
@@ -52,42 +52,28 @@
               <label for="cardLimit" class="label-style">Limite</label>
               <input
                 id="cardLimit"
-                name="limit"
+                name="cardLimit"
                 type="number"
                 min="0"
                 placeholder="0,00"
                 class="input-style"
                 (keydown)="blockNegativeInput($event)"
-                formControlName="limit"
+                formControlName="cardLimit"
               >
             </ion-col>
 
             <ion-col class="form-group">
               <label class="label-style" for="dueDate">Vencimento</label>
-              <ion-button
+              <input
                 id="dueDate"
-                class="input-style transparent-button"
-                (click)="openDatepicker()"
+                name="dueDate"
+                type="number"
+                min="0"
+                placeholder="14"
+                class="input-style"
+                (keydown)="blockNegativeInput($event)"
+                formControlName="dueDate"
               >
-                {{ formattedDate }}
-              </ion-button>
-
-              <ion-modal
-                [isOpen]="isDateModalOpen"
-                (didDismiss)="isDateModalOpen = false"
-              >
-                <ng-template>
-                  <div class="date-modal">
-                    <ion-datetime
-                      mode="ios"
-                      locale="pt-BR"
-                      presentation="date"
-                      [value]="selectedDate"
-                      (ionChange)="onDateChange($event)"
-                    ></ion-datetime>
-                  </div>
-                </ng-template>
-              </ion-modal>
             </ion-col>
           </ion-row>
         </ng-container>
@@ -138,7 +124,7 @@
           Cancelar
         </ion-button>
 
-        <ion-button class="action-button-style add-button" (click)="onSubmit()">
+        <ion-button type="submit" class="action-button-style add-button">
           Adicionar
         </ion-button>
       </div>

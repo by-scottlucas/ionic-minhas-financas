@@ -11,14 +11,14 @@
     animated
   ></ion-skeleton-text>
 
-  <swiper-slide class="slide-style" *ngFor="let card of cards">
+  <swiper-slide class="slide-style" *ngFor="let card of cardsData">
     <ion-card class="carousel-card" (click)="presentCardActions(card)">
       <ion-card-header class="card-header">
         <ion-card-title class="card-title">
-          {{ card.name }}
+          {{ card.title }}
         </ion-card-title>
-        <ion-badge class="card-badge" [style.backgroundColor]="getBrandColor(card.brand.value)">
-          {{ card.brand.label?.toUpperCase() }}
+        <ion-badge class="card-badge" [style.backgroundColor]="getBrandColor(card.brand)">
+          {{ card.brand.toUpperCase() }}
         </ion-badge>
       </ion-card-header>
 
@@ -29,16 +29,16 @@
           </span>
 
           <div>
-            <div class="usage-row" *ngIf="card.type.value === 'credit_card'">
+            <div class="usage-row" *ngIf="card.type === 'credit_card'">
               <span class="card-info-title">
                 Uso: {{ formatCurrency(getUsage(card)) }}
               </span>
               <span class="card-info-title">
-                Limite: {{ formatCurrency(card.limit) }}
+                Limite: {{ formatCurrency(card.cardLimit!) }}
               </span>
             </div>
 
-            <div class="usage-bar" *ngIf="card.type.value === 'credit_card'">
+            <div class="usage-bar" *ngIf="card.type === 'credit_card'">
               <div
                 class="usage-fill"
                 [style.width.%]="getUsagePercent(card)"
@@ -46,19 +46,19 @@
             </div>
 
             <div class="bottom-row">
-              <span *ngIf="card.type.value === 'debit_card'">
+              <span *ngIf="card.type === 'debit_card'">
                 Cartão de Débito
               </span>
               <div
                 class="expires-box"
-                *ngIf="card.due_day && card.type.value === 'credit_card'"
+                *ngIf="card.dueDate && card.type === 'credit_card'"
               >
                 <ion-icon
                   class="expires-icon"
                   name="calendar-clear-outline"
                 ></ion-icon>
                 <span class="card-info-title">
-                  Venc. dia {{ card.due_day }}
+                  Venc. dia {{ card.dueDate }}
                 </span>
               </div>
             </div>
@@ -69,7 +69,7 @@
   </swiper-slide>
 
   <swiper-slide class="slide-style" *ngIf="!isLoading">
-    <ion-card class="carousel-card add-new-card" (click)="openAddCardModal()">
+    <ion-card class="carousel-card add-new-card" (click)="onAddCard()">
       <ion-icon
         class="add-new-card-icon"
         name="add-circle-outline"

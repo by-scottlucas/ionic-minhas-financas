@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { CardDTO } from 'src/app/models/card.dto';
+import { CardService } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-card-form',
@@ -21,27 +23,30 @@ export class CardFormComponent implements OnInit {
     { value: 'other', label: 'Outra' },
   ];
 
-  @Input() item: any;
-  @Input() headerTitle: string = 'Novo Cartão';
+  @Input() item!: CardDTO;
+  @Input() headerTitle!: string;
 
   form!: FormGroup;
 
-  isDateModalOpen = false;
-  selectedDate: string = '';
-  formattedDate: string = '';
-
   constructor(
+    private cardService: CardService,
     private formBuilder: FormBuilder,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController
   ) {
-    const now = new Date().toISOString();
-    this.updateFormattedDate(now);
-
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       type: ['', Validators.required],
-      limit: [null],
-      date: [null],
+      cardLimit: [null],
+      dueDate: [
+        null,
+        [
+          Validators.required,
+          Validators.min(1),
+          Validators.max(31),
+          Validators.pattern(/^\d{1,2}$/),
+        ],
+      ],
       brand: ['', Validators.required],
       lastDigits: [
         '',
@@ -58,54 +63,54 @@ export class CardFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.item) {
       this.form.patchValue({
-        title: this.item.name,
-        type: this.item.type.value,
-        limit: this.item.limit,
-        date: this.item.due_date,
-        brand: this.item.brand.value,
+        title: this.item.title,
+        type: this.item.type,
+        cardLimit: this.item.cardLimit || null,
+        dueDate: this.item.dueDate || null,
+        brand: this.item.brand,
         lastDigits: this.item.lastDigits,
       });
 
-      this.updateFormattedDate(this.item.date);
+      if (this.item.type === 'credit_card') {
+        this.form
+          .get('cardLimit')
+          ?.setValidators([Validators.required, Validators.min(0)]);
+        this.form
+          .get('dueDate')
+          ?.setValidators([
+            Validators.required,
+            Validators.min(1),
+            Validators.max(31),
+            Validators.pattern(/^\d{1,2}$/),
+          ]);
+        this.form.get('cardLimit')?.updateValueAndValidity();
+        this.form.get('dueDate')?.updateValueAndValidity();
+      }
     }
-  }
-
-  openDatepicker() {
-    this.isDateModalOpen = true;
-  }
-
-  onDateChange(event: any) {
-    const newDate = event.detail.value;
-    this.updateFormattedDate(newDate);
-    this.isDateModalOpen = false;
-    this.form.get('date')?.setValue(newDate);
-  }
-
-  private updateFormattedDate(dateString: string) {
-    const date = new Date(dateString);
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0');
-    const ano = date.getFullYear();
-
-    this.formattedDate = `${dia}/${mes}/${ano}`;
-    this.selectedDate = dateString;
   }
 
   onTypeChange(event: any) {
     const selectedType = event.detail.value;
     if (selectedType === 'credit_card') {
       this.form
-        .get('limit')
+        .get('cardLimit')
         ?.setValidators([Validators.required, Validators.min(0)]);
-      this.form.get('date')?.setValidators([Validators.required]);
+      this.form
+        .get('dueDate')
+        ?.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(31),
+          Validators.pattern(/^\d{1,2}$/),
+        ]);
     } else {
-      this.form.get('limit')?.clearValidators();
-      this.form.get('date')?.clearValidators();
-      this.form.get('limit')?.setValue(null);
-      this.form.get('date')?.setValue('');
+      this.form.get('cardLimit')?.clearValidators();
+      this.form.get('dueDate')?.clearValidators();
+      this.form.get('cardLimit')?.setValue(null);
+      this.form.get('dueDate')?.setValue(null);
     }
-    this.form.get('limit')?.updateValueAndValidity();
-    this.form.get('date')?.updateValueAndValidity();
+    this.form.get('cardLimit')?.updateValueAndValidity();
+    this.form.get('dueDate')?.updateValueAndValidity();
   }
 
   blockNegativeInput(event: KeyboardEvent) {
@@ -132,23 +137,100 @@ export class CardFormComponent implements OnInit {
     if (controlKeys.includes(event.key)) {
       return;
     }
-
-    if (input.value.length >= 4 && /^[0-9]$/.test(event.key)) {
-      event.preventDefault();
-    }
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      console.log(this.form.value);
-      this.modalCtrl.dismiss(this.form.value);
-    } else {
-      console.warn('Formulário inválido');
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color,
+    });
+    toast.present();
+  }
+
+  async onSubmit() {
+    if (this.form.invalid) {
+      await this.presentToast(
+        'Por favor, preencha todos os campos obrigatórios corretamente.',
+        'danger'
+      );
       this.form.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.form.value;
+
+    const parsedCardLimit =
+      formValue.cardLimit !== null && formValue.cardLimit !== ''
+        ? parseFloat(formValue.cardLimit)
+        : null;
+
+    const parsedDueDate =
+      formValue.dueDate !== null && formValue.dueDate !== ''
+        ? parseInt(formValue.dueDate, 10)
+        : null;
+
+    const parsedLastDigits =
+      formValue.lastDigits !== null && formValue.lastDigits !== ''
+        ? parseInt(formValue.lastDigits, 10)
+        : null;
+
+    if (isNaN(parsedCardLimit!) && parsedCardLimit !== null) {
+      await this.presentToast(
+        'Erro de conversão: Limite do cartão inválido.',
+        'danger'
+      );
+      return;
+    }
+    if (isNaN(parsedDueDate!) && parsedDueDate !== null) {
+      await this.presentToast(
+        'Erro de conversão: Vencimento inválido.',
+        'danger'
+      );
+      return;
+    }
+    if (isNaN(parsedLastDigits!) && parsedLastDigits !== null) {
+      await this.presentToast(
+        'Erro de conversão: Últimos dígitos inválidos.',
+        'danger'
+      );
+      return;
+    }
+
+    const card: CardDTO = {
+      id: this.item ? this.item.id : undefined,
+      title: formValue.title,
+      type: formValue.type,
+      cardLimit: parsedCardLimit!,
+      dueDate: parsedDueDate!,
+      brand: formValue.brand,
+      lastDigits: parsedLastDigits!,
+    };
+
+    try {
+      if (this.item && this.item.id) {
+        await this.cardService.updateCard(card);
+        await this.presentToast('Cartão editado com sucesso!', 'success');
+      } else {
+        await this.cardService.createCard(card);
+        await this.presentToast('Cartão adicionado com sucesso!', 'success');
+      }
+
+      await this.modalCtrl.dismiss({ updated: true });
+    } catch (error: any) {
+      const errorMessage = error.message
+        ? error.message
+        : 'Ocorreu um erro desconhecido.';
+      await this.presentToast(
+        `Erro ao salvar cartão: ${errorMessage}`,
+        'danger'
+      );
+      console.error('Erro ao salvar/atualizar card:', error);
     }
   }
 
-  dismiss() {
-    this.modalCtrl.dismiss();
+  async dismiss() {
+    await this.modalCtrl.dismiss();
   }
 }

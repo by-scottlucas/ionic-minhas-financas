@@ -5,8 +5,8 @@ export interface CardDTO {
   id?: number;
   title: string;
   type: CardTypeEnum;
-  limit?: number;
-  dueDate: number;
+  cardLimit?: number;
+  dueDate?: number;
   brand: CardBrandEnum;
   lastDigits: number;
 }
