@@ -21,6 +21,7 @@ register();
 export class CardsCarouselComponent implements OnInit {
   cardsData: CardDTO[] = [];
   isLoading: boolean = true;
+  showSwiper: boolean = true;
   cardTransactions: any[] = [];
 
   constructor(
@@ -37,10 +38,12 @@ export class CardsCarouselComponent implements OnInit {
 
   async loadCards() {
     this.isLoading = true;
+    this.showSwiper = false;
+
     try {
-      await this.delay(1000);
+      await this.delay(500);
       this.cardsData = await this.cardService.listCards();
-      console.log('Cartões carregados:', this.cardsData);
+      this.showSwiper = true;
     } catch (error) {
       console.error('Erro ao carregar cartões:', error);
     } finally {
@@ -145,11 +148,13 @@ export class CardsCarouselComponent implements OnInit {
       },
       cssClass: 'glass-modal',
     });
+
     modal.onDidDismiss().then((detail) => {
       if (detail?.data?.updated) {
         this.loadCards();
       }
     });
+
     await modal.present();
   }
 
