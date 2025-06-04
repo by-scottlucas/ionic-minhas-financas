@@ -64,10 +64,42 @@
         <ion-row class="row-group">
           <ion-col class="form-group">
             <label for="payment-method" class="label-style">Método de Pagamento</label>
-            <ion-select mode="ios" name="payment-method" class="input-style input-select" okText="Aceitar"
-              cancelText="Cancelar" placeholder="Selecione" formControlName="paymentMethod">
-              <ion-select-option *ngFor="let item of paymentMethodSelectOptions" [value]="item.value">
+            <ion-select
+              mode="ios"
+              name="payment-method"
+              class="input-style input-select"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="paymentMethod"
+            >
+              <ion-select-option
+                *ngFor="let item of paymentMethodSelectOptions"
+                [value]="item.value"
+              >
                 {{ item.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="row-group" *ngIf="showCreditCardSelect">
+          <ion-col class="form-group">
+            <label for="creditCard" class="label-style">Cartões</label>
+            <ion-select
+              mode="ios"
+              name="creditCard"
+              class="input-style input-select"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="creditCard"
+            >
+              <ion-select-option
+                *ngFor="let item of creditCards"
+                [value]="item.id"
+              >
+                {{ item.title }}
               </ion-select-option>
             </ion-select>
           </ion-col>

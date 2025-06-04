@@ -18,16 +18,18 @@ export class TransactionService {
 
   private async ensureTable(db: SQLiteDBConnection): Promise<void> {
     const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS transactions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        type TEXT NOT NULL,
-        price REAL NOT NULL,
-        category TEXT NOT NULL,
-        paymentMethod TEXT NOT NULL,
-        date TEXT NOT NULL
-      );
-    `;
+    CREATE TABLE IF NOT EXISTS transactions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      type TEXT NOT NULL,
+      price REAL NOT NULL,
+      category TEXT NOT NULL,
+      paymentMethod TEXT NOT NULL,
+      date TEXT NOT NULL,
+      cardId INTEGER,
+      FOREIGN KEY (cardId) REFERENCES cards(id) ON DELETE SET NULL
+    );
+  `;
     await db.execute(createTableQuery);
   }
 
@@ -42,7 +44,7 @@ export class TransactionService {
     await this.ensureTable(db);
 
     const result = await db.query(
-      'SELECT id, title, type, price, category, paymentMethod, date FROM transactions ORDER BY id DESC'
+      'SELECT id, title, type, price, category, paymentMethod, date, cardId FROM transactions ORDER BY id DESC'
     );
     const rows = result.values ?? [];
 
@@ -54,6 +56,7 @@ export class TransactionService {
       category: row.category,
       paymentMethod: row.paymentMethod,
       date: row.date,
+      cardId: row.cardId ?? undefined,
     }));
   }
 
@@ -73,9 +76,10 @@ export class TransactionService {
     await this.ensureTable(db);
 
     const query = `
-      INSERT INTO transactions (title, type, price, category, paymentMethod, date)
-      VALUES (?, ?, ?, ?, ?, ?);
+      INSERT INTO transactions (title, type, price, category, paymentMethod, date, cardId)
+      VALUES (?, ?, ?, ?, ?, ?, ?);
     `;
+
     const values = [
       data.title,
       data.type,
@@ -83,7 +87,9 @@ export class TransactionService {
       data.category,
       data.paymentMethod,
       data.date,
+      data.cardId ?? null,
     ];
+
 
     try {
       const result = await db.run(query, values);
@@ -114,7 +120,7 @@ export class TransactionService {
 
     const query = `
       UPDATE transactions
-      SET title = ?, type = ?, price = ?, category = ?, paymentMethod = ?, date = ?
+      SET title = ?, type = ?, price = ?, category = ?, paymentMethod = ?, date = ?, cardId = ?
       WHERE id = ?;
     `;
 
@@ -125,6 +131,7 @@ export class TransactionService {
       data.category,
       data.paymentMethod,
       data.date,
+      data.cardId ?? null,
       data.id,
     ];
 

@@ -47,7 +47,7 @@ export class TransactionListComponent {
     await modal.present();
 
     const { data: result } = await modal.onWillDismiss();
-    
+
     if (result?.updated) {
       this.updated.emit();
     }

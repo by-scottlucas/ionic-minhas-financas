@@ -10,4 +10,5 @@ export interface TransactionDTO {
   category: TransactionCategoryEnum;
   date: Date;
   paymentMethod: PaymentMethodEnum;
+  cardId?: number;
 }

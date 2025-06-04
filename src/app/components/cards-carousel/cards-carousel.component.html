@@ -29,7 +29,7 @@
           <div>
             <div class="usage-row" *ngIf="card.type === 'credit_card'">
               <span class="card-info-title">
-                Uso: {{ formatCurrency(getUsage(card)) }}
+                Usado: {{ formatCurrency(card.cardUsage) }}
               </span>
               <span class="card-info-title">
                 Limite: {{ formatCurrency(card.cardLimit!) }}

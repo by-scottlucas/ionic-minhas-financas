@@ -1,3 +1,5 @@
+// src/app/cards/cards-carousel/cards-carousel.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import {
   ActionSheetController,
@@ -8,7 +10,7 @@ import {
 import { CardDTO } from 'src/app/models/card.dto';
 import { CardService } from 'src/app/services/card.service';
 import { register } from 'swiper/element/bundle';
-
+import { TransactionService } from 'src/app/services/transaction.service'; // Mantenha, pois o CardService ainda depende dele para o cálculo.
 import { CardFormComponent } from '../card-form/card-form.component';
 
 register();
@@ -22,18 +24,31 @@ export class CardsCarouselComponent implements OnInit {
   cardsData: CardDTO[] = [];
   isLoading: boolean = true;
   showSwiper: boolean = true;
-  cardTransactions: any[] = [];
+  // cardTransactions não é mais necessário aqui, pois o CardService já faz o cálculo
+  // cardTransactions: TransactionDTO[] = [];
 
   constructor(
     private cardService: CardService,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private transactionService: TransactionService // Mantenha injetado para o `transactionsChanged$`
   ) {}
 
   ngOnInit() {
     this.loadCards();
+
+    // Inscreva-se nas mudanças do CardService para recarregar cartões
+    this.cardService.cardsChanged$.subscribe(() => {
+      this.loadCards();
+    });
+
+    // Inscreva-se nas mudanças do TransactionService também,
+    // pois uma nova transação ou edição de transação afetaria o uso do cartão.
+    this.transactionService.transactionsChanged$.subscribe(() => {
+      this.loadCards();
+    });
   }
 
   async loadCards() {
@@ -42,6 +57,7 @@ export class CardsCarouselComponent implements OnInit {
 
     try {
       await this.delay(500);
+      // O CardService agora retorna os cartões com cardUsage já calculado
       this.cardsData = await this.cardService.listCards();
       this.showSwiper = true;
     } catch (error) {
@@ -51,17 +67,11 @@ export class CardsCarouselComponent implements OnInit {
     }
   }
 
-  getUsage(card: CardDTO): number {
-    const current = new Date();
-    const filtered = (this.cardTransactions || []).filter((t: any) => {
-      const d = new Date(t.date);
-      return (
-        d.getMonth() === current.getMonth() &&
-        d.getFullYear() === current.getFullYear()
-      );
-    });
-    return filtered.reduce((sum, t) => sum + (t.amount || 0), 0);
-  }
+  // A função getUsage não é mais necessária aqui, pois `card.cardUsage` já está disponível
+  // Você pode remover essa função se não estiver sendo chamada em outro lugar.
+  // getUsage(card: CardDTO): number {
+  //   return card.cardUsage || 0;
+  // }
 
   getBrandColor(brand: string): string {
     const map: any = {
@@ -75,10 +85,17 @@ export class CardsCarouselComponent implements OnInit {
 
   getUsagePercent(card: CardDTO): number {
     if (card.type === 'credit_card' && card.cardLimit && card.cardLimit > 0) {
-      const usage = this.getUsage(card);
-      return Math.min((usage / card.cardLimit) * 100, 100);
+      // Use card.cardUsage diretamente
+      return Math.min(((card.cardUsage || 0) / card.cardLimit) * 100, 100);
     }
     return 0;
+  }
+
+  getAvailableLimit(card: CardDTO): number {
+    if (card.type === 'credit_card' && card.cardLimit) {
+      return card.cardLimit - (card.cardUsage || 0);
+    }
+    return 0; // Ou undefined, dependendo de como você quer lidar com débito
   }
 
   formatCurrency(amount: number | null | undefined): string {
@@ -101,7 +118,7 @@ export class CardsCarouselComponent implements OnInit {
 
     modal.onDidDismiss().then((detail) => {
       if (detail?.data?.updated) {
-        this.loadCards();
+        this.loadCards(); // Recarrega para atualizar os dados do carrossel
       }
     });
 
@@ -151,7 +168,7 @@ export class CardsCarouselComponent implements OnInit {
 
     modal.onDidDismiss().then((detail) => {
       if (detail?.data?.updated) {
-        this.loadCards();
+        this.loadCards(); // Recarrega para atualizar os dados do carrossel
       }
     });
 
@@ -192,7 +209,7 @@ export class CardsCarouselComponent implements OnInit {
 
         if (card.id) {
           await this.cardService.deleteCard(card.id);
-          await this.loadCards();
+          this.loadCards(); // Recarrega para atualizar os dados do carrossel
         } else {
           console.error('Erro: ID do cartão não encontrado para exclusão.');
         }
