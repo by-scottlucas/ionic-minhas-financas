@@ -1,7 +1,8 @@
 import { CardBrandEnum } from './enums/card/card-brand.enum';
 import { CardTypeEnum } from './enums/card/card-type.enum';
 
-export interface CardDTO{
+export interface CardDTO {
+  id?: number;
   title: string;
   type: CardTypeEnum;
   limit?: number;

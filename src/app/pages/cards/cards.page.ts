@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
+import { CardDTO } from 'src/app/models/card.dto';
+import { PaymentMethodEnum } from 'src/app/models/enums/transaction/payment-method.enum';
+import { TransactionDTO } from 'src/app/models/transaction.dto';
+import { CardService } from 'src/app/services/card.service';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-cards',
@@ -9,53 +14,45 @@ import { TransactionFormComponent } from 'src/app/components/transaction-form/tr
 })
 export class CardsPage implements OnInit {
   isLoading: boolean = true;
-  cardTransactions: any[] = [];
+  cardsData: CardDTO[] = [];
+  cardTransactions: TransactionDTO[] = [];
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private cardService: CardService,
+    private modalCtrl: ModalController,
+    private transactionService: TransactionService
+  ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loadCardTransactions();
-    }, 500);
+    this.loadCards();
+    this.getCardTransactions();
   }
 
-  formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
+  async loadCards() {
+    this.isLoading = true;
 
-  async loadCardTransactions() {
     try {
-      const today = new Date();
-      const lastWeek = new Date();
-      lastWeek.setDate(today.getDate() - 7);
-      const lastMonth = new Date();
-      lastMonth.setMonth(today.getMonth() - 1);
-
-      this.cardTransactions = [
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'transport', label: 'Transporte' },
-          date: this.formatDate(today),
-          paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
-          name: 'Posto Shell',
-          price: 89.9,
-        },
-        {
-          type: { value: 'withdrawal', label: 'Saída' },
-          category: { value: 'services', label: 'Serviço' },
-          date: this.formatDate(lastWeek),
-          paymentMethod: { value: 'credit_card', label: 'Cartão de Crédito' },
-          name: 'Netflix',
-          price: 39.9,
-        },
-      ];
+      await this.delay(1000);
+      this.cardsData = await this.cardService.listCards();
+      console.log('Transações carregadas:', this.cardTransactions);
+    } catch (error) {
+      console.error('Erro ao carregar transações:', error);
+    } finally {
       this.isLoading = false;
-    } catch (err) {
-      console.error('Erro ao carregar transações', err);
     }
+  }
+
+  private async getCardTransactions(): Promise<TransactionDTO[]> {
+    const cardMethods = [
+      PaymentMethodEnum.DEBIT_CARD,
+      PaymentMethodEnum.CREDIT_CARD,
+    ];
+
+    const transactions = await this.transactionService.listTransactions();
+
+    return transactions.filter((transaction) =>
+      cardMethods.includes(transaction.paymentMethod)
+    );
   }
 
   formatCurrency(amount: number): string {
@@ -63,6 +60,13 @@ export class CardsPage implements OnInit {
       style: 'currency',
       currency: 'BRL',
     }).format(amount || 0);
+  }
+
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   async openNewTransactionModal() {
@@ -74,5 +78,9 @@ export class CardsPage implements OnInit {
     });
 
     modal.present();
+  }
+
+  private delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
