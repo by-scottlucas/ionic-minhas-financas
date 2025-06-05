@@ -1,3 +1,5 @@
+// src/app/components/transaction-list/transaction-list.component.ts
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AlertController,
@@ -23,6 +25,7 @@ import { TransactionFormComponent } from '../transaction-form/transaction-form.c
   styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent {
+  @Input() isLoading: boolean = false;
   @Input() transactions: TransactionDTO[] = [];
   @Output() updated = new EventEmitter<void>();
 

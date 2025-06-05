@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true">
-
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -30,10 +29,6 @@
     (filterApplied)="onFilterApplied($event)"
   ></app-filter-bar>
 
-  <div class="container" *ngIf="isLoading">
-    <ion-spinner color="primary"></ion-spinner>
-  </div>
-
   <div
     class="container"
     *ngIf="!isLoading && transactionsData.length === 0"
@@ -42,8 +37,9 @@
   </div>
 
   <app-transaction-list
+    [isLoading]="isLoading"
     (updated)="loadTransactions()"
     [transactions]="transactionsData"
-    *ngIf="!isLoading && transactionsData.length > 0"
+    *ngIf="transactionsData.length > 0 || isLoading"
   />
 </ion-content>

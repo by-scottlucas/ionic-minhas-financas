@@ -31,6 +31,12 @@ export class CardsPage implements OnInit, OnDestroy {
       });
   }
 
+  handleRefresh(event: CustomEvent) {
+    this.loadCardTransactions().finally(() => {
+      (event.target as HTMLIonRefresherElement).complete();
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.transactionsSubscription) {
       this.transactionsSubscription.unsubscribe();

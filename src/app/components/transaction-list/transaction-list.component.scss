@@ -106,3 +106,57 @@ ion-list {
 .delete-button {
   background: #FF0045;
 }
+
+.transaction-item.skeleton {
+
+  .item-content {
+    padding: 16px 20px;
+    --background: var(--ion-color-step-50, #f8f8f8);
+  }
+
+  .top-row {
+    ion-skeleton-text {
+      width: 60px;
+      height: 20px;
+      border-radius: 12px;
+      margin-right: 8px;
+    }
+
+    ion-skeleton-text:nth-child(2) {
+      width: 80px;
+    }
+  }
+
+  .main-row {
+    .icon-col {
+      ion-skeleton-text {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    .main-col {
+      ion-skeleton-text {
+        width: 70%;
+        height: 1rem;
+        margin-bottom: 6px;
+        border-radius: 4px;
+      }
+
+      ion-skeleton-text:nth-child(2) {
+        width: 50%;
+        height: 0.9rem;
+      }
+    }
+
+    .price-col {
+      ion-skeleton-text {
+        width: 60px;
+        height: 1rem;
+        border-radius: 4px;
+      }
+    }
+  }
+}

@@ -1,10 +1,15 @@
+<ng-container *ngIf="isLoading">
+  <ion-skeleton-text class="skeleton-style" animated></ion-skeleton-text>
+</ng-container>
+
 <swiper-container
   slides-per-view="1"
   space-between="16"
   navigation="false"
   pagination="false"
   scrollbar="false"
-  *ngIf="showSwiper" >
+  *ngIf="!isLoading && cardsData.length > 0"
+>
   <swiper-slide class="slide-style" *ngFor="let card of cardsData">
     <ion-card class="carousel-card" (click)="presentCardActions(card)">
       <ion-card-header class="card-header">
@@ -69,15 +74,7 @@
   </swiper-slide>
 </swiper-container>
 
-<ng-container *ngIf="!showSwiper">
-  <ion-skeleton-text
-    *ngIf="isLoading"
-    class="skeleton-style"
-    animated
-  ></ion-skeleton-text>
-
-  <ion-card class="carousel-card add-new-card" (click)="onAddCard()" *ngIf="!isLoading">
-      <ion-icon class="add-new-card-icon" name="add-circle-outline"></ion-icon>
-      <span class="add-new-card-label"> Adicionar Cartão </span>
-  </ion-card>
-</ng-container>
+<ion-card class="carousel-card add-new-card" (click)="onAddCard()" *ngIf="!isLoading && cardsData.length === 0">
+    <ion-icon class="add-new-card-icon" name="add-circle-outline"></ion-icon>
+    <span class="add-new-card-label"> Adicionar Cartão </span>
+</ion-card>

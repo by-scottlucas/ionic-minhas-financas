@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+// cards-carousel.component.ts
+import { Component, OnInit, Input } from '@angular/core'; // Importe Input
 import {
   ActionSheetController,
   AlertController,
@@ -21,7 +22,7 @@ register();
 })
 export class CardsCarouselComponent implements OnInit {
   cardsData: CardDTO[] = [];
-  isLoading: boolean = true;
+  @Input() isLoading: boolean = false;
   showSwiper: boolean = true;
 
   constructor(
@@ -46,17 +47,14 @@ export class CardsCarouselComponent implements OnInit {
   }
 
   async loadCards() {
-    this.isLoading = true;
     this.showSwiper = false;
-
     try {
       await this.delay(500);
       this.cardsData = await this.cardService.listCards();
-      this.showSwiper = true;
     } catch (error) {
       console.error('Erro ao carregar cartões:', error);
     } finally {
-      this.isLoading = false;
+      this.showSwiper = this.cardsData.length > 0;
     }
   }
 

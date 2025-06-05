@@ -1,4 +1,8 @@
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <header class="header">
     <div>
       <h1 class="header-title">Meus Cartões</h1>
@@ -14,21 +18,20 @@
     </ion-button>
   </header>
 
-  <app-cards-carousel></app-cards-carousel>
-
+  <app-cards-carousel
+    [isLoading]="isLoading"
+  ></app-cards-carousel>
+  
   <app-filter-bar></app-filter-bar>
-
-  <div class="container" *ngIf="isLoading">
-    <ion-spinner color="primary"></ion-spinner>
-  </div>
 
   <div class="container" *ngIf="cardTransactions.length === 0 && !isLoading">
     <span>Nenhuma transação encontrada.</span>
   </div>
 
   <app-transaction-list
-    *ngIf="cardTransactions.length > 0 && !isLoading"
+    [isLoading]="isLoading"
     [transactions]="cardTransactions"
     (updated)="loadCardTransactions()"
+    *ngIf="cardTransactions.length > 0 || isLoading"
   ></app-transaction-list>
 </ion-content>
