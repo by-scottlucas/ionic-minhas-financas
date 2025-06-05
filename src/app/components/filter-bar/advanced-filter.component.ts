@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import {
@@ -18,7 +18,8 @@ import { AdvancedFilterDTO } from './models/advaced-filter.dto';
   templateUrl: './advanced-filter.component.html',
   styleUrls: ['./advanced-filter.component.scss'],
 })
-export class AdvancedFilterComponent {
+export class AdvancedFilterComponent implements OnInit {
+  @Input() currentFilters: any;
   @Output() apply = new EventEmitter<AdvancedFilterDTO>();
   @Output() cleared = new EventEmitter<void>();
 
@@ -44,6 +45,12 @@ export class AdvancedFilterComponent {
     });
   }
 
+  ngOnInit() {
+    if (this.currentFilters) {
+      this.form.patchValue(this.currentFilters);
+    }
+  }
+
   onApplyFilters() {
     if (this.form.valid) {
       this.apply.emit(this.form.value);
@@ -54,7 +61,7 @@ export class AdvancedFilterComponent {
   clearFilters() {
     this.form.reset();
     this.cleared.emit();
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(null);
   }
 
   dismiss() {

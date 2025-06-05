@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { FilterBarService } from 'src/app/components/filter-bar/filter-bar.service';
 import { TransactionFormComponent } from 'src/app/components/transaction-form/transaction-form.component';
 import { TransactionTypeEnum } from 'src/app/models/enums/transaction/transaction-type.enum';
 import { TransactionDTO } from 'src/app/models/transaction.dto';
@@ -12,30 +13,31 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
-  balanceTitle: string = 'Saldo do Mês';
-  balanceValue: number = 0;
-  balanceIcon: string = 'trending-up-outline';
+  balanceTitle = 'Saldo do Mês';
+  balanceValue = 0;
+  balanceIcon = 'trending-up-outline';
 
-  firstTitle: string = 'Entradas';
-  firstValue: number = 0;
-  firstValuePositive: boolean = true;
+  firstTitle = 'Entradas';
+  firstValue = 0;
+  firstValuePositive = true;
 
-  secondTitle: string = 'Saídas';
-  secondValue: number = 0;
-  secondValuePositive: boolean = false;
+  secondTitle = 'Saídas';
+  secondValue = 0;
+  secondValuePositive = false;
 
-  isLoading: boolean = true;
+  isLoading = true;
 
   transactionsData: TransactionDTO[] = [];
   private allTransactions: TransactionDTO[] = [];
 
-  searchTerm: string = '';
+  searchTerm = '';
   advancedFilters: any = null;
 
-  private transactionsSubscription: Subscription | undefined;
+  private transactionsSubscription?: Subscription;
 
   constructor(
     private modalCtrl: ModalController,
+    private filterBarService: FilterBarService,
     private transactionService: TransactionService
   ) {}
 
@@ -47,19 +49,22 @@ export class HomePage implements OnInit, OnDestroy {
       });
   }
 
+  handleRefresh(event: CustomEvent) {
+    this.loadTransactions().finally(() => {
+      (event.target as HTMLIonRefresherElement).complete();
+    });
+  }
+
   ngOnDestroy(): void {
-    if (this.transactionsSubscription) {
-      this.transactionsSubscription.unsubscribe();
-    }
+    this.transactionsSubscription?.unsubscribe();
   }
 
   async loadTransactions() {
     this.isLoading = true;
-
     try {
       await this.delay(1000);
       this.allTransactions = await this.transactionService.listTransactions();
-      this.transactionsData = [...this.allTransactions];
+      this.applyFilters();
       this.calculateCardValues();
     } catch (error) {
       console.error('Erro ao carregar transações:', error);
@@ -78,7 +83,6 @@ export class HomePage implements OnInit, OnDestroy {
       backdropDismiss: true,
       cssClass: 'glass-modal',
     });
-
     await modal.present();
   }
 
@@ -93,14 +97,11 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   applyFilters() {
-    let filtered = [...this.allTransactions];
-
-    if (this.searchTerm && this.searchTerm.trim() !== '') {
-      const lower = this.searchTerm.toLowerCase();
-      filtered = filtered.filter((t) => t.title?.toLowerCase().includes(lower));
-    }
-
-    this.transactionsData = filtered;
+    this.transactionsData = this.filterBarService.filterTransactions(
+      this.allTransactions,
+      this.searchTerm,
+      this.advancedFilters
+    );
   }
 
   private calculateCardValues() {

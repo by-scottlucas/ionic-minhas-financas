@@ -28,9 +28,17 @@ export class FilterBarComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>();
   private searchSubscription!: Subscription;
 
+  advancedFilters: any = {};
+
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchSubscription = this.searchSubject
+      .pipe(debounceTime(300))
+      .subscribe((term) => {
+        this.search.emit(term || '');
+      });
+  }
 
   ngOnDestroy(): void {
     if (this.searchSubscription) {
@@ -39,15 +47,8 @@ export class FilterBarComponent implements OnInit, OnDestroy {
   }
 
   onSearchChange(event: any) {
-    if (!this.searchSubscription) {
-      this.searchSubscription = this.searchSubject
-        .pipe(debounceTime(300))
-        .subscribe((term) => {
-          this.search.emit(term);
-        });
-    }
-
-    this.searchSubject.next(event.target.value);
+    const value = event.detail.value;
+    this.searchSubject.next(value);
   }
 
   async openAdvancedFilter() {
@@ -58,14 +59,30 @@ export class FilterBarComponent implements OnInit, OnDestroy {
       showBackdrop: true,
       backdropDismiss: true,
       cssClass: 'glass-modal',
+      componentProps: {
+        currentFilters: this.advancedFilters,
+      },
     });
 
     modal.onDidDismiss().then((result) => {
-      if (result.data) {
+      if (result.data === null) {
+        this.advancedFilters = {};
+        this.filterApplied.emit(null);
+      } else if (result.data) {
+        this.advancedFilters = result.data;
         this.filterApplied.emit(result.data);
       }
     });
 
     await modal.present();
+  }
+
+  get appliedFiltersCount(): number {
+    return Object.keys(this.advancedFilters || {}).filter(
+      (key) =>
+        this.advancedFilters[key] !== null &&
+        this.advancedFilters[key] !== undefined &&
+        this.advancedFilters[key] !== ''
+    ).length;
   }
 }

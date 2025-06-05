@@ -33,6 +33,14 @@
         class="filter-icon"
         name="options-sharp"
       ></ion-icon>
+
+      <ion-badge
+        *ngIf="appliedFiltersCount > 0"
+        color="danger"
+        class="filter-badge"
+      >
+        {{ appliedFiltersCount }}
+      </ion-badge>
     </ion-button>
   </div>
 </ion-row>
