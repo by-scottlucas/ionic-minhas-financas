@@ -23,11 +23,11 @@ export class AdvancedFilterComponent {
   @Output() cleared = new EventEmitter<void>();
 
   form: FormGroup;
-  months = MONTH_SELECT_OPTIONS;
-  years = YEAR_SELECT_OPTIONS;
-  types = TYPE_SELECT_OPTIONS;
-  categories = CATEGORY_SELECT_OPTIONS;
-  paymentMethods = PAYMENT_METHOD_SELECT_OPTIONS;
+  readonly months = MONTH_SELECT_OPTIONS;
+  readonly years = YEAR_SELECT_OPTIONS;
+  readonly types = TYPE_SELECT_OPTIONS;
+  readonly categories = CATEGORY_SELECT_OPTIONS;
+  readonly paymentMethods = PAYMENT_METHOD_SELECT_OPTIONS;
 
   constructor(
     private formBuilder: FormBuilder,

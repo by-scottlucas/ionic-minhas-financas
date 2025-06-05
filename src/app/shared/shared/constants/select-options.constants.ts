@@ -20,6 +20,6 @@ export const CATEGORY_SELECT_OPTIONS = [
 export const PAYMENT_METHOD_SELECT_OPTIONS = [
   { value: 'pix', label: 'Pix' },
   { value: 'money', label: 'Dinheiro' },
-  { value: 'debit-card', label: 'Cartão de Débito' },
-  { value: 'credit-card', label: 'Cartão de Crédito' },
+  { value: 'debit_card', label: 'Cartão de Débito' },
+  { value: 'credit_card', label: 'Cartão de Crédito' },
 ];

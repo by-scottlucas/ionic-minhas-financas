@@ -5,6 +5,11 @@ import { CardDTO } from 'src/app/models/card.dto';
 import { TransactionDTO } from 'src/app/models/transaction.dto';
 import { CardService } from 'src/app/services/card.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import {
+  CATEGORY_SELECT_OPTIONS,
+  PAYMENT_METHOD_SELECT_OPTIONS,
+  TYPE_SELECT_OPTIONS,
+} from 'src/app/shared/shared/constants/select-options.constants';
 
 @Component({
   selector: 'app-transaction-form',
@@ -12,43 +17,21 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./transaction-form.component.scss'],
 })
 export class TransactionFormComponent implements OnInit {
-  typeSelectOptions = [
-    { value: 'entry', label: 'Entrada' },
-    { value: 'withdrawal', label: 'Saída' },
-  ];
-
-  categorySelectOptions = [
-    { value: 'food', label: 'Alimentação' },
-    { value: 'transport', label: 'Transporte' },
-    { value: 'housing', label: 'Moradia' },
-    { value: 'health', label: 'Saúde' },
-    { value: 'education', label: 'Educação' },
-    { value: 'leisure', label: 'Lazer' },
-    { value: 'shopping', label: 'Compras' },
-    { value: 'services', label: 'Serviços' },
-    { value: 'salary', label: 'Salário' },
-    { value: 'freelance', label: 'Freelance' },
-    { value: 'others', label: 'Outros' },
-  ];
-
-  paymentMethodSelectOptions = [
-    { value: 'pix', label: 'Pix' },
-    { value: 'money', label: 'Dinheiro' },
-    { value: 'debit_card', label: 'Cartão de Débito' },
-    { value: 'credit_card', label: 'Cartão de Crédito' },
-  ];
-
-  creditCards: CardDTO[] = [];
-
   @Input() item!: TransactionDTO;
   @Input() headerTitle!: string;
 
   form!: FormGroup;
 
-  isDateModalOpen = false;
+  showCreditCardSelect: boolean = false;
+  creditCards: CardDTO[] = [];
+
+  isDateModalOpen: boolean = false;
   selectedDate: string = '';
   formattedDate: string = '';
-  showCreditCardSelect: boolean = false;
+
+  readonly typeOptions = TYPE_SELECT_OPTIONS;
+  readonly categoryOptions = CATEGORY_SELECT_OPTIONS;
+  readonly paymentOptions = PAYMENT_METHOD_SELECT_OPTIONS;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -95,7 +78,6 @@ export class TransactionFormComponent implements OnInit {
 
   async listCreditCards() {
     this.cardService.listCards().then((response) => {
-      console.log(response);
       this.creditCards = response.filter((card) => card.type === 'credit_card');
     });
   }
@@ -197,9 +179,9 @@ export class TransactionFormComponent implements OnInit {
             transaction.price
           );
           await this.presentAlert(
-            'Limite Recuperado',
-            `O limite do "${selectedCard.title}"
-             foi recuperado em R$ ${transaction.price.toFixed(2)}.`
+            'Fatura paga',
+            `O valor de R$ ${transaction.price.toFixed(2)}
+            foi pago na fatura do cartão ${selectedCard.title}.`
           );
         }
       }
@@ -240,5 +222,18 @@ export class TransactionFormComponent implements OnInit {
 
   dismiss() {
     this.modalCtrl.dismiss();
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (control && control.touched && control.invalid) {
+      if (control.errors?.['required']) {
+        return 'Este campo é obrigatório.';
+      }
+      if (control.errors?.['min']) {
+        return 'O valor deve ser maior ou igual a 0.';
+      }
+    }
+    return '';
   }
 }

@@ -11,16 +11,31 @@
       <div class="modal-inputs">
         <div class="form-group title-group">
           <label for="title" class="label-style">Título</label>
-          <input name="title" type="text" placeholder="Título da Movimentação" class="input-style"
-            formControlName="title">
+          <input
+            name="title"
+            type="text"
+            class="input-style"
+            formControlName="title"
+            placeholder="Título da Movimentação"
+          >
         </div>
 
         <ion-row class="row-group">
           <ion-col class="form-group">
             <label for="type" class="label-style">Tipo</label>
-            <ion-select mode="ios" name="type" class="input-style input-select" okText="Aceitar" cancelText="Cancelar"
-              placeholder="Selecione" formControlName="type">
-              <ion-select-option *ngFor="let item of typeSelectOptions" [value]="item.value">
+            <ion-select
+              mode="ios"
+              name="type"
+              class="input-style input-select"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="type"
+            >
+              <ion-select-option
+                *ngFor="let item of typeOptions"
+                [value]="item.value"
+              >
                 {{ item.label }}
               </ion-select-option>
             </ion-select>
@@ -28,17 +43,34 @@
 
           <ion-col class="form-group">
             <label for="price" class="label-style">Valor</label>
-            <input name="price" type="number" min="0" placeholder="0,00" class="input-style"
-              (keydown)="blockNegativeInput($event)" formControlName="price">
+            <input
+              min="0"
+              name="price"
+              type="number"
+              placeholder="0,00"
+              class="input-style"
+              formControlName="price"
+              (keydown)="blockNegativeInput($event)"
+            >
           </ion-col>
         </ion-row>
 
         <ion-row class="row-group">
           <ion-col class="form-group">
             <label for="category" class="label-style">Categoria</label>
-            <ion-select mode="ios" name="category" class="input-style input-select" okText="Aceitar"
-              cancelText="Cancelar" placeholder="Selecione" formControlName="category">
-              <ion-select-option *ngFor="let item of categorySelectOptions" [value]="item.value">
+            <ion-select
+              mode="ios"
+              name="category"
+              okText="Aceitar"
+              cancelText="Cancelar"
+              placeholder="Selecione"
+              formControlName="category"
+              class="input-style input-select"
+            >
+              <ion-select-option
+                *ngFor="let item of categoryOptions"
+                [value]="item.value"
+              >
                 {{ item.label }}
               </ion-select-option>
             </ion-select>
@@ -46,15 +78,26 @@
 
           <ion-col class="form-group">
             <label class="label-style">Data</label>
-            <ion-button class="input-style transparent-button" (click)="openDatepicker()">
+            <ion-button
+              class="input-style transparent-button"
+              (click)="openDatepicker()"
+            >
               {{ formattedDate }}
             </ion-button>
 
-            <ion-modal [isOpen]="isDateModalOpen" (didDismiss)="isDateModalOpen = false">
+            <ion-modal
+              [isOpen]="isDateModalOpen"
+              (didDismiss)="isDateModalOpen = false"
+            >
               <ng-template>
                 <div class="date-modal">
-                  <ion-datetime mode="ios" locale="pt-BR" presentation="date" [value]="selectedDate"
-                    (ionChange)="onDateChange($event)"></ion-datetime>
+                  <ion-datetime
+                    mode="ios"
+                    locale="pt-BR"
+                    presentation="date"
+                    [value]="selectedDate"
+                    (ionChange)="onDateChange($event)"
+                  ></ion-datetime>
                 </div>
               </ng-template>
             </ion-modal>
@@ -67,14 +110,14 @@
             <ion-select
               mode="ios"
               name="payment-method"
-              class="input-style input-select"
               okText="Aceitar"
               cancelText="Cancelar"
               placeholder="Selecione"
               formControlName="paymentMethod"
+              class="input-style input-select"
             >
               <ion-select-option
-                *ngFor="let item of paymentMethodSelectOptions"
+                *ngFor="let item of paymentOptions"
                 [value]="item.value"
               >
                 {{ item.label }}
@@ -89,11 +132,11 @@
             <ion-select
               mode="ios"
               name="creditCard"
-              class="input-style input-select"
               okText="Aceitar"
               cancelText="Cancelar"
               placeholder="Selecione"
               formControlName="creditCard"
+              class="input-style input-select"
             >
               <ion-select-option
                 *ngFor="let item of creditCards"
@@ -107,11 +150,17 @@
       </div>
 
       <div class="action-buttons">
-        <ion-button (click)="dismiss()" class="action-button-style cancel-button">
+        <ion-button
+          (click)="dismiss()"
+          class="action-button-style cancel-button"
+        >
           Cancelar
         </ion-button>
 
-        <ion-button type="submit" class="action-button-style add-button">
+        <ion-button
+          type="submit"
+          class="action-button-style add-button"
+        >
           Adicionar
         </ion-button>
       </div>

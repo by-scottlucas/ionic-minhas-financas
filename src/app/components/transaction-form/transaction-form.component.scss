@@ -85,6 +85,16 @@ input[type='number'] {
   }
 }
 
+.input-style.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .title-group {
   padding: 0 5px;
 }
