@@ -11,15 +11,35 @@
       <ion-row>
         <ion-col>
           <ion-label class="label-style">Mês</ion-label>
-          <ion-select mode="ios" class="input-style input-select" formControlName="month" placeholder="Selecione">
-            <ion-select-option *ngFor="let m of months" [value]="m.value">{{ m.label }}</ion-select-option>
+          <ion-select
+            mode="ios"
+            class="input-style input-select"
+            formControlName="month"
+            placeholder="Selecione"
+          >
+            <ion-select-option
+              *ngFor="let month of months"
+              [value]="month.value"
+            >
+              {{ month.label }}
+            </ion-select-option>
           </ion-select>
         </ion-col>
 
         <ion-col>
           <ion-label class="label-style">Ano</ion-label>
-          <ion-select mode="ios" class="input-style input-select" formControlName="year" placeholder="Selecione">
-            <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
+          <ion-select
+            mode="ios"
+            class="input-style input-select"
+            formControlName="year"
+            placeholder="Selecione"
+          >
+            <ion-select-option
+              *ngFor="let year of years"
+              [value]="year"
+            >
+              {{ year }}
+            </ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -27,8 +47,18 @@
       <ion-row>
         <ion-col>
           <ion-label class="label-style">Tipo</ion-label>
-          <ion-select mode="ios" class="input-style input-select" formControlName="type" placeholder="Selecione">
-            <ion-select-option *ngFor="let t of types" [value]="t.value">{{ t.label }}</ion-select-option>
+          <ion-select
+            mode="ios"
+            class="input-style input-select"
+            formControlName="type"
+            placeholder="Selecione"
+          >
+            <ion-select-option
+              *ngFor="let type of types"
+              [value]="type.value"
+            >
+              {{ type.label }}
+            </ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -36,8 +66,18 @@
       <ion-row>
         <ion-col>
           <ion-label class="label-style">Categoria</ion-label>
-          <ion-select mode="ios" class="input-style input-select" formControlName="category" placeholder="Selecione">
-            <ion-select-option *ngFor="let c of categories" [value]="c.value">{{ c.label }}</ion-select-option>
+          <ion-select
+            mode="ios"
+            class="input-style input-select"
+            formControlName="category"
+            placeholder="Selecione"
+          >
+            <ion-select-option
+              *ngFor="let category of categories"
+              [value]="category.value"
+            >
+              {{ category.label }}
+            </ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -45,8 +85,18 @@
       <ion-row>
         <ion-col>
           <ion-label class="label-style">Método de Pagamento</ion-label>
-          <ion-select mode="ios" class="input-style input-select" formControlName="paymentMethod" placeholder="Selecione">
-            <ion-select-option *ngFor="let p of paymentMethods" [value]="p.value">{{ p.label }}</ion-select-option>
+          <ion-select
+            mode="ios"
+            class="input-style input-select"
+            formControlName="paymentMethod"
+            placeholder="Selecione"
+          >
+            <ion-select-option
+              *ngFor="let paymentMethod of paymentMethods"
+              [value]="paymentMethod.value"
+            >
+              {{ paymentMethod.label }}
+            </ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -79,12 +129,20 @@
 
       <ion-row class="action-buttons">
         <ion-col>
-          <ion-button expand="block" class="action-button-style clean-button" (click)="clearFilters()">
+          <ion-button
+            expand="block"
+            class="action-button-style clean-button"
+            (click)="clearFilters()"
+          >
             Limpar
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button expand="block" class="action-button-style apply-button" (click)="applyFilters()">
+          <ion-button
+            expand="block"
+            class="action-button-style apply-button"
+            (click)="onApplyFilters()"
+          >
             Filtrar
           </ion-button>
         </ion-col>
