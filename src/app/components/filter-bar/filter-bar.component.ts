@@ -1,5 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { TransactionDTO } from 'src/app/models/transaction.dto';
 
 import { AdvancedFilterComponent } from './advanced-filter.component';
 
@@ -8,18 +18,36 @@ import { AdvancedFilterComponent } from './advanced-filter.component';
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss'],
 })
-export class FilterBarComponent {
-  @Input() enableAdvancedFilter = true;
-
+export class FilterBarComponent implements OnInit, OnDestroy {
+  @Input() data!: TransactionDTO;
+  @Input() enableAdvancedFilter: boolean = true;
   @Output() search = new EventEmitter<string>();
   @Output() filterApplied = new EventEmitter<any>();
 
   searchTerm: string = '';
+  private searchSubject = new Subject<string>();
+  private searchSubscription!: Subscription;
 
   constructor(private modalCtrl: ModalController) {}
 
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
   onSearchChange(event: any) {
-    this.search.emit(event.detail.value);
+    if (!this.searchSubscription) {
+      this.searchSubscription = this.searchSubject
+        .pipe(debounceTime(300))
+        .subscribe((term) => {
+          this.search.emit(term);
+        });
+    }
+
+    this.searchSubject.next(event.target.value);
   }
 
   async openAdvancedFilter() {
@@ -32,7 +60,7 @@ export class FilterBarComponent {
       cssClass: 'glass-modal',
     });
 
-    modal.onDidDismiss().then(result => {
+    modal.onDidDismiss().then((result) => {
       if (result.data) {
         this.filterApplied.emit(result.data);
       }

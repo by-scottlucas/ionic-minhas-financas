@@ -25,7 +25,12 @@ export class HomePage implements OnInit, OnDestroy {
   secondValuePositive: boolean = false;
 
   isLoading: boolean = true;
+
   transactionsData: TransactionDTO[] = [];
+  private allTransactions: TransactionDTO[] = [];
+
+  searchTerm: string = '';
+  advancedFilters: any = null;
 
   private transactionsSubscription: Subscription | undefined;
 
@@ -36,9 +41,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.loadTransactions();
-    this.transactionsSubscription = this.transactionService.transactionsChanged$.subscribe(async () => {
-      await this.loadTransactions();
-    });
+    this.transactionsSubscription =
+      this.transactionService.transactionsChanged$.subscribe(async () => {
+        await this.loadTransactions();
+      });
   }
 
   ngOnDestroy(): void {
@@ -52,17 +58,9 @@ export class HomePage implements OnInit, OnDestroy {
 
     try {
       await this.delay(1000);
-
-      this.transactionsData = await this.transactionService.listTransactions();
-
-      this.firstValue = this.getMonthlyIncomes(this.transactionsData);
-      this.secondValue = this.getMonthlyExpenses(this.transactionsData);
-      this.balanceValue = this.getMonthlyBalance(this.transactionsData);
-
-      this.balanceIcon =
-        this.balanceValue >= 0
-          ? 'trending-up-outline'
-          : 'trending-down-outline';
+      this.allTransactions = await this.transactionService.listTransactions();
+      this.transactionsData = [...this.allTransactions];
+      this.calculateCardValues();
     } catch (error) {
       console.error('Erro ao carregar transações:', error);
     } finally {
@@ -82,6 +80,36 @@ export class HomePage implements OnInit, OnDestroy {
     });
 
     await modal.present();
+  }
+
+  onSearch(term: string) {
+    this.searchTerm = term;
+    this.applyFilters();
+  }
+
+  onFilterApplied(filters: any) {
+    this.advancedFilters = filters;
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    let filtered = [...this.allTransactions];
+
+    if (this.searchTerm && this.searchTerm.trim() !== '') {
+      const lower = this.searchTerm.toLowerCase();
+      filtered = filtered.filter((t) => t.title?.toLowerCase().includes(lower));
+    }
+
+    this.transactionsData = filtered;
+  }
+
+  private calculateCardValues() {
+    const transactions = [...this.allTransactions];
+    this.firstValue = this.getMonthlyIncomes(transactions);
+    this.secondValue = this.getMonthlyExpenses(transactions);
+    this.balanceValue = this.getMonthlyBalance(transactions);
+    this.balanceIcon =
+      this.balanceValue >= 0 ? 'trending-up-outline' : 'trending-down-outline';
   }
 
   private getMonthlyIncomes(transactions: TransactionDTO[]): number {
