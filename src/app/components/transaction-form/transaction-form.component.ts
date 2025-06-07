@@ -123,92 +123,114 @@ export class TransactionFormComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.form.valid) {
-      const formValue = this.form.value;
+    if (!this.form.valid) {
+      await this.handleInvalidForm();
+      return;
+    }
 
-      const transaction: TransactionDTO = {
-        id: this.item ? this.item.id : undefined,
-        title: formValue.title,
-        type: formValue.type,
-        price: formValue.price,
-        category: formValue.category,
-        date: new Date(formValue.date),
-        paymentMethod: formValue.paymentMethod,
-        cardId: this.showCreditCardSelect ? formValue.creditCard : undefined,
-      };
+    const transaction = this.buildTransaction();
 
-      if (
-        transaction.type === 'withdrawal' &&
-        transaction.paymentMethod === 'credit_card' &&
-        transaction.cardId
-      ) {
-        const selectedCard = this.creditCards.find((card) => {
-          card.id === transaction.cardId;
-        });
+    if (await this.hasInsufficientLimit(transaction)) return;
 
-        if (
-          selectedCard &&
-          selectedCard.cardLimit !== undefined &&
-          selectedCard.cardUsage !== undefined
-        ) {
-          const availableLimit =
-            selectedCard.cardLimit - selectedCard.cardUsage;
-          if (transaction.price > availableLimit) {
-            await this.presentAlert(
-              'Limite Insuficiente',
-              `Você não tem limite suficiente no "${selectedCard.title}".
-               Limite disponível: R$ ${availableLimit.toFixed(2)}.`
-            );
-            return;
-          }
-        }
-      }
+    await this.handleCardPaymentIfNeeded(transaction);
 
-      if (
-        transaction.type === 'entry' &&
-        transaction.paymentMethod === 'credit_card' &&
-        transaction.cardId
-      ) {
-        const selectedCard = this.creditCards.find(
-          (card) => card.id === transaction.cardId
-        );
+    await this.saveTransaction(transaction);
+  }
 
-        if (selectedCard) {
-          await this.cardService.increaseCardLimitUsage(
-            transaction.cardId,
-            transaction.price
-          );
-          await this.presentAlert(
-            'Fatura paga',
-            `O valor de R$ ${transaction.price.toFixed(2)}
-            foi pago na fatura do cartão ${selectedCard.title}.`
-          );
-        }
-      }
+  private buildTransaction(): TransactionDTO {
+    const formValue = this.form.value;
 
-      try {
-        if (this.item && this.item.id) {
-          await this.transactionService.updateTransaction(transaction);
-        } else {
-          await this.transactionService.createTransaction(transaction);
-        }
+    return {
+      id: this.item ? this.item.id : undefined,
+      title: formValue.title,
+      type: formValue.type,
+      price: formValue.price,
+      category: formValue.category,
+      date: new Date(formValue.date),
+      paymentMethod: formValue.paymentMethod,
+      cardId: this.showCreditCardSelect ? formValue.creditCard : undefined,
+    };
+  }
 
-        await this.modalCtrl.dismiss({ updated: true });
-      } catch (error) {
-        console.error('Erro ao salvar transação:', error);
+  private async hasInsufficientLimit(
+    transaction: TransactionDTO
+  ): Promise<boolean> {
+    if (
+      transaction.type !== 'withdrawal' ||
+      transaction.paymentMethod !== 'credit_card' ||
+      !transaction.cardId
+    )
+      return false;
+
+    const selectedCard = this.creditCards.find(
+      (card) => card.id === transaction.cardId
+    );
+
+    if (
+      selectedCard &&
+      selectedCard.cardLimit !== undefined &&
+      selectedCard.cardUsage !== undefined
+    ) {
+      const availableLimit = selectedCard.cardLimit - selectedCard.cardUsage;
+      if (transaction.price > availableLimit) {
         await this.presentAlert(
-          'Erro',
-          'Ocorreu um erro ao salvar a transação. Tente novamente.'
+          'Limite Insuficiente',
+          `Você não tem limite suficiente no "${selectedCard.title}".
+           Limite disponível: R$ ${availableLimit.toFixed(2)}.`
+        );
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private async handleCardPaymentIfNeeded(transaction: TransactionDTO) {
+    if (
+      transaction.type === 'entry' &&
+      transaction.paymentMethod === 'credit_card' &&
+      transaction.cardId
+    ) {
+      const selectedCard = this.creditCards.find(
+        (card) => card.id === transaction.cardId
+      );
+      if (selectedCard) {
+        await this.cardService.increaseCardLimitUsage(
+          transaction.cardId,
+          transaction.price
+        );
+        await this.presentAlert(
+          'Fatura paga',
+          `O valor de R$ ${transaction.price.toFixed(2)}
+           foi pago na fatura do cartão ${selectedCard.title}.`
         );
       }
-    } else {
-      console.warn('Formulário inválido');
-      this.form.markAllAsTouched();
+    }
+  }
+
+  private async saveTransaction(transaction: TransactionDTO) {
+    try {
+      if (this.item?.id) {
+        await this.transactionService.updateTransaction(transaction);
+      } else {
+        await this.transactionService.createTransaction(transaction);
+      }
+      await this.modalCtrl.dismiss({ updated: true });
+    } catch (error) {
+      console.error('Erro ao salvar transação:', error);
       await this.presentAlert(
-        'Formulário Inválido',
-        'Por favor, preencha todos os campos obrigatórios.'
+        'Erro',
+        'Ocorreu um erro ao salvar a transação. Tente novamente.'
       );
     }
+  }
+
+  private async handleInvalidForm() {
+    console.warn('Formulário inválido');
+    this.form.markAllAsTouched();
+    await this.presentAlert(
+      'Formulário Inválido',
+      'Por favor, preencha todos os campos obrigatórios.'
+    );
   }
 
   async presentAlert(header: string, message: string) {

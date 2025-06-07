@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ProfilePage implements OnInit {
   form!: FormGroup;
-  originalUsername: string = 'Lucas Scott';
+  originalUsername: string = 'Username';
 
   constructor(private fb: FormBuilder) {}
 
