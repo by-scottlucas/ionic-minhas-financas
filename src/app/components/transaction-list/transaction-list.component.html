@@ -1,5 +1,5 @@
 <ion-list lines="none">
-  <ng-container *ngIf="isLoading && transactions.length === 0">
+  <ng-container *ngIf="isLoading">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" class="transaction-item skeleton"> <ion-label>
         <ion-row class="top-row">
           <ion-skeleton-text animated></ion-skeleton-text>
