@@ -1,5 +1,3 @@
-// src/app/components/transaction-list/transaction-list.component.ts
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AlertController,
@@ -39,7 +37,7 @@ export class TransactionListComponent {
     const modal = await this.modalCtrl.create({
       component: TransactionFormComponent,
       componentProps: {
-        item: data,
+        transaction: data,
         headerTitle: 'Editar Movimentação',
       },
       showBackdrop: true,

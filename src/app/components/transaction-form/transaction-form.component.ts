@@ -17,8 +17,8 @@ import {
   styleUrls: ['./transaction-form.component.scss'],
 })
 export class TransactionFormComponent implements OnInit {
-  @Input() item!: TransactionDTO;
   @Input() headerTitle!: string;
+  @Input() transaction!: TransactionDTO;
 
   form!: FormGroup;
 
@@ -55,15 +55,15 @@ export class TransactionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.item) {
+    if (this.transaction) {
       this.form.patchValue({
-        title: this.item.title,
-        type: this.item.type,
-        price: this.item.price,
-        category: this.item.category,
-        date: this.item.date,
-        paymentMethod: this.item.paymentMethod,
-        creditCard: this.item.cardId,
+        title: this.transaction.title,
+        type: this.transaction.type,
+        price: this.transaction.price,
+        category: this.transaction.category,
+        date: this.transaction.date,
+        paymentMethod: this.transaction.paymentMethod,
+        creditCard: this.transaction.cardId,
       });
     }
 
@@ -94,7 +94,9 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private updateFormattedDate(dateString: string) {
-    const date = new Date(dateString);
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
     const dia = String(date.getDate()).padStart(2, '0');
     const mes = String(date.getMonth() + 1).padStart(2, '0');
     const ano = date.getFullYear();
@@ -133,7 +135,6 @@ export class TransactionFormComponent implements OnInit {
     if (await this.hasInsufficientLimit(transaction)) return;
 
     await this.handleCardPaymentIfNeeded(transaction);
-
     await this.saveTransaction(transaction);
   }
 
@@ -141,7 +142,7 @@ export class TransactionFormComponent implements OnInit {
     const formValue = this.form.value;
 
     return {
-      id: this.item ? this.item.id : undefined,
+      id: this.transaction ? this.transaction.id : undefined,
       title: formValue.title,
       type: formValue.type,
       price: formValue.price,
@@ -209,7 +210,7 @@ export class TransactionFormComponent implements OnInit {
 
   private async saveTransaction(transaction: TransactionDTO) {
     try {
-      if (this.item?.id) {
+      if (this.transaction?.id) {
         await this.transactionService.updateTransaction(transaction);
       } else {
         await this.transactionService.createTransaction(transaction);
