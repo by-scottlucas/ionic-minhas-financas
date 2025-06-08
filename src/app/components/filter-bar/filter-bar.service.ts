@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { TransactionDTO } from 'src/app/models/transaction.dto';
 
+import { AdvancedFilterDTO } from './models/advaced-filter.dto';
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class FilterBarService {
-
   filterTransactions(
     transactions: TransactionDTO[],
     searchTerm: string,
-    advancedFilters: any
+    advancedFilters: AdvancedFilterDTO
   ): TransactionDTO[] {
     let filtered = [...transactions];
 
@@ -60,10 +62,11 @@ export class FilterBarService {
     transactions: TransactionDTO[],
     month: number
   ): TransactionDTO[] {
-    return transactions.filter(
-      (transaction) =>
-        new Date(transaction.date).getMonth() + 1 === Number(month)
-    );
+    return transactions.filter((transaction) => {
+      const transactionDate = new Date(transaction.date);
+      const transactionUTCMonth = transactionDate.getUTCMonth() + 1;
+      return transactionUTCMonth === Number(month);
+    });
   }
 
   private filterByYear(
@@ -71,7 +74,8 @@ export class FilterBarService {
     year: number
   ): TransactionDTO[] {
     return transactions.filter(
-      (transaction) => new Date(transaction.date).getFullYear() === Number(year)
+      (transaction) =>
+        new Date(transaction.date).getUTCFullYear() === Number(year)
     );
   }
 
@@ -79,9 +83,7 @@ export class FilterBarService {
     transactions: TransactionDTO[],
     type: string
   ): TransactionDTO[] {
-    return transactions.filter(
-      (transaction) => transaction.type === type
-    );
+    return transactions.filter((transaction) => transaction.type === type);
   }
 
   private filterByCategory(
