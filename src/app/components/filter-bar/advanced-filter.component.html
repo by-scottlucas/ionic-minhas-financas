@@ -17,6 +17,7 @@
             formControlName="month"
             placeholder="Selecione"
           >
+            <ion-select-option [value]="null">Todos os Meses</ion-select-option>
             <ion-select-option
               *ngFor="let month of months"
               [value]="month.value"
@@ -34,6 +35,7 @@
             formControlName="year"
             placeholder="Selecione"
           >
+            <ion-select-option [value]="null">Todos os Anos</ion-select-option>
             <ion-select-option
               *ngFor="let year of years"
               [value]="year"
@@ -53,6 +55,7 @@
             formControlName="type"
             placeholder="Selecione"
           >
+            <ion-select-option [value]="null">Todos os Tipos</ion-select-option>
             <ion-select-option
               *ngFor="let type of types"
               [value]="type.value"
@@ -72,6 +75,7 @@
             formControlName="category"
             placeholder="Selecione"
           >
+            <ion-select-option [value]="null">Todas as Categorias</ion-select-option>
             <ion-select-option
               *ngFor="let category of categories"
               [value]="category.value"
@@ -91,6 +95,7 @@
             formControlName="paymentMethod"
             placeholder="Selecione"
           >
+            <ion-select-option [value]="null">Todos os Métodos</ion-select-option>
             <ion-select-option
               *ngFor="let paymentMethod of paymentMethods"
               [value]="paymentMethod.value"
