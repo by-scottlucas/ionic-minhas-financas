@@ -110,11 +110,6 @@ export class CardService {
         data.lastDigits,
       ];
 
-      console.log(
-        'CardService - createCard - Valores a serem inseridos:',
-        values
-      );
-
       try {
         const result = await db.run(query, values);
         newId = result.changes?.lastId ?? -1;
