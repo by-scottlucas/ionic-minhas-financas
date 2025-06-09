@@ -7,7 +7,7 @@ import { TransactionDTO } from 'src/app/models/transaction.dto';
 import { FilterBarService } from './filter-bar.service';
 import { AdvancedFilterDTO } from './models/advaced-filter.dto';
 import { ADVANCED_FILTER_MOCK } from './testing/advanced-filter.mock';
-import { LIST_TRANSACTIONS_MOCK } from './testing/list-transaction-mock';
+import { LIST_TRANSACTIONS_MOCK } from './testing/list-transactions.mock';
 
 describe('FilterBarService', () => {
   let service: FilterBarService;
