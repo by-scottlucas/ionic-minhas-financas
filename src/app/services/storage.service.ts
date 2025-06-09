@@ -13,12 +13,15 @@ export class StorageService {
   private sqlite!: SQLiteConnection;
   private db: SQLiteDBConnection | null = null;
   private readonly dbName = 'financeDB';
-  private readonly isWeb = Capacitor.getPlatform() === 'web';
 
   constructor() {
-    if (!this.isWeb) {
+    if (Capacitor.getPlatform() !== 'web') {
       this.sqlite = new SQLiteConnection(CapacitorSQLite);
     }
+  }
+
+  get isWeb(): boolean {
+    return Capacitor.getPlatform() === 'web';
   }
 
   async init(): Promise<void> {
