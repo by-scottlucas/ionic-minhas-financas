@@ -226,7 +226,6 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private async handleInvalidForm() {
-    console.warn('Formulário inválido');
     this.form.markAllAsTouched();
     await this.presentAlert(
       'Formulário Inválido',
