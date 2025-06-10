@@ -9,5 +9,5 @@ export const PaymentMethodEnumLabels: Record<PaymentMethodEnum, string> = {
   [PaymentMethodEnum.PIX]: 'Pix',
   [PaymentMethodEnum.MONEY]: 'Dinheiro',
   [PaymentMethodEnum.DEBIT_CARD]: 'Cartão de Débito',
-  [PaymentMethodEnum.CREDIT_CARD]: 'Cartão de Cŕedito',
+  [PaymentMethodEnum.CREDIT_CARD]: 'Cartão de Crédito',
 };
