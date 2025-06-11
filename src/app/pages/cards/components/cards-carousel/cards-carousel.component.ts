@@ -1,5 +1,4 @@
-// cards-carousel.component.ts
-import { Component, OnInit, Input } from '@angular/core'; // Importe Input
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ActionSheetController,
   AlertController,
@@ -191,6 +190,7 @@ export class CardsCarouselComponent implements OnInit {
         });
         await loading.present();
 
+        console.log(card);
         if (card.id) {
           await this.cardService.deleteCard(card.id);
           this.loadCards();
@@ -198,7 +198,6 @@ export class CardsCarouselComponent implements OnInit {
           console.error('Erro: ID do cartão não encontrado para exclusão.');
         }
       } catch (error) {
-        console.error('Erro ao excluir cartão:', error);
         const errorAlert = await this.alertCtrl.create({
           header: 'Erro',
           message: 'Não foi possível excluir o cartão. Tente novamente.',
