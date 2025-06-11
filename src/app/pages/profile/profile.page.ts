@@ -24,7 +24,9 @@ export class ProfilePage implements OnInit {
   }
 
   hasChanges(): boolean {
-    return this.form.get('username')?.value.trim() !== this.originalUsername.trim();
+    return (
+      this.form.get('username')?.value.trim() !== this.originalUsername.trim()
+    );
   }
 
   saveChanges(): void {

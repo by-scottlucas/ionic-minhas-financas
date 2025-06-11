@@ -7,7 +7,7 @@ export const LIST_TRANSACTIONS_MOCK: TransactionDTO[] = [
   {
     id: 1,
     title: 'Compra Mercado',
-    date: new Date('2024-06-15T00:00:00Z'),
+    date: new Date('2025-06-11T00:00:00Z'),
     type: TransactionTypeEnum.WithDrawal,
     category: TransactionCategoryEnum.Food,
     paymentMethod: PaymentMethodEnum.CREDIT_CARD,
@@ -17,7 +17,7 @@ export const LIST_TRANSACTIONS_MOCK: TransactionDTO[] = [
   {
     id: 2,
     title: 'Salário',
-    date: new Date('2024-06-01T00:00:00Z'),
+    date: new Date('2025-06-11T00:00:00Z'),
     type: TransactionTypeEnum.Entry,
     category: TransactionCategoryEnum.Salary,
     paymentMethod: PaymentMethodEnum.PIX,
