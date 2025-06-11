@@ -1,8 +1,8 @@
 {
-  "name": "ionic-financas",
+  "name": "ionic-minhas-financas",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Lucas Santos Silva <lucasluke307@gmail.com> (https://github.com/by-scottlucas)",
+  "description": "Personal finance control app developed with Ionic, Angular, and Capacitor.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -64,6 +64,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ts-node": "^8.3.0",
     "typescript": "~5.2.2"
-  },
-  "description": "An Ionic project"
+  }
 }
