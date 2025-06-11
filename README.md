@@ -34,8 +34,8 @@ O foco principal do app é fornecer uma visão clara e organizada das suas finan
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/seu-repo.git
-   cd seu-repo
+   git clone https://github.com/by-scottlucas/ionic-minhas-financas.git
+   cd ionic-minhas-financas
    ```
 
 2. **Instale as dependências:**
