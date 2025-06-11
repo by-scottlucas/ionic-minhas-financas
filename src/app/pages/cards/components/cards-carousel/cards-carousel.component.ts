@@ -190,7 +190,6 @@ export class CardsCarouselComponent implements OnInit {
         });
         await loading.present();
 
-        console.log(card);
         if (card.id) {
           await this.cardService.deleteCard(card.id);
           this.loadCards();

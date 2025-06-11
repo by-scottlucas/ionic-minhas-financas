@@ -226,7 +226,7 @@ export class CardFormComponent implements OnInit {
         `Erro ao salvar cartão: ${errorMessage}`,
         'danger'
       );
-      console.error('Erro ao salvar/atualizar card:', error);
+      console.error('Erro ao salvar/atualizar card.');
     }
   }
 
