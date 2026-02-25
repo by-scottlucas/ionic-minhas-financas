@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
+      import('./features/wallet/wallet.module').then((m) => m.WalletModule),
   },
   {
     path: '',
@@ -15,12 +15,15 @@ const routes: Routes = [
   {
     path: 'cards',
     loadChildren: () =>
-      import('./pages/cards/cards.module').then((m) => m.CartoesPageModule),
-  },  {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+      import('./features/card/card.module').then((m) => m.CardModule),
   },
-
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.module').then(
+        (m) => m.ProfilePageModule
+      ),
+  },
 ];
 
 @NgModule({
