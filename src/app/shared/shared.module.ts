@@ -7,6 +7,7 @@ import { FilterBarComponent } from 'src/app/shared/components/filter-bar/filter-
 import { TabBarComponent } from 'src/app/shared/components/tab-bar/tab-bar.component';
 import { TransactionFormComponent } from 'src/app/shared/components/transaction-form/transaction-form.component';
 import { TransactionListComponent } from 'src/app/shared/components/transaction-list/transaction-list.component';
+import { BrlCurrencyPipe } from './pipes/brl-currency.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,13 @@ import { TransactionListComponent } from 'src/app/shared/components/transaction-
     AdvancedFilterComponent,
     TransactionListComponent,
   ],
-  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    BrlCurrencyPipe,
+  ],
   exports: [
     IonicModule,
     FormsModule,
@@ -27,6 +34,7 @@ import { TransactionListComponent } from 'src/app/shared/components/transaction-
     FilterBarComponent,
     AdvancedFilterComponent,
     TransactionListComponent,
+    BrlCurrencyPipe
   ],
 })
 export class SharedModule {}

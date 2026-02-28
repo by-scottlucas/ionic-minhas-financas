@@ -1,91 +1,60 @@
 .balance-card {
-  width: 92%;
-  margin: 18px auto;
-  padding: 4px 10px;
   --background: #FFF;
-  box-shadow: none;
+  @apply w-full mx-auto shadow-none px-5 py-5;
+}
 
-  .card-header {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+.balance-card__header {
+  @apply flex items-center justify-between;
+}
 
-  .balance-icon {
-    color: #19af58;
-    padding: 10px;
-    font-size: 2rem;
-    font-weight: bold;
-    border-radius: 100%;
-    background: #cdffc7;
-  }
+.balance-card__title {
+  @apply text-black font-bold text-sm;
+}
 
-  .secondary-card-header {
-    gap: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
+.balance-card__value {
+  @apply block text-2xl font-bold;
+}
 
-  .withdrawal-card-header {
-    justify-content: flex-end;
-  }
+.balance-card__icon {
+  @apply p-2 text-2xl font-bold rounded-full text-green-500 bg-green-50;
+}
 
-  .entry-icon {
-    color: #19af58;
-    transform: rotate(45deg);
-  }
+.balance-card__value--positive {
+  @apply text-green-500;
+}
 
-  .withdrawal-icon {
-    color: #ff0045;
-    transform: rotate(135deg);
-  }
+.balance-card__value--negative {
+  @apply text-red-600;
+}
 
-  .secondary-icon {
-    font-size: 1.1rem;
-  }
+.balance-card__transactions {
+  @apply w-full flex justify-between mt-3;
+}
 
-  .balance-title {
-    color: #000;
-    font-weight: 500;
-    font-size: 1.2rem;
-  }
+.balance-card__col {
+  @apply flex flex-col;
+}
 
-  .positive-value {
-    color: #2ecc71;
-  }
+.balance-card__transaction-header {
+  @apply flex items-center gap-1;
+}
 
-  .negative-value {
-    color: #e90d0d;
-  }
+.balance-card__transaction-title {
+  @apply text-black text-sm font-bold;
+}
 
-  .balance-value {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-top: 4px;
-  }
+.balance-card__transaction-value {
+  @apply text-xl font-semibold;
+}
 
-  .column-style {
-    display: flex;
-    flex-direction: column;
-  }
+.balance-card__transaction-icon {
+  @apply text-lg;
+}
 
-  .month-withdrawals-col {
-    text-align: end;
-  }
+.balance-card__transaction-icon--positive {
+  @apply text-green-500 rotate-45;
+}
 
-  .transactions-info {
-    .transaction-title {
-      color: #000;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .transaction-value {
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-  }
+.balance-card__transaction-icon--negative {
+  @apply text-red-600 rotate-[-45deg];
 }

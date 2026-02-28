@@ -1,20 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { BalanceHeaderData } from './models/balance-header.model';
 
 @Component({
   selector: 'app-balance-header',
   templateUrl: './balance-header.component.html',
   styleUrls: ['./balance-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BalanceHeaderComponent {
-  @Input() balanceTitle!: string;
-  @Input() balanceValue!: number;
-  @Input() balanceIcon!: string;
+  @Input({ required: true }) data!: BalanceHeaderData;
 
-  @Input() firstTitle!: string;
-  @Input() firstValue!: number;
-  @Input() firstValuePositive!: boolean;
-
-  @Input() secondTitle!: string;
-  @Input() secondValue!: number;
-  @Input() secondValuePositive!: boolean;
+  getModifierClass(base: string, isPositive: boolean): string {
+    return `${base}--${isPositive ? 'positive' : 'negative'}`;
+  }
 }

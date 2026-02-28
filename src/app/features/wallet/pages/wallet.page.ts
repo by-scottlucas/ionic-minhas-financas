@@ -6,6 +6,7 @@ import { FilterBarService } from 'src/app/shared/components/filter-bar/filter-ba
 import { TransactionFormComponent } from 'src/app/shared/components/transaction-form/transaction-form.component';
 import { TransactionDTO } from '../models/transaction.dto';
 import { TransactionTypeEnum } from '../models/transaction-type.enum';
+import { BalanceHeaderData } from '../components/balance-header/models/balance-header.model';
 
 @Component({
   selector: 'app-wallet',
@@ -13,17 +14,26 @@ import { TransactionTypeEnum } from '../models/transaction-type.enum';
   styleUrls: ['wallet.page.scss'],
 })
 export class WalletPage implements OnInit, OnDestroy {
-  balanceTitle = 'Saldo do Mês';
-  balanceValue = 0;
-  balanceIcon = 'trending-up-outline';
-
-  firstTitle = 'Entradas';
-  firstValue = 0;
-  firstValuePositive = true;
-
-  secondTitle = 'Saídas';
-  secondValue = 0;
-  secondValuePositive = false;
+  balanceData: BalanceHeaderData = {
+    title: 'Saldo Atual',
+    value: 0,
+    icon: 'wallet-outline',
+    isPositive: true,
+    items: [
+      {
+        title: 'Entradas',
+        value: 0,
+        icon: 'arrow-up',
+        isPositive: true,
+      },
+      {
+        title: 'Saídas',
+        value: 0,
+        icon: 'arrow-down',
+        isPositive: false,
+      },
+    ],
+  };
 
   isLoading = true;
 
@@ -106,11 +116,13 @@ export class WalletPage implements OnInit, OnDestroy {
 
   private calculateCardValues() {
     const transactions = [...this.allTransactions];
-    this.firstValue = this.getMonthlyIncomes(transactions);
-    this.secondValue = this.getMonthlyExpenses(transactions);
-    this.balanceValue = this.getMonthlyBalance(transactions);
-    this.balanceIcon =
-      this.balanceValue >= 0 ? 'trending-up-outline' : 'trending-down-outline';
+    this.balanceData.items[1].value = this.getMonthlyIncomes(transactions);
+    this.balanceData.items[0].value = this.getMonthlyExpenses(transactions);
+    this.balanceData.value = this.getMonthlyBalance(transactions);
+    this.balanceData.icon =
+      this.balanceData.value >= 0
+        ? 'trending-up-outline'
+        : 'trending-down-outline';
   }
 
   private getMonthlyIncomes(transactions: TransactionDTO[]): number {

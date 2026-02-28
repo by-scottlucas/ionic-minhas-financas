@@ -3,12 +3,10 @@ ion-content {
 }
 
 .new-transaction-button {
-  width: 92%;
-  height: 52px;
-  margin: 0 auto;
+  --box-shadow: 0;
   --border-radius: 4px;
   --background: #5856D6;
-  --box-shadow: 0;
+  @apply h-12 mx-auto normal-case;
 }
 
 .container {

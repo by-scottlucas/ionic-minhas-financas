@@ -1,45 +1,37 @@
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  <div class="px-4 py-2">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-  <app-balance-header
-    [balanceTitle]="balanceTitle"
-    [balanceValue]="balanceValue"
-    [balanceIcon]="balanceIcon"
-    [firstTitle]="firstTitle"
-    [firstValue]="firstValue"
-    [firstValuePositive]="firstValuePositive"
-    [secondTitle]="secondTitle"
-    [secondValue]="secondValue"
-    [secondValuePositive]="secondValuePositive"
-  ></app-balance-header>
+    <app-balance-header [data]="balanceData"></app-balance-header>
 
-  <ion-button
-    expand="block"
-    (click)="onAddTransaction()"
-    class="new-transaction-button"
-  >
-    Adicionar Movimentação
-  </ion-button>
+    <ion-button
+      expand="block"
+      (click)="onAddTransaction()"
+      class="new-transaction-button"
+    >
+      Nova Movimentação
+    </ion-button>
 
-  <app-filter-bar
-    [enableAdvancedFilter]="true"
-    (search)="onSearch($event)"
-    (filterApplied)="onFilterApplied($event)"
-  ></app-filter-bar>
+    <!-- <app-filter-bar
+      [enableAdvancedFilter]="true"
+      (search)="onSearch($event)"
+      (filterApplied)="onFilterApplied($event)"
+    ></app-filter-bar>
 
-  <div
-    class="container"
-    *ngIf="!isLoading && transactionsData.length === 0"
-  >
-    <span>Nenhuma transação encontrada.</span>
+    <div
+      class="container"
+      *ngIf="!isLoading && transactionsData.length === 0"
+    >
+      <span>Nenhuma transação encontrada.</span>
+    </div>
+
+    <app-transaction-list
+      [isLoading]="isLoading"
+      (updated)="loadTransactions()"
+      [transactions]="transactionsData"
+      *ngIf="transactionsData.length > 0 || isLoading"
+    /> -->
   </div>
-
-  <app-transaction-list
-    [isLoading]="isLoading"
-    (updated)="loadTransactions()"
-    [transactions]="transactionsData"
-    *ngIf="transactionsData.length > 0 || isLoading"
-  />
 </ion-content>
