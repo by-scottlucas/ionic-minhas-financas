@@ -1,46 +1,53 @@
-<ion-row class="header-filter">
-  <ion-icon
-    class="header-icon"
-    name="calendar-clear-outline"
-  ></ion-icon>
-  <h2 class="header-title">
-    Movimentações
-  </h2>
-</ion-row>
+<div class="filter-bar">
+  <ion-row class="filter-bar__header">
+    <lucide-angular
+      [size]="20"
+      class="filter-bar__header-icon"
+      [name]="icons.date"
+    ></lucide-angular>
 
-<ion-row class="filter-box">
-  <div class="filter-search">
-    <ion-icon
-      class="search-icon"
-      name="search-outline"
-    ></ion-icon>
-    <input
-      type="text"
-      placeholder="Pesquisar por..."
-      [(ngModel)]="searchTerm"
-      (input)="onSearchChange($event)"
-      class="searchbar"
-    />
-  </div>
+    <h2 class="filter-bar__title">
+      Movimentações
+    </h2>
+  </ion-row>
 
-  <div class="filter-button-box">
-    <ion-button
-      class="filter-button"
-      *ngIf="enableAdvancedFilter"
-      (click)="openAdvancedFilter()"
-    >
-      <ion-icon
-        class="filter-icon"
-        name="options-sharp"
-      ></ion-icon>
+  <ion-row class="filter-bar__content">
+    <div class="filter-bar__search">
+      <lucide-angular
+        [size]="18"
+        class="filter-bar__search-icon"
+        [name]="icons.search"
+      ></lucide-angular>
 
-      <ion-badge
-        *ngIf="appliedFiltersCount > 0"
-        color="danger"
-        class="filter-badge"
+      <input
+        type="text"
+        placeholder="Pesquisar por..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange($event)"
+        class="filter-bar__search-input"
+      />
+    </div>
+
+    <div class="filter-bar__button-container">
+      <button
+        class="filter-bar__button"
+        *ngIf="enableAdvancedFilter"
+        (click)="openAdvancedFilter()"
       >
-        {{ appliedFiltersCount }}
-      </ion-badge>
-    </ion-button>
-  </div>
-</ion-row>
+        <lucide-angular
+          [size]="28"
+          class="filter-bar__button-icon"
+          [name]="icons.advancedFilter"
+        ></lucide-angular>
+
+        <ion-badge
+          color="danger"
+          class="filter-bar__badge"
+          *ngIf="appliedFiltersCount > 0"
+        >
+          {{ appliedFiltersCount }}
+        </ion-badge>
+      </button>
+    </div>
+  </ion-row>
+</div>

@@ -1,98 +1,48 @@
-.header-filter {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 50px;
-  padding: 0 20px;
-  margin-top: 30px;
+.filter-bar__header {
+  @apply flex items-center gap-1 mt-7;
 }
 
-.header-icon {
-  font-size: 1.7rem;
+.filter-bar__header-icon {
+  @apply text-xl mt-1;
 }
 
-.header-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin: 0;
+.filter-bar__title {
+  @apply text-lg;
 }
 
-.filter-box {
-  gap: 12px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
+.filter-bar__content {
+  @apply gap-2 w-full flex flex-nowrap
+  items-center justify-between;
 }
 
-.filter-search {
-  width: 100%;
-  position: relative;
+.filter-bar__search {
+  @apply w-full relative;
 }
 
-.search-icon {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  color: #7a7a7a;
-  font-size: 1.2rem;
-  transform: translateY(-50%);
+.filter-bar__search-icon {
+  @apply absolute top-1/2 -translate-y-1/2
+  left-2 text-gray-400 text-lg;
 }
 
-.searchbar {
-  color: #000;
-  width: 100%;
-  height: 52px;
-  font-size: 1.1rem;
-  background: transparent;
-  border: 1px solid #afafaf;
-  padding-left: 44px;
-  border-radius: 5px;
-  outline: none;
-  transition: all 300ms ease-in-out;
-  background: #FFF;
-
-  &:focus {
-    border-color: #5856D6;
-  }
+.filter-bar__search-input {
+  @apply text-black text-sm w-full
+  ps-8 py-3 bg-white border border-gray-300
+  transition-all ease-in-out duration-300
+  outline-none focus:border-[#5856D6]
+  rounded-md;
 }
 
-.filter-button-box {
-  background: #FFF;
-  height: 52px;
-  aspect-ratio: 1;
-  border-radius: 5px;
-  border: 1px solid #afafaf;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.filter-bar__button-container {
+  @apply bg-white rounded-md border
+  border-gray-300 flex flex-col
+  items-center justify-center p-2 relative;
 }
 
-.filter-button {
-  width: 100%;
-  color: #7a7a7a;
-  aspect-ratio: 1;
-  --border-radius: 0;
-  --box-shadow: none;
-  --background: transparent;
-  --background-activated: transparent;
-  --padding-start: 0;
-  --padding-end: 0;
-  --padding-top: 0;
-  --padding-bottom: 0;
+.filter-bar__button-icon {
+  @apply text-3xl text-gray-400;
 }
 
-.filter-icon {
-  font-size: 1.8rem !important;
-}
-
-.filter-badge {
-  top: 0;
-  right: 5%;
-  aspect-ratio: 1;
-  padding: 3px 6px;
-  position: absolute;
-  border-radius: 100%;
+.filter-bar__badge {
+  @apply top-0 end-0 absolute rounded-full
+  aspect-square py-[3px] px-[6px];
 }

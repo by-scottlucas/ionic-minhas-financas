@@ -12,6 +12,7 @@ import {
   YEAR_SELECT_OPTIONS,
 } from './constants/advanced-filter.constants';
 import { AdvancedFilterDTO } from './models/advaced-filter.dto';
+import { X } from 'lucide-angular';
 
 @Component({
   selector: 'app-advanced-filter',
@@ -23,7 +24,9 @@ export class AdvancedFilterComponent implements OnInit {
   @Output() apply = new EventEmitter<AdvancedFilterDTO>();
   @Output() cleared = new EventEmitter<void>();
 
-  form: FormGroup;
+  advancedFilterForm: FormGroup;
+
+  readonly closeIcon = X;
   readonly months = MONTH_SELECT_OPTIONS;
   readonly years = YEAR_SELECT_OPTIONS;
   readonly types = TYPE_SELECT_OPTIONS;
@@ -34,32 +37,30 @@ export class AdvancedFilterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController
   ) {
-    this.form = this.formBuilder.group({
+    this.advancedFilterForm = this.formBuilder.group({
       month: [''],
       year: [''],
       type: [''],
       category: [''],
       paymentMethod: [''],
-      minValue: [null],
-      maxValue: [null],
     });
   }
 
   ngOnInit() {
     if (this.currentFilters) {
-      this.form.patchValue(this.currentFilters);
+      this.advancedFilterForm.patchValue(this.currentFilters);
     }
   }
 
   onApplyFilters() {
-    if (this.form.valid) {
-      this.apply.emit(this.form.value);
-      this.modalCtrl.dismiss(this.form.value);
+    if (this.advancedFilterForm.valid) {
+      this.apply.emit(this.advancedFilterForm.value);
+      this.modalCtrl.dismiss(this.advancedFilterForm.value);
     }
   }
 
   clearFilters() {
-    this.form.reset();
+    this.advancedFilterForm.reset();
     this.cleared.emit();
     this.modalCtrl.dismiss(null);
   }

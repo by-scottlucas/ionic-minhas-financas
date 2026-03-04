@@ -33,14 +33,14 @@ ion-content {
   color: #000;
 }
 
-.glass-modal::part(backdrop) {
-  background: rgba(0, 0, 0, 0.1); // leve escurecimento
-  backdrop-filter: blur(1px); // desfoque suave
-}
+// .glass-modal::part(backdrop) {
+//   background: rgba(0, 0, 0, 0.1); // leve escurecimento
+//   backdrop-filter: blur(1px); // desfoque suave
+// }
 
-.glass-modal::part(content) {
-  background: rgba(255, 255, 255, 0.1); // transparente
-  backdrop-filter: blur(10px); // "vidro fosco"
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
+// .glass-modal::part(content) {
+//   background: rgba(255, 255, 255, 0.1); // transparente
+//   backdrop-filter: blur(10px); // "vidro fosco"
+//   border-radius: 20px;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+// }

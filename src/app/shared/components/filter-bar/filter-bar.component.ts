@@ -12,6 +12,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { AdvancedFilterComponent } from './advanced-filter.component';
 import { TransactionDTO } from 'src/app/features/wallet/models/transaction.dto';
+import { CalendarDays, Search, SlidersHorizontal } from 'lucide-angular';
 
 @Component({
   selector: 'app-filter-bar',
@@ -19,6 +20,13 @@ import { TransactionDTO } from 'src/app/features/wallet/models/transaction.dto';
   styleUrls: ['./filter-bar.component.scss'],
 })
 export class FilterBarComponent implements OnInit, OnDestroy {
+  readonly icons = {
+    date: CalendarDays,
+    search: Search,
+    advancedFilter: SlidersHorizontal
+  }
+
+
   @Input() data!: TransactionDTO;
   @Input() enableAdvancedFilter: boolean = true;
   @Output() search = new EventEmitter<string>();
@@ -56,9 +64,6 @@ export class FilterBarComponent implements OnInit, OnDestroy {
 
     const modal = await this.modalCtrl.create({
       component: AdvancedFilterComponent,
-      showBackdrop: true,
-      backdropDismiss: true,
-      cssClass: 'glass-modal',
       componentProps: {
         currentFilters: this.advancedFilters,
       },

@@ -4,6 +4,4 @@ export interface AdvancedFilterDTO {
   type?: string;
   category?: string;
   paymentMethod?: string;
-  minValue?: number;
-  maxValue?: number;
 }

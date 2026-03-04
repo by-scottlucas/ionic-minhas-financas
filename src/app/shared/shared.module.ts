@@ -8,6 +8,7 @@ import { TabBarComponent } from 'src/app/shared/components/tab-bar/tab-bar.compo
 import { TransactionFormComponent } from 'src/app/shared/components/transaction-form/transaction-form.component';
 import { TransactionListComponent } from 'src/app/shared/components/transaction-list/transaction-list.component';
 import { BrlCurrencyPipe } from './pipes/brl-currency.pipe';
+import { LucideAngularModule } from 'lucide-angular';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BrlCurrencyPipe } from './pipes/brl-currency.pipe';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    LucideAngularModule,
     BrlCurrencyPipe,
   ],
   exports: [
@@ -34,6 +36,7 @@ import { BrlCurrencyPipe } from './pipes/brl-currency.pipe';
     FilterBarComponent,
     AdvancedFilterComponent,
     TransactionListComponent,
+    LucideAngularModule,
     BrlCurrencyPipe
   ],
 })
